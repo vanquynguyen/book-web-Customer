@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="stylesheet" href="css/global.css" media="all">
+    <link rel="stylesheet" href="css/autoload/highdpi.css" media="all">
+    <link rel="stylesheet" href="css/autoload/responsive-tables.css" media="all">
+    <link rel="stylesheet" href="css/autoload/uniform.default.css" media="all">
+    <link rel="stylesheet" href="js/jquery/plugins/fancybox/jquery.fancybox.css" media="all">
+    <link rel="stylesheet" href="css/product_list.css" media="all">
+    <link rel="stylesheet" href="css/modules/blockcart/blockcart.css" media="all">
+    <link rel="stylesheet" href="js/jquery/plugins/bxslider/jquery.bxslider.css" media="all">
+    <link rel="stylesheet" href="css/modules/blockcategories/blockcategories.css" media="all">
+    <link rel="stylesheet" href="css/modules/blockcurrencies/blockcurrencies.css" media="all">
+    <link rel="stylesheet" href="css/modules/blocklanguages/blocklanguages.css" media="all">
+    <link rel="stylesheet" href="css/modules/blockcontact/blockcontact.css" media="all">
+    <link rel="stylesheet" href="css/modules/blocknewsletter/blocknewsletter.css" media="all">
+    <link rel="stylesheet" href="css/modules/blocksearch/blocksearch.css" media="all">
+    <link rel="stylesheet" href="js/jquery/plugins/autocomplete/jquery.autocomplete.css" media="all">
+    <link rel="stylesheet" href="css/modules/blocktags/blocktags.css" media="all">
+    <link rel="stylesheet" href="css/modules/blockviewed/blockviewed.css" media="all">
+    <link rel="stylesheet" href="css/modules/homeslider/homeslider.css" media="all">
+    <link rel="stylesheet" href="css/modules/themeconfigurator/css/hooks.css" media="all">
+    <link rel="stylesheet" href="css/modules/themeconfigurator/css/live_configurator.css" media="all">
+    <link rel="stylesheet" href="css/modules/blockwishlist/blockwishlist.css" media="all">
+    <link rel="stylesheet" href="css/modules/productcomments/productcomments.css" media="all">
+    <link rel="stylesheet" href="css/modules/blockpermanentlinks/blockpermanentlinks.css" media="all">
+    <link rel="stylesheet" href="css/modules/smartblog/css/smartblogstyle.css" media="all">
+    <link rel="stylesheet" href="css/modules/smartbloghomelatestnews/css/smartbloglatestnews.css" media="all">
+    <link rel="stylesheet" href="css/modules/smartblogtag/css/smartblogtags.css" media="all">
+    <link rel="stylesheet" href="modules/tmproductvideos/css/tmproductvideos.css" media="all">
+    <link rel="stylesheet" href="css/modules/tmheaderaccount/css/front.css" media="all">
+    <link rel="stylesheet" href="modules/tmmediaparallax/css/tm-media-parallax-styles.css" media="all">
+    <link rel="stylesheet" href="css/modules/tmhtmlcontent/css/hooks.css" media="all">
+    <link rel="stylesheet" href="css/modules/tmproductlistgallery/css/front.css" media="all">
+    <link rel="stylesheet" href="css/modules/tmhomecarousel/css/front.css" media="all">
+    <link rel="stylesheet" href="css/modules/tmmegamenu/views/css/front.css" media="all">
+    <link rel="stylesheet" href="css/modules/tmnewsletter/views/css/front.css" media="all">
+    <link rel="stylesheet" href="modules/tmsociallogin/views/css/front.css" media="all">
+    <link rel="stylesheet" href="css/modules/tmsearch/views/css/tmsearch.css" media="all">
+    <link rel="stylesheet" href="modules/themeconfiglink/themeconfiglink.css" media="all">
+    <script type="text/javascript">
+        var CUSTOMIZE_TEXTFIELD = 1;
+        var FancyboxI18nClose = 'Schlie&szlig;en';
+        var FancyboxI18nNext = 'Weiter';
+        var FancyboxI18nPrev = 'Zur&uuml;ck';
+        var added_to_wishlist = 'Zur Wunschliste hinzugefügt.';
+        var ajax_allowed = true;
+        var ajaxsearch = true;
+        var baseDir = 'http://livedemo00.template-help.com';
+            var baseUri = 'http://livedemo00.template-help.comindex.php';
+        var carousel_auto = 0;
+        var carousel_auto_control = 0;
+        var carousel_auto_hover = 1;
+        var carousel_auto_pause = 3000;
+        var carousel_control = 0;
+        var carousel_hide_control = 0;
+        var carousel_item_margin = 30;
+        var carousel_item_nb = 4;
+        var carousel_item_scroll = 4;
+        var carousel_item_width = 400;
+        var carousel_loop = 1;
+        var carousel_pager = 1;
+        var carousel_random = 0;
+        var carousel_speed = 500;
+        var carousel_status = 1;
+        var comparator_max_item = 2;
+        var comparedProductsIds = [];
+        var contentOnly = false;
+        var customizationIdMessage = 'Benutzereinstellung Nr.';
+        var delete_txt = 'Löschen';
+        var displayList = false;
+        var freeProductTranslation = 'Gratis!';
+        var freeShippingTranslation = 'versandkostenfrei';
+        var generated_date = 1522504183;
+        var hasDeliveryAddress = false;
+        var homeslider_loop = 1;
+        var homeslider_pause = 5000;
+        var homeslider_speed = 500;
+        var homeslider_width = 10000;
+        var id_lang = 2;
+        var img_dir = 'http://livedemo00.template-help.comimg/';
+        var instantsearch = true;
+        var isGuest = 0;
+        var isLogged = 0;
+        var isMobile = false;
+        var loggin_required = 'Sie müssen angemeldet sein, um Ihre Wunschlisten zu verwalten';
+        var max_item = 'Sie können nicht mehr als 2 Produkt(e) zum Produktvergleich hinzufügen';
+        var min_item = 'Bitte wählen Sie mindestens ein Produkt.';
+        var module_url = 'http://livedemo00.template-help.comindex.php?fc=module&amp;module=tmnewsletter&amp;controller=default&amp;id_lang=2';
+        var mywishlist_url = 'http://livedemo00.template-help.comindex.php?fc=module&module=blockwishlist&controller=mywishlist&id_lang=2';
+        var nbItemsPerLine = 4;
+        var nbItemsPerLineMobile = 2;
+        var nbItemsPerLineTablet = 3;
+        var page_name = 'index';
+        var placeholder_blocknewsletter = 'Geben Sie Ihre E-Mail-Adresse ein';
+        var popup_status = true;
+        var priceDisplayMethod = 1;
+        var priceDisplayPrecision = 2;
+        var quickView = true;
+        var removingLinkText = 'Dieses Produkt aus meinem Warenkorb entfernen';
+        var roundMode = 2;
+        var scroll_step = 150;
+        var scrool_speed = 800;
+        var search_url = 'http://livedemo00.template-help.comindex.php?controller=search';
+        var search_url_local = 'http://livedemo00.template-help.comindex.php?fc=module&module=tmsearch&controller=search&id_lang=2';
+        var static_token = '55971e9c30d77bceba1377d146677a95';
+        var text_close = 'Schließen';
+        var text_description = 'Geben Sie Ihre E-Mail-Adresse ein, um alle Nachrichten, Sonderangebote und andere Rabatte zu bekommen.';
+        var text_email = 'Ihre E-Mail-Adresse';
+        var text_heading = 'Melden Sie sich für unseren Newsletter an';
+        var text_heading_1 = 'Melden Sie sich für unseren Newsletter an';
+        var text_heading_2 = 'Sie haben erfolgreich Newsletter abonniert';
+        var text_heading_3 = 'Fehler';
+        var text_placeholder = 'Enter your e-mail';
+        var text_remove = 'Nicht mehr anzeigen';
+        var text_sign = 'Sich anmelden';
+        var tmsearch_description = false;
+        var tmsearch_height = 600;
+        var tmsearch_image = true;
+        var tmsearch_limit = true;
+        var tmsearch_limit_num = 3;
+        var tmsearch_manufacturer = false;
+        var tmsearch_price = true;
+        var tmsearch_reference = true;
+        var tmsearch_scroll = true;
+        var toBeDetermined = 'noch festzulegen';
+        var token = 'e9c3fde425bc90482d75ab3a23dd05ef';
+        var user_newsletter_status = 0;
+        var usingSecureMode = false;
+        var wishlistProductsIds = false;
+    </script>
+    <script type="text/javascript" src="/js/jquery/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery/plugins/jquery.easing.js"></script>
+    <script type="text/javascript" src="/js/tools.js"></script>
+    <script type="text/javascript" src="/js/global.js"></script>
+    <script type="text/javascript" src="/js/autoload/10-bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/autoload/14-device.min.js"></script>
+    <script type="text/javascript" src="/js/autoload/15-jquery.total-storage.min.js"></script>
+    <script type="text/javascript" src="/js/autoload/15-jquery.uniform-modified.js"></script>
+    <script type="text/javascript" src="/js/autoload/16-jquery.scrollmagic.min.js"></script>
+    <script type="text/javascript" src="/js/autoload/17-jquery.scrollmagic.debug.js"></script>
+    <script type="text/javascript" src="/js/autoload/18-TimelineMax.min.js"></script>
+    <script type="text/javascript" src="/js/autoload/19-TweenMax.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/plugins/fancybox/jquery.fancybox.js"></script>
+    <script type="text/javascript" src="/js/products-comparison.js"></script>
+    <script type="text/javascript" src="/js/modules/blockcart/ajax-cart.js"></script>
+    <script type="text/javascript" src="/js/jquery/plugins/jquery.scrollTo.js"></script>
+    <script type="text/javascript" src="/js/jquery/plugins/jquery.serialScroll.js"></script>
+    <script type="text/javascript" src="/js/jquery/plugins/bxslider/jquery.bxslider.js"></script>
+    <script type="text/javascript" src="/js/tools/treeManagement.js"></script>
+    <script type="text/javascript" src="js/modules/blocknewsletter/blocknewsletter.js"></script>
+    <script type="text/javascript" src="/js/jquery/plugins/autocomplete/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="/js/modules/blocksearch/blocksearch.js"></script>
+    <script type="text/javascript" src="/js/modules/homeslider/js/homeslider.js"></script>
+    <script type="text/javascript" src="/modules/themeconfigurator/js/live_configurator.js"></script>
+    <script type="text/javascript" src="/js/modules/blockwishlist/js/ajax-wishlist.js"></script>
+    <script type="text/javascript" src="/js/validate.js"></script>
+    <script type="text/javascript" src="/modules/tmheaderaccount/js/front.js"></script>
+    <script type="text/javascript" src="/modules/tmmediaparallax/js/device.min.js"></script>
+    <script type="text/javascript" src="/modules/tmmediaparallax/js/tm-media-parallax.js"></script>
+    <script type="text/javascript" src="/modules/tmproductlistgallery/js/front.js"></script>
+    <script type="text/javascript" src="/modules/tmhomecarousel/js/front.js"></script>
+    <script type="text/javascript" src="/modules/tmmegamenu/views/js/hoverIntent.js"></script>
+    <script type="text/javascript" src="/modules/tmmegamenu/views/js/superfish.js"></script>
+    <script type="text/javascript" src="/js/modules/tmmegamenu/views/js/front.js"></script>
+    <script type="text/javascript" src="/modules/tmnewsletter/views/js/front.js"></script>
+    <script type="text/javascript" src="/modules/tmsearch/views/js/tmsearch.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    <link href="http://fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500italic,500,700,700italic" rel="stylesheet" type="text/css">
+    <style type="text/css">.fancybox-margin{margin-right:17px;}</style>
+    <style data-olark="true" type="text/css">.olark-key,#hbl_code,#olark-data{display: none !important;}</style>
+    <style data-olark="true" type="text/css">@media print {#habla_beta_container_do_not_rely_on_div_classes_or_names {display: none !important}}</style>
+    <link data-olark="true" rel="stylesheet" href="http://static.olark.com/jsclient/styles/artsy-albatross/theme.css" type="text/css">
+
+    <title>React App</title>
+  </head>
+  <body id="index" class="index hide-left-column hide-right-column lang_en one-column">
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div style="display: none;" id="olark">
+      <olark><iframe frameborder="0" id="olark-loader"></iframe></olark>
+    </div>
+    <div id="page"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>
