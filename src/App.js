@@ -10,14 +10,9 @@ class App extends Component {
         return (
             <Router>
                 <div>
-                    <div id="toTop" style={{display: 'block', visibility: 'visible'}}></div>
                     <Header />
-                    <div className="columns-footer-inner">
-                        <div className="columns-container">
-                            {this.showContentMenus(routes)}
-                        </div>
-                        <Footer />
-                    </div>
+                    {this.showContentMenus(routes)}
+                    <Footer />
                 </div>
             </Router>
         );

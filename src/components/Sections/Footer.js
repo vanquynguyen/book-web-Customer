@@ -2,437 +2,353 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div className="footer-container">
-            <div className="footer-container-inner">
-                <footer id="footer" className="container">
-                    <div className="row">
-                        <section className="footer-block col-xs-12 col-sm-3" id="block_various_links_footer">
-                            <h4>Information</h4>
-                            <ul className="toggle-footer" >
-                                <li className="item">
-                                    <a title="Specials">
-                                    Specials
-                                    </a>
-                                </li>
-                                <li className="item">
-                                    <a title="New products">
-                                    New products
-                                    </a>
-                                </li>
-                                <li className="item">
-                                    <a title="Top sellers">
-                                    Top sellers
-                                    </a>
-                                </li>
-                                <li className="item">
-                                    <a title="Our stores">
-                                    Our stores
-                                    </a>
-                                </li>
-                                <li className="item">
-                                    <a title="Contact us">
-                                    Contact us
-                                    </a>
-                                </li>
-                                <li className="item">
-                                    <a title="Pages configuration">
-                                    Pages configuration
-                                    </a>
+        <div>
+            <div className="footer-top">
+                <div className="container-fluid">
+                    <div className="col-xs-8 agile-leftmk">
+                        <h2>Get your Groceries delivered from local stores</h2>
+                        <p>Free Delivery on your first order!</p>
+                        <form action="#" method="post">
+                            <input type="email" placeholder="E-mail" name="email" required="" />
+                            <input type="submit" value="Subscribe" />
+                        </form>
+                        <div className="newsform-w3l">
+                            <span className="fa fa-envelope-o" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div className="col-xs-4 w3l-rightmk">
+                        <img src="images/tab3.png" alt=" " />
+                    </div>
+                    <div className="clearfix"></div>
+                </div>
+            </div>
+            <footer>
+                <div className="container">
+                    <p className="footer-main">
+                        <span>"Grocery Shoppy"</span> Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
+                        magni dolores eos qui ratione voluptatem sequi nesciunt.Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                        accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
+                        beatae vitae dicta sunt explicabo.
+                    </p>
+                    <div className="w3l-grids-footer">
+                        <div className="col-xs-4 offer-footer">
+                            <div className="col-xs-4 icon-fot">
+                                <span className="fa fa-map-marker" aria-hidden="true"></span>
+                            </div>
+                            <div className="col-xs-8 text-form-footer">
+                                <h3>Track Your Order</h3>
+                            </div>
+                            <div className="clearfix"></div>
+                        </div>
+                        <div className="col-xs-4 offer-footer">
+                            <div className="col-xs-4 icon-fot">
+                                <span className="fa fa-refresh" aria-hidden="true"></span>
+                            </div>
+                            <div className="col-xs-8 text-form-footer">
+                                <h3>Free & Easy Returns</h3>
+                            </div>
+                            <div className="clearfix"></div>
+                        </div>
+                        <div className="col-xs-4 offer-footer">
+                            <div className="col-xs-4 icon-fot">
+                                <span className="fa fa-times" aria-hidden="true"></span>
+                            </div>
+                            <div className="col-xs-8 text-form-footer">
+                                <h3>Online cancellation </h3>
+                            </div>
+                            <div className="clearfix"></div>
+                        </div>
+                        <div className="clearfix"></div>
+                    </div>
+                    <div className="footer-info w3-agileits-info">
+                        <div className="col-sm-5 address-right">
+                            <div className="col-xs-6 footer-grids">
+                                <h3>Categories</h3>
+                                <ul>
+                                    <li>
+                                        <a >Grocery</a>
+                                    </li>
+                                    <li>
+                                        <a >Fruits</a>
+                                    </li>
+                                    <li>
+                                        <a >Soft Drinks</a>
+                                    </li>
+                                    <li>
+                                        <a >Dishwashers</a>
+                                    </li>
+                                    <li>
+                                        <a >Biscuits & Cookies</a>
+                                    </li>
+                                    <li>
+                                        <a >Baby Diapers</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="col-xs-6 footer-grids agile-secomk">
+                                <ul>
+                                    <li>
+                                        <a >Snacks & Beverages</a>
+                                    </li>
+                                    <li>
+                                        <a >Bread & Bakery</a>
+                                    </li>
+                                    <li>
+                                        <a >Sweets</a>
+                                    </li>
+                                    <li>
+                                        <a >Chocolates & Biscuits</a>
+                                    </li>
+                                    <li>
+                                        <a >Personal Care</a>
+                                    </li>
+                                    <li>
+                                        <a >Dried Fruits & Nuts</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="clearfix"></div>
+                        </div>
+                        <div className="col-sm-5 address-right">
+                            <div className="col-xs-6 footer-grids">
+                                <h3>Quick Links</h3>
+                                <ul>
+                                    <li>
+                                        <a href="about.html">About Us</a>
+                                    </li>
+                                    <li>
+                                        <a href="contact.html">Contact Us</a>
+                                    </li>
+                                    <li>
+                                        <a href="help.html">Help</a>
+                                    </li>
+                                    <li>
+                                        <a href="faqs.html">Faqs</a>
+                                    </li>
+                                    <li>
+                                        <a href="terms.html">Terms of use</a>
+                                    </li>
+                                    <li>
+                                        <a href="privacy.html">Privacy Policy</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="col-xs-6 footer-grids">
+                                <h3>Get in Touch</h3>
+                                <ul>
+                                    <li>
+                                        <i className="fa fa-map-marker"></i> 123 Sebastian, USA.
+                                    </li>
+                                    <li>
+                                        <i className="fa fa-mobile"></i> 333 222 3333 
+                                    </li>
+                                    <li>
+                                        <i className="fa fa-phone"></i> +222 11 4444 
+                                    </li>
+                                    <li>
+                                        <i className="fa fa-envelope-o"></i>
+                                        <a href="mailto:example@mail.com"> mail@example.com</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="col-sm-2 footer-grids  w3l-socialmk">
+                            <h3>Follow Us on</h3>
+                            <div className="social">
+                                <ul>
+                                    <li>
+                                        <a className="icon fb" >
+                                        <i className="fa fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a className="icon tw" >
+                                        <i className="fa fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a className="icon gp" >
+                                        <i className="fa fa-google-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="agileits_app-devices">
+                                <h5>Download the App</h5>
+                                <a >
+                                <img src="images/1.png" alt="" />
+                                </a>
+                                <a >
+                                <img src="images/2.png" alt="" />
+                                </a>
+                                <div className="clearfix"> </div>
+                            </div>
+                        </div>
+                        <div className="clearfix"></div>
+                    </div>
+                    <div className="agile-sometext">
+                        <div className="sub-some">
+                            <h5>Online Grocery Shopping</h5>
+                            <p>Order online. All your favourite products from the low price online supermarket for grocery home delivery in Delhi,
+                                Gurgaon, Bengaluru, Mumbai and other cities in India. Lowest prices guaranteed on Patanjali, Aashirvaad, Pampers, Maggi,
+                                Saffola, Huggies, Fortune, Nestle, Amul, MamyPoko Pants, Surf Excel, Ariel, Vim, Haldiram's and others.
+                            </p>
+                        </div>
+                        <div className="sub-some">
+                            <h5>Shop online with the best deals & offers</h5>
+                            <p>Now Get Upto 40% Off On Everyday Essential Products Shown On The Offer Page. The range includes Grocery, Personal Care,
+                                Baby Care, Pet Supplies, Healthcare and Other Daily Need Products. Discount May Vary From Product To Product.
+                            </p>
+                        </div>
+                        <div className="sub-some">
+                            <h5>Popular Brands</h5>
+                            <ul>
+                                <li>
+                                    <a >Aashirvaad</a>
                                 </li>
                                 <li>
-                                    <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?controller=sitemap&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Sitemap">
-                                    Sitemap
-                                    </a>
+                                    <a >Amul</a>
+                                </li>
+                                <li>
+                                    <a >Bingo</a>
+                                </li>
+                                <li>
+                                    <a >Boost</a>
+                                </li>
+                                <li>
+                                    <a >Durex</a>
+                                </li>
+                                <li>
+                                    <a > Maggi</a>
+                                </li>
+                                <li>
+                                    <a >Glucon-D</a>
+                                </li>
+                                <li>
+                                    <a >Horlicks</a>
+                                </li>
+                                <li>
+                                    <a >Head & Shoulders</a>
+                                </li>
+                                <li>
+                                    <a >Dove</a>
+                                </li>
+                                <li>
+                                    <a >Dettol</a>
+                                </li>
+                                <li>
+                                    <a >Dabur</a>
+                                </li>
+                                <li>
+                                    <a >Colgate</a>
+                                </li>
+                                <li>
+                                    <a >Coca-Cola</a>
+                                </li>
+                                <li>
+                                    <a >Closeup</a>
+                                </li>
+                                <li>
+                                    <a > Cinthol</a>
+                                </li>
+                                <li>
+                                    <a >Cadbury</a>
+                                </li>
+                                <li>
+                                    <a >Bru</a>
+                                </li>
+                                <li>
+                                    <a >Bournvita</a>
+                                </li>
+                                <li>
+                                    <a >Tang</a>
+                                </li>
+                                <li>
+                                    <a >Pears</a>
+                                </li>
+                                <li>
+                                    <a >Oreo</a>
+                                </li>
+                                <li>
+                                    <a > Taj Mahal</a>
+                                </li>
+                                <li>
+                                    <a >Sprite</a>
+                                </li>
+                                <li>
+                                    <a >Thums Up</a>
+                                </li>
+                                <li>
+                                    <a >Fair & Lovely</a>
+                                </li>
+                                <li>
+                                    <a >Lakme</a>
+                                </li>
+                                <li>
+                                    <a >Tata</a>
+                                </li>
+                                <li>
+                                    <a >Sunfeast</a>
+                                </li>
+                                <li>
+                                    <a >Sunsilk</a>
+                                </li>
+                                <li>
+                                    <a >Patanjali</a>
+                                </li>
+                                <li>
+                                    <a >MTR</a>
+                                </li>
+                                <li>
+                                    <a >Kissan</a>
+                                </li>
+                                <li>
+                                    <a > Lipton</a>
                                 </li>
                             </ul>
-                        </section>
-                        <div className="bottom-footer">
-                            <div className="container">
-                                © <span className="current-year">2018</span> <a className="_blank" title="prestashop" target="_blank">Ecommerce software by PrestaShop™</a>
-                                <a className="footer-logo" href="http://www.templatemonster.com/" rel="nofollow"><img src="img/cms/footer-logo.png" alt="logo" /></a>
-                            </div>
                         </div>
-                        <section className="footer-block col-xs-12 col-sm-3">
-                            <h4>
-                                <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?controller=my-account&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Manage my customer account" rel="nofollow">My account</a>
-                            </h4>
-                            <div className="block_content toggle-footer">
-                                <ul className="bullet">
-                                    <li>
-                                        <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?controller=history&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="My orders" rel="nofollow">My orders</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?controller=order-follow&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="My merchandise returns" rel="nofollow">My merchandise returns</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?controller=order-slip&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="My credit slips" rel="nofollow">My credit slips</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?controller=addresses&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="My addresses" rel="nofollow">My addresses</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?controller=identity&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Manage my personal information" rel="nofollow">My personal info</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </section>
-                        <section className="blockcategories_footer footer-block col-xs-12 col-sm-3">
-                            <h4>Categories</h4>
-                            <div className="category_footer toggle-footer">
-                                <div className="list">
-                                    <ul className="tree dhtml">
-                                        <li>
-                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=3&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                            Biographies
-                                            </a>
-                                            <ul>
-                                                <li>
-                                                    <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=4&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                    Aliquam congue
-                                                    </a>
-                                                    <ul>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=5&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Lorem ipsum dolor
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=6&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Sit amet conse
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=7&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Ctetur adipisicing elit
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=8&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Sed do eiusmod
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=9&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Tempor incididunt ut
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=10&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Labore et dolore
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=11&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                    Pellentesque sed
-                                                    </a>
-                                                    <ul>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=12&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Lorem ipsum dolor
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=13&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Sit amet conse
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=14&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Ctetur adipisicing elit
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=15&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Sed do eiusmod
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=16&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Tempor incididunt ut
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=17&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Labore et dolore
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=18&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                    Enim adipiscing
-                                                    </a>
-                                                    <ul>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=19&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Lorem ipsum dolor
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=20&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Sit amet conse
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=21&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Ctetur adipisicing elit
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=22&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Sed do eiusmod
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=23&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Tempor incididunt ut
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=24&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Labore et dolore
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=25&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                    Aliquet sit amet
-                                                    </a>
-                                                    <ul>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=26&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Lorem ipsum dolor
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=27&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Sit amet conse
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=28&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Ctetur adipisicing elit
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=29&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Sed do eiusmod
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=30&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Tempor incididunt ut
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=31&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Labore et dolore
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=32&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                    Phasellus
-                                                    </a>
-                                                    <ul>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=33&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Lorem ipsum dolor
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=34&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Sit amet conse
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=35&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Ctetur adipisicing elit
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=36&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Sed do eiusmod
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=37&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Tempor incididunt ut
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=38&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                                            Labore et dolore
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=39&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                            Business
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=40&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                            Education
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=41&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                            History
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=42&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                            Children's
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=43&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, exerts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some “esoteric” people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring.">
-                                            classNameic
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="http://livedemo00.template-help.com/prestashop_54824/index.php?id_category=44&amp;controller=category&amp;id_lang=1&amp;live_configurator_token=fac41fb15d68e448596047e959ba6881&amp;id_shop=1&amp;id_employee=2&amp;theme=&amp;theme_font=" title="">
-                                            test
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </section>
-                        <div id="newsletter_block_left" className="block">
-                            <h4>Newsletter</h4>
-                            <div className="block_content">
-                                <form action="" method="post">
-                                    <div className="form-group">
-                                        <input className="inputNew form-control grey newsletter-input" id="newsletter-input" type="text" name="email" size="18" defaultValue="Enter your e-mail" />
-                                        <button type="submit" name="submitNewsletter" className="btn btn-default btn-sm">
-                                        <span>Ok</span>
-                                        </button>
-                                        <input type="hidden" name="action" defaultValue="0" />
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <section id="social_block" className="col-xs-12 col-sm-3">
-                            <h4>Follow us</h4>
+                        <div className="sub-some child-momu">
+                            <h5>Payment Method</h5>
                             <ul>
-                                <li className="facebook">
-                                    <a target="_blank" title="Facebook">
-                                    <span>Facebook</span>
-                                    </a>
+                                <li>
+                                    <img src="images/pay2.png" alt="" />
                                 </li>
-                                <li className="twitter">
-                                    <a target="_blank" title="Twitter">
-                                    <span>Twitter</span>
-                                    </a>
+                                <li>
+                                    <img src="images/pay5.png" alt="" />
                                 </li>
-                                <li className="google-plus">
-                                    <a target="_blank" title="Google Plus">
-                                    <span>Google Plus</span>
-                                    </a>
+                                <li>
+                                    <img src="images/pay1.png" alt="" />
+                                </li>
+                                <li>
+                                    <img src="images/pay4.png" alt="" />
+                                </li>
+                                <li>
+                                    <img src="images/pay6.png" alt="" />
+                                </li>
+                                <li>
+                                    <img src="images/pay3.png" alt="" />
+                                </li>
+                                <li>
+                                    <img src="images/pay7.png" alt="" />
+                                </li>
+                                <li>
+                                    <img src="images/pay8.png" alt="" />
+                                </li>
+                                <li>
+                                    <img src="images/pay9.png" alt="" />
                                 </li>
                             </ul>
-                        </section>
-                        <div id="gear-right" style={{left: '0px'}}>
-                            <i className="fa fa-cogs icon-2x icon-light"></i>
                         </div>
-                        <form action="" method="post">
-                            <div id="tool_customization" style={{left: '-215px'}}>
-                                {/* <p>
-                                    The customization tool allows you to make color and font changes in your theme.<br><br>
-                                    <span>
-                                    Only you can see this tool, because as you are currently connected to your back-office as an admin; your visitors will not see it.
-                                    </span>
-                                </p> */}
-                                <div className="list-tools">
-                                    <p id="theme-title">
-                                        Theme color
-                                        <i className="fa fa-caret-down pull-right"></i> 
-                                    </p>
-                                </div>
-                                <ul id="color-box">
-                                    <li className="theme1">
-                                        <div className="color-theme1 color1"></div>
-                                        <div className="color-theme2 color2"> </div>
-                                    </li>
-                                    <li className="theme2">
-                                        <div className="color-theme1 color1"></div>
-                                        <div className="color-theme2 color2"> </div>
-                                    </li>
-                                    <li className="theme3">
-                                        <div className="color-theme1 color1"></div>
-                                        <div className="color-theme2 color2"> </div>
-                                    </li>
-                                    <li className="theme4">
-                                        <div className="color-theme1 color1"></div>
-                                        <div className="color-theme2 color2"> </div>
-                                    </li>
-                                    <li className="theme5">
-                                        <div className="color-theme1 color1"></div>
-                                        <div className="color-theme2 color2"> </div>
-                                    </li>
-                                    <li className="theme6">
-                                        <div className="color-theme1 color1"></div>
-                                        <div className="color-theme2 color2"> </div>
-                                    </li>
-                                    <li className="theme7">
-                                        <div className="color-theme1 color1"></div>
-                                        <div className="color-theme2 color2"> </div>
-                                    </li>
-                                    <li className="theme8">
-                                        <div className="color-theme1 color1"></div>
-                                        <div className="color-theme2 color2"> </div>
-                                    </li>
-                                    <li className="theme9">
-                                        <div className="color-theme1 color1"></div>
-                                        <div className="color-theme2 color2"> </div>
-                                    </li>
-                                </ul>
-                                <div className="list-tools">
-                                    <p id="font-title">
-                                        Font 
-                                        <i className="fa fa-caret-down pull-right"></i> 
-                                    </p>
-                                </div>
-                                <div id="font-box">
-                                    <p>Title font</p>
-                                    <select name="font" id="font" className="font-list">
-                                        <option defaultValue="">Choose a font</option>
-                                        <option defaultValue="font1">Open Sans</option>
-                                        <option defaultValue="font2">Josefin Slab</option>
-                                        <option defaultValue="font3">Arvo</option>
-                                        <option defaultValue="font4">Lato</option>
-                                        <option defaultValue="font5">Volkorn</option>
-                                        <option defaultValue="font6">Abril Fatface</option>
-                                        <option defaultValue="font7">Ubuntu</option>
-                                        <option defaultValue="font8">PT Sans</option>
-                                        <option defaultValue="font9">Old Standard TT</option>
-                                        <option defaultValue="font10">Droid Sans</option>
-                                    </select>
-                                </div>
-                                <div className="btn-tools">
-                                    <button type="button" className="btn btn-1" id="reset" name="resetLiveConfigurator">Reset</button>
-                                    <a type="button" className="btn btn-1" id="quit" name="quitLiveConfigurator">Quit</a>
-                                </div>
-                                <div id="block-advertisement2">
-                                    <a >
-                                    <img src="http://livedemo00.template-help.com/prestashop_54824/themes/theme1219/img/advertisement.png" alt="Prestashop themes from templatemonster.com" />
-                                    </a>
-                                </div>
-                            </div>
-                        </form>
                     </div>
-                </footer>
+                </div>
+            </footer>
+            <div className="copy-right">
+                <div className="container">
+                    <p>© 2017 Grocery Shoppy. All rights reserved | Design by
+                        <a> W3layouts.</a>
+                    </p>
+                </div>
             </div>
-            <div id="toTop" style={{display: 'block', visibility: 'visible'}}></div>
         </div>
     );
 };

@@ -2,6 +2,10 @@ import React from 'react';
 import Home from './components/Home';
 import CategoriesListPage from './components/Categories/CategoriesListPage';
 import CategoriesActionPage from './components/Categories/CategoriesActionPage';
+import DetailProduct from './components/Products/DetailProduct/index';
+import Books from './components/Products/Books/index';
+import Checkout from './components/Carts/Checkout/index';
+import Payment from './components/Carts/Payment/index';
 import NotFound from './components/NotFound';
 
 const routes = [
@@ -26,10 +30,30 @@ const routes = [
         main: ({ match, history }) => <CategoriesActionPage match={match} history={history} />
     },
     {
-        path: '',
+        path: '/product',
         exact: false,
-        main: () => <NotFound />
-    }
+        main: () => <DetailProduct />
+    },
+    {
+        path: '/books',
+        exact: false,
+        main: () => <Books />
+    },
+    {
+        path: '/checkout',
+        exact: false,
+        main: () => <Checkout />
+    },
+    {
+        path: '/payment',
+        exact: false,
+        main: () => <Payment />
+    },
+    // {
+    //     path: '',
+    //     exact: false,
+    //     main: () => <NotFound />
+    // }
 ];
 
 export default routes;
