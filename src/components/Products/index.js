@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Author from '../Sections/Author';
 
 const List = () => {
@@ -136,6 +137,7 @@ const List = () => {
                                     </div>
                                 </div>
                                 <div className="clearfix"></div>
+                                <div className="ph-20" style={{ marginTop: '30px', textAlign: 'center' }}><a className="btn btn-primary btn-block" style={{ width: '35%', background: '#f0ad4e', borderColor: 'rgb(254, 136, 0)'}}>View more</a></div>
                             </div>
 
                             <div className="product-sec1 product-sec2">
@@ -268,6 +270,7 @@ const List = () => {
                                     </div>
                                 </div>
                                 <div className="clearfix"></div>
+                                <div className="ph-20" style={{ marginTop: '30px', textAlign: 'center' }}><a className="btn btn-primary btn-block" style={{ width: '35%', background: '#f0ad4e', borderColor: 'rgb(254, 136, 0)'}}>View more</a></div>
                             </div>
                             <div className="product-sec1">
                                 <h3 className="heading-tittle">Top Booking</h3>
@@ -386,6 +389,7 @@ const List = () => {
                                     </div>
                                 </div>
                                 <div className="clearfix"></div>
+                                <div className="ph-20" style={{ marginTop: '30px', textAlign: 'center' }}><a className="btn btn-primary btn-block" style={{ width: '35%', background: '#f0ad4e', borderColor: 'rgb(254, 136, 0)'}}>View more</a></div>
                             </div>
                         </div>
                     </div>

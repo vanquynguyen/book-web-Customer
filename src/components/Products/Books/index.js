@@ -22,7 +22,8 @@ const Books = () => {
                         <p><strong>16</strong> of <strong>35</strong> book found</p>
                         <div className="wrapper">
                             <div className="product-sec1">
-                                <h3 className="heading-tittle">Nuts</h3>
+                                <h3 className="heading-tittle">Books</h3>
+                                <hr />
                                 <div className="col-md-4 product-men">
                                     <div className="men-pro-item simpleCart_shelfItem">
                                         <div className="men-thumb-item">

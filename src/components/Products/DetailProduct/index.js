@@ -1,11 +1,12 @@
 import React from 'react';
+import Breadscrumb from '../../Sections/Breadcrumb';
 
 const DetailProduct = () => {
     return (
         <div>
+            <Breadscrumb name='Detail'/>
             <div className="banner-bootom-w3-agileits">
                 <div className="container">
-                
                     <h3 className="tittle-w3l">Single Page
                         <span className="heading-style">
                         <i></i>
@@ -13,7 +14,6 @@ const DetailProduct = () => {
                         <i></i>
                         </span>
                     </h3>
-               
                     <div className="col-md-5 single-right-left ">
                         <div className="grid images_3_of_2">
                             <div className="flexslider">

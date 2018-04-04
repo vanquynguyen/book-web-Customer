@@ -6,7 +6,7 @@ import DetailProduct from './components/Products/DetailProduct/index';
 import Books from './components/Products/Books/index';
 import Checkout from './components/Carts/Checkout/index';
 import Payment from './components/Carts/Payment/index';
-import NotFound from './components/NotFound';
+// import NotFound from './components/NotFound';
 
 const routes = [
     {

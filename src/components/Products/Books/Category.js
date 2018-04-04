@@ -5,7 +5,7 @@ const Category = () => {
     return (
         <div>
             <div className="box categories">
-                <h2>Category<span></span></h2>
+                <h2 style={{ textAlign: 'center', fontSize: '22px' }}>Category<span></span></h2>
                 <ul className="box-content category-sidebar">
                     <li><a >Bình luận văn học‎</a></li>
                     <li><a >Chính trị‎</a></li>

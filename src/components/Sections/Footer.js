@@ -344,8 +344,8 @@ const Footer = () => {
             </footer>
             <div className="copy-right">
                 <div className="container">
-                    <p>© 2017 Grocery Shoppy. All rights reserved | Design by
-                        <a> W3layouts.</a>
+                    <p>© 2017 Utt Shop book. All rights reserved | Design by
+                        <a> Quy Nguyen.</a>
                     </p>
                 </div>
             </div>

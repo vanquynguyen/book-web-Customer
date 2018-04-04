@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Menu from './Menu'
+import Login from '../Login/Login';
+import Register from '../Login/Register';
 
 const Header = () => {
     return (
@@ -10,8 +11,8 @@ const Header = () => {
                     <div className="col-md-4 logo_agile">
                         <h1>
                             <Link to="/">
-                            <span>U</span>TT
-                            <span>B</span>ook
+                            <span>UTT</span>
+                            <span>BOOK</span>
                             <img src="images/logo2.png" alt="" />
                             </Link>
                         </h1>
@@ -62,7 +63,8 @@ const Header = () => {
                     <div className="clearfix"></div>
                 </div>
             </div>
-            <Menu />
+            <Login />
+            <Register />
         </div>
     );
 };

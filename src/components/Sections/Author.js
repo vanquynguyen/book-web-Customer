@@ -106,7 +106,7 @@ const Author = () => {
                         </ul>
                     </div> */}
                     <div className="ph-20">
-                        <a style={{ width: '90%', background: '#FE8800', borderColor: '#FE8800' }} className="btn btn-primary btn-block">View Profile</a>
+                        <a style={{ width: '90%', background: '#47abda', borderColor: '#FE8800' }} className="btn btn-primary btn-block">View Profile</a>
                     </div>
                 </div>
             </div>
@@ -175,7 +175,7 @@ const Author = () => {
                         </ul>
                     </div> */}
                     <div className="ph-20">
-                        <a style={{ width: '90%', background: '#FE8800', borderColor: '#FE8800' }} className="btn btn-primary btn-block">View Profile</a>
+                        <a style={{ width: '90%',   background: '#47abda', borderColor: '#FE8800' }} className="btn btn-primary btn-block">View Profile</a>
                     </div>
                 </div>
             </div>
@@ -244,7 +244,7 @@ const Author = () => {
                         </ul>
                     </div> */}
                     <div className="ph-20">
-                        <a style={{ width: '90%', background: '#FE8800', borderColor: '#FE8800' }} className="btn btn-primary btn-block">View Profile</a>
+                        <a style={{ width: '90%', background: '#47abda', borderColor: '#FE8800' }} className="btn btn-primary btn-block">View Profile</a>
                     </div>
                 </div>
             </div>

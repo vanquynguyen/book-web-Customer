@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Login extends Component {
+class Register extends Component {
     
     constructor() {
         super();
@@ -14,7 +14,7 @@ class Login extends Component {
        
         return (
             <div>
-                <div className="modal fade" id="myModal1" tabIndex="-1" role="dialog" style={{ display: 'none' }}>
+                <div className="modal fade in" id="myModal2" tabIndex="-1" role="dialog" style={{ display: 'none' }}>
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -25,24 +25,29 @@ class Login extends Component {
                                     <span className="fa fa-envelope-o" aria-hidden="true"></span>
                                 </div>
                                 <div className="modal_body_left modal_body_left1">
-                                    <h3 className="agileinfo_sign">Sign In </h3>
+                                    <h3 className="agileinfo_sign">Sign Up</h3>
                                     <p>
-                                        Sign In now, Let's start your Grocery Shopping. Don't have an account?
-                                        <a  data-toggle="modal" data-target="#myModal2" id="sign-up-click">
-                                        Sign Up Now</a>
+                                        Come join the Grocery Shoppy! Let's set up your Account.
                                     </p>
                                     <form action="#" method="post">
                                         <div className="styled-input agile-styled-input-top">
-                                            <input type="text" placeholder="User Name" name="Name" required="" />
+                                            <input type="text" placeholder="Name" name="Name" required="" />
                                         </div>
                                         <div className="styled-input">
-                                            <input type="password" placeholder="Password" name="password" required="" />
+                                            <input type="email" placeholder="E-mail" name="Email" required="" />
                                         </div>
-                                        <input type="submit" value="Sign In" />
+                                        <div className="styled-input">
+                                            <input type="password" placeholder="Password" name="password" id="password1" required="" />
+                                        </div>
+                                        <div className="styled-input">
+                                            <input type="password" placeholder="Confirm Password" name="Confirm Password" id="password2" required="" />
+                                        </div>
+                                        <input type="submit" value="Sign Up" />
                                     </form>
-                                    <div className="clearfix"></div>
+                                    <p>
+                                        <a >By clicking register, I agree to your terms</a>
+                                    </p>
                                 </div>
-                                <div className="clearfix"></div>
                             </div>
                         </div>
                     </div>
@@ -52,4 +57,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default Register;
