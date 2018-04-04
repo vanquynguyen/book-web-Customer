@@ -6,3 +6,9 @@ export const ADD_CATEGORY = 'ADD_CATEGORY';
 export const EDIT_CATEGORY = 'EDIT_CATEGORY';
 export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
 export const DELETE_CATEGORY = 'DELETE_CATEGORY';
+
+//User
+export const ADD_USER = 'ADD_USER';
+export const UPDATE_USER = 'UPDATE_USER';
+export const LOGIN = 'LOGIN';
+export const FETCH_USER = 'FETCH_USER';
