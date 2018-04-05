@@ -6,8 +6,8 @@ import { isEmail, isEmpty } from 'validator';
 import swal from 'sweetalert';
 import axios from 'axios';
 import * as Config from '../../constants/Config';
-// import { connect } from 'react-redux';
-// import { actFetchUserRequest } from '../../actions/Users';
+import { connect } from 'react-redux';
+import { actFetchUserRequest } from '../../actions/Users';
 
 const required = (value) => {
     if (isEmpty(value)) {
@@ -32,7 +32,7 @@ class Login extends Component {
     constructor(props){
         super(props);
         this.state = {
-            user: '',
+            token: '',
             email : '',
             password: '',
             emailExist: ''
@@ -59,20 +59,18 @@ class Login extends Component {
                 password
             })
             .then(response=> {
-                console.log(response.data.message);
+                // console.log(response.data.);
                 if(response.data.message) {
                     this.setState({
                         emailExist: response.data.message
                     });
-                    console.log(1);
+ 
                 } else {
-                    console.log(true)
                     this.setState({
-                        user: response.data.user
+                        token: response.data.token
                     });
                     swal("Login Success!", "You clicked the button!", "success");
-                    // const user = this.state;
-                    // this.props.onFetchUser(user);
+                    this.props.onFetchUser(this.state.token);
                 }
             })
 
@@ -144,19 +142,19 @@ class Login extends Component {
     }
 }
 
-// const mapStateToProps = state => {
-//     return {
-//         users : state.users
-//     }
-// }
+const mapStateToProps = state => {
+    return {
+        users : state.users
+    }
+}
 
-// const mapDispatchToProps = (dispatch, props) => {
-//     return {
-//         onFetchUser: (user) => {
-//             dispatch(actFetchUserRequest(user));
-//         },
-//     }
-// }
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onFetchUser: (token) => {
+            dispatch(actFetchUserRequest(token));
+        },
+    }
+}
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Login);
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+// export default Login;

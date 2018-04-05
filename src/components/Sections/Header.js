@@ -2,24 +2,34 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Login from '../Login/Login';
 import Register from '../Login/Register';
-// import { connect } from 'react-redux';
-// import { actFetchUserRequest } from '../../actions/Users';
+import { connect } from 'react-redux';
+import { actFetchUserRequest } from '../../actions/Users';
 
 class Header extends Component {
 
     constructor() {
         super();
         this.state = {
-        
+            user: {}
         };
     }
 
-    // componentDidMount() {
-    //     // Gọi trước khi component đc render lần đầu tiên
-    //     this.props.fetchUser();
+    componentDidMount() {
+        // Gọi trước khi component đc render lần đầu tiên
+        this.props.fetchUser();
+    }
+    // componentWillMount() {
+    //     const auth = this.props.account;
+    //     // console.log(auth)
+    //     // this.setState({
+    //     //     user: auth
+    //     // })
     // }
 
     render() {
+        const auth = this.props.account;
+     
+        console.log(auth)
         return (
             <div>
                 <div className="header-bot">
@@ -46,14 +56,30 @@ class Header extends Component {
                                 <li>
                                     <span className="fa fa-phone" aria-hidden="true"></span> 001 234 5678
                                 </li>
-                                <li>
+                                {auth.id ? (
+                                    <li>
+                                        <span style={{color: 'white'}}>{auth.email}</span>
+                                    </li>
+                                ) : (
+                                    <div>
+                                    <li>
+                                        <a  data-toggle="modal" data-target="#myModal1">
+                                    <span className="fa fa-unlock-alt" aria-hidden="true"></span> Sign In </a>
+                                    </li>
+                                    <li>
+                                        <a  data-toggle="modal" data-target="#myModal2">
+                                        <span className="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up </a>
+                                    </li>
+                                    </div>
+                                )}
+                                {/* <li>
                                     <a  data-toggle="modal" data-target="#myModal1">
                                     <span className="fa fa-unlock-alt" aria-hidden="true"></span> Sign In </a>
                                 </li>
                                 <li>
                                     <a  data-toggle="modal" data-target="#myModal2">
                                     <span className="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up </a>
-                                </li>
+                                </li> */}
                             </ul>
                             <div className="agileits_search">
                                 <form action="#" method="post">
@@ -87,19 +113,19 @@ class Header extends Component {
 };
 
 
-// const mapStateToProps = state => {
-//     return {
-//         user: state.user
-//     }
-// }
+const mapStateToProps = state => {
+    return {
+        account: state.account
+    }
+}
 
-// const mapDispatchToProps = (dispatch, props) => {
-//     return {
-//         fetchUser: () => {
-//             dispatch(actFetchUserRequest());
-//         },
-//     }
-// }
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        fetchUser: () => {
+            dispatch(actFetchUserRequest());
+        },
+    }
+}
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Header);
-export default Header;
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
+// export default Header;

@@ -2,9 +2,16 @@ import * as Types from '../../constants/ActionType';
 import * as Config from '../../constants/Config';
 import axios from 'axios';
 
-export const actFetchUserRequest = (user) => {
+export const actFetchUserRequest = (token) => {
     return (dispatch) => {
-        dispatch(actFetchUser(user));
+        return axios({
+            method: 'get',
+            url: Config.API_URL + '/user', 
+            headers: { 'Authorization': `Bearer ${token}` }
+        }).then(res => {
+            console.log(res.data.result);
+            dispatch(actFetchUser(res.data.result))
+        })
     }
 }
 

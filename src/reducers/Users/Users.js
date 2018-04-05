@@ -6,8 +6,9 @@ const users = (state = initialState, action) => {
     var { user, id } = action;
     var index = -1;
     switch (action.type) {
-        case Types.FETCH_USER:
-            return [...action.user];
+        // case Types.FETCH_USER:
+        //     state.push(user);
+        //     return [...state];
         case Types.ADD_USER:
             state.push(user);
             return [...state];
