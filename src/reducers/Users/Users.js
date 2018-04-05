@@ -3,7 +3,7 @@ import * as Types from '../../constants/ActionType';
 var initialState = [];
 
 const users = (state = initialState, action) => {
-    var { user, id } = action;
+    var { user } = action;
     var index = -1;
     switch (action.type) {
         // case Types.FETCH_USER:

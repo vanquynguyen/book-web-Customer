@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Login from '../Login/Login';
 import Register from '../Login/Register';
+import axios from 'axios';
+import * as Config from '../../constants/Config';
+
 import { connect } from 'react-redux';
 import { actFetchUserRequest } from '../../actions/Users';
 
@@ -14,22 +17,22 @@ class Header extends Component {
         };
     }
 
-    componentDidMount() {
-        // Gọi trước khi component đc render lần đầu tiên
-        this.props.fetchUser();
+    Logout = () => {
+        const token = localStorage.getItem('token');
+        axios({
+            method: 'get',
+            url: Config.API_URL + '/logout',
+            params: {token: token},
+        })
+        .then(response=> {
+            localStorage.setItem('token', '');
+            window.location = 'http://localhost:3000/'
+        })
     }
-    // componentWillMount() {
-    //     const auth = this.props.account;
-    //     // console.log(auth)
-    //     // this.setState({
-    //     //     user: auth
-    //     // })
-    // }
 
     render() {
         const auth = this.props.account;
      
-        console.log(auth)
         return (
             <div>
                 <div className="header-bot">
@@ -39,7 +42,7 @@ class Header extends Component {
                                 <Link to="/">
                                 <span>UTT</span>
                                 <span>BOOK</span>
-                                <img src="images/logo2.png" alt="" />
+                                <img src="/images/logo2.png" alt="" />
                                 </Link>
                             </h1>
                         </div>
@@ -58,28 +61,31 @@ class Header extends Component {
                                 </li>
                                 {auth.id ? (
                                     <li>
-                                        <span style={{color: 'white'}}>{auth.email}</span>
+                                        <div className="dropdown">
+                                            <a style={{color: 'white'}} className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <img width="20" src="https://images.viblo.asia/avatar/398ff412-f7d3-4e32-85b3-50efae907d6b.png" alt=""/> {auth.email}
+                                            </a>
+                                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px' }}>
+                                                <a className="dropdown-item" style={{color: 'black'}}><i className="fa fa-user"></i> Profile</a>
+                                                <br />
+                                                <Link to="/user/add-book" className="dropdown-item" style={{color: 'black'}}><i className="fa fa-check"></i> Request books</Link>
+                                                <br />
+                                                <a className="dropdown-item" style={{color: 'black'}} onClick={this.Logout}><i className="fa fa-sign-out"></i> Logout</a>
+                                            </ul>
+                                        </div>
                                     </li>
                                 ) : (
-                                    <div>
-                                    <li>
-                                        <a  data-toggle="modal" data-target="#myModal1">
-                                    <span className="fa fa-unlock-alt" aria-hidden="true"></span> Sign In </a>
-                                    </li>
-                                    <li>
-                                        <a  data-toggle="modal" data-target="#myModal2">
-                                        <span className="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up </a>
-                                    </li>
-                                    </div>
+                                    <span>
+                                        <li>
+                                            <a  data-toggle="modal" data-target="#myModal1">
+                                        <span className="fa fa-unlock-alt" aria-hidden="true"></span> Sign In </a>
+                                        </li>
+                                        <li>
+                                            <a  data-toggle="modal" data-target="#myModal2">
+                                            <span className="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up </a>
+                                        </li>
+                                    </span>
                                 )}
-                                {/* <li>
-                                    <a  data-toggle="modal" data-target="#myModal1">
-                                    <span className="fa fa-unlock-alt" aria-hidden="true"></span> Sign In </a>
-                                </li>
-                                <li>
-                                    <a  data-toggle="modal" data-target="#myModal2">
-                                    <span className="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up </a>
-                                </li> */}
                             </ul>
                             <div className="agileits_search">
                                 <form action="#" method="post">
@@ -119,13 +125,4 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = (dispatch, props) => {
-    return {
-        fetchUser: () => {
-            dispatch(actFetchUserRequest());
-        },
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
-// export default Header;
+export default connect(mapStateToProps)(Header);

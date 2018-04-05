@@ -3,7 +3,7 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import { isEmail, isEmpty } from 'validator';
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
 import axios from 'axios';
 import * as Config from '../../constants/Config';
 import { connect } from 'react-redux';
@@ -32,11 +32,17 @@ class Login extends Component {
     constructor(props){
         super(props);
         this.state = {
-            token: '',
             email : '',
             password: '',
             emailExist: ''
         };
+    }
+
+    componentWillMount() {
+        const token = localStorage.getItem('token');
+        if (token) {
+            this.props.onFetchUser(token);
+        }
     }
 
     onChangeHandler = (e) => {
@@ -59,18 +65,18 @@ class Login extends Component {
                 password
             })
             .then(response=> {
-                // console.log(response.data.);
                 if(response.data.message) {
                     this.setState({
                         emailExist: response.data.message
                     });
  
                 } else {
-                    this.setState({
-                        token: response.data.token
-                    });
-                    swal("Login Success!", "You clicked the button!", "success");
-                    this.props.onFetchUser(this.state.token);
+                    const data = response.data.token
+                    localStorage.setItem('token', data);
+                    const token = localStorage.getItem('token');
+                    if (token) {
+                        this.props.onFetchUser(token);
+                    }
                 }
             })
 
@@ -85,7 +91,6 @@ class Login extends Component {
             }
         }
 
-        // console.log(this.state.emailExist);
         return (
             <div>
                 <div className="modal fade" id="myModal1" tabIndex="-1" role="dialog" style={{ display: 'none' }}>
@@ -157,4 +162,4 @@ const mapDispatchToProps = (dispatch, props) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
-// export default Login;
+

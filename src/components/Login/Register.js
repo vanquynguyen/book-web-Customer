@@ -4,8 +4,8 @@ import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import { isEmail, isEmpty } from 'validator';
 
-import { actAddUserRequest } from '../../actions/Users';
-import { connect } from 'react-redux';
+// import { actAddUserRequest } from '../../actions/Users';
+// import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import axios from 'axios';
 import * as Config from '../../constants/Config';

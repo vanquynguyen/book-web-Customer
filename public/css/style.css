@@ -184,7 +184,11 @@ label{
     top: 0;
     left: 0;
     right: 0;
-    height: 115px;
+    height: 130px;
+}
+
+#PPminicartk {
+    margin-top: 65px;
 }
 /*-- //logo --*/
 /*-- model_signin --*/

@@ -9,7 +9,6 @@ export const actFetchUserRequest = (token) => {
             url: Config.API_URL + '/user', 
             headers: { 'Authorization': `Bearer ${token}` }
         }).then(res => {
-            console.log(res.data.result);
             dispatch(actFetchUser(res.data.result))
         })
     }

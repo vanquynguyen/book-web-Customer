@@ -176,10 +176,10 @@ const Footer = () => {
                             <div className="agileits_app-devices">
                                 <h5>Download the App</h5>
                                 <a >
-                                <img src="images/1.png" alt="" />
+                                <img src="/images/1.png" alt="" />
                                 </a>
                                 <a >
-                                <img src="images/2.png" alt="" />
+                                <img src="/images/2.png" alt="" />
                                 </a>
                                 <div className="clearfix"> </div>
                             </div>
@@ -311,31 +311,31 @@ const Footer = () => {
                             <h5>Payment Method</h5>
                             <ul>
                                 <li>
-                                    <img src="images/pay2.png" alt="" />
+                                    <img src="/images/pay2.png" alt="" />
                                 </li>
                                 <li>
-                                    <img src="images/pay5.png" alt="" />
+                                    <img src="/images/pay5.png" alt="" />
                                 </li>
                                 <li>
-                                    <img src="images/pay1.png" alt="" />
+                                    <img src="/images/pay1.png" alt="" />
                                 </li>
                                 <li>
-                                    <img src="images/pay4.png" alt="" />
+                                    <img src="/images/pay4.png" alt="" />
                                 </li>
                                 <li>
-                                    <img src="images/pay6.png" alt="" />
+                                    <img src="/images/pay6.png" alt="" />
                                 </li>
                                 <li>
-                                    <img src="images/pay3.png" alt="" />
+                                    <img src="/images/pay3.png" alt="" />
                                 </li>
                                 <li>
-                                    <img src="images/pay7.png" alt="" />
+                                    <img src="/images/pay7.png" alt="" />
                                 </li>
                                 <li>
-                                    <img src="images/pay8.png" alt="" />
+                                    <img src="/images/pay8.png" alt="" />
                                 </li>
                                 <li>
-                                    <img src="images/pay9.png" alt="" />
+                                    <img src="/images/pay9.png" alt="" />
                                 </li>
                             </ul>
                         </div>
