@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import Login from '../Login/Login';
 import Register from '../Login/Register';
 import axios from 'axios';
 import * as Config from '../../constants/Config';
 
 import { connect } from 'react-redux';
-import { actFetchUserRequest } from '../../actions/Users';
+// import { actFetchUserRequest } from '../../actions/Users';
 
 class Header extends Component {
 
     constructor() {
         super();
         this.state = {
-            user: {}
+            auth: {}
         };
     }
 
@@ -27,12 +28,13 @@ class Header extends Component {
         .then(response=> {
             localStorage.setItem('token', '');
             window.location = 'http://localhost:3000/'
+            // this.props.history.push('/');
         })
     }
 
     render() {
         const auth = this.props.account;
-     
+        // console.log(this.state);
         return (
             <div>
                 <div className="header-bot">
@@ -66,11 +68,13 @@ class Header extends Component {
                                                 <img width="20" src="https://images.viblo.asia/avatar/398ff412-f7d3-4e32-85b3-50efae907d6b.png" alt=""/> {auth.email}
                                             </a>
                                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px' }}>
-                                                <a className="dropdown-item" style={{color: 'black'}}><i className="fa fa-user"></i> Profile</a>
+                                                <Link to={`/user/${auth.id}/profile`} className="dropdown-item" style={{color: 'black', cursor: 'pointer'}}>
+                                                    <i className="fa fa-user"></i> Profile
+                                                </Link>
                                                 <br />
-                                                <Link to="/user/add-book" className="dropdown-item" style={{color: 'black'}}><i className="fa fa-check"></i> Request books</Link>
+                                                <Link to="/user/add-book" className="dropdown-item" style={{color: 'black', cursor: 'pointer'}}><i className="fa fa-check"></i> Request books</Link>
                                                 <br />
-                                                <a className="dropdown-item" style={{color: 'black'}} onClick={this.Logout}><i className="fa fa-sign-out"></i> Logout</a>
+                                                <a className="dropdown-item" style={{color: 'black', cursor: 'pointer'}} onClick={this.Logout}><i className="fa fa-sign-out"></i> Logout</a>
                                             </ul>
                                         </div>
                                     </li>
@@ -125,4 +129,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(withRouter(Header));

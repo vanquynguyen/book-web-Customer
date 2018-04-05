@@ -47,7 +47,7 @@ const DetailProduct = () => {
                                         </li>
                                     </ul>
                                 </div>
-                                <ol className="flex-control-nav flex-control-thumbs">
+                                {/* <ol className="flex-control-nav flex-control-thumbs">
                                     <li><img src="images/si.jpg" className="flex-active" draggable="false" alt="" /></li>
                                     <li><img src="images/si2.jpg" draggable="false" className="" alt="" /></li>
                                     <li><img src="images/si3.jpg" draggable="false" className="" alt="" /></li>
@@ -55,7 +55,7 @@ const DetailProduct = () => {
                                 <ul className="flex-direction-nav">
                                     <li className="flex-nav-prev"><a className="flex-prev" >Previous</a></li>
                                     <li className="flex-nav-next"><a className="flex-next" >Next</a></li>
-                                </ul>
+                                </ul> */}
                             </div>
                         </div>
                     </div>

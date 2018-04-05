@@ -21,6 +21,24 @@ export const actFetchUser = (user) => {
     }
 }
 
+export const FetchUserRequest = () => {
+    return (dispatch) => {
+        return axios({
+            method: 'get',
+            url: Config.API_URL + '/users', 
+        }).then(res => {
+            dispatch(FetchUser(res.data))
+        })
+    }
+}
+
+export const FetchUser = (users) => {
+    return {
+        type: Types.FETCH_ALL_USER,
+        users
+    }
+}
+
 export const actAddUserRequest = (user) => {
     return (dispatch) => {
         return axios({
@@ -44,51 +62,48 @@ export const actAddUser = (user) => {
     }
 }
 
-export const loginRequest = (login) => {
+export const searchUserRequest = (keywork) => {
     return (dispatch) => {
-        return axios.post(Config.API_URL + '/login', login).then(res => {
-            console.log(res);
-            // dispatch(login(res.data))
+        return axios.get(Config.API_URL + '/user/search', {params: {keywork: keywork}}).then(res => {
+            dispatch(searchUser(res.data));
         })
     }
 }
 
-export const login = (user) => {
+export const searchUser = (users) => {
     return {
-        type: Types.LOGIN,
-        user
+        type: Types.SEARCH_USERS,
+        users
     }
 }
 
-
-// export const actUpdateCategoryRequest = (category) => {
+// export const loginRequest = (login) => {
 //     return (dispatch) => {
-//         return axios.put(Config.API_URL + '/categories', category).then(res => {
-//             if (res) {
-//                 dispatch(actUpdateCategory(res.data));
-//             }
+//         return axios.post(Config.API_URL + '/login', login).then(res => {
+//             console.log(res);
+//             // dispatch(login(res.data))
 //         })
 //     }
 // }
 
-// export const actUpdateCategory = (category) => {
+// export const login = (user) => {
 //     return {
-//         type: Types.UPDATE_CATEGORY,
-//         category
+//         type: Types.LOGIN,
+//         user
 //     }
 // }
 
-// export const actGetCategoryRequest = (id) => {
-//     return dispatch => {
-//         return axios.get(Config.API_URL + `/categories/${id}`).then(res => {
-//             dispatch(actGetCategory(res.data));
-//         })
-//     }
-// }
+export const actGetUserRequest = (id) => {
+    return dispatch => {
+        return axios.get(Config.API_URL + `/users/${id}`).then(res => {
+            dispatch(actGetUser(res.data));
+        })
+    }
+}
 
-// export const actGetCategory = (category) => {
-//     return {
-//         type : Types.EDIT_CATEGORY,
-//         category
-//     }
-// }
+export const actGetUser = (user) => {
+    return {
+        type : Types.GET_USER,
+        user
+    }
+}

@@ -11,7 +11,7 @@ class App extends Component {
             <Router>
                 <div>
                     <Header />
-                    <div style={{ marginTop: '100px' }}>
+                    <div style={{ marginTop: '130px' }}>
                         {this.showContentMenus(routes)}
                     </div>
                     <Footer />

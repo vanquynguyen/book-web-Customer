@@ -5,6 +5,8 @@ import Books from './components/Products/Books/index';
 import Checkout from './components/Carts/Checkout/index';
 import Payment from './components/Carts/Payment/index';
 import AddBook from './components/Products/AddBook/index';
+import UserProfile from './components/Profile/index';
+import Users from './components/Users/index';
 // import NotFound from './components/NotFound';
 
 const routes = [
@@ -32,6 +34,16 @@ const routes = [
         path: '/payment',
         exact: false,
         main: () => <Payment />
+    },
+    {
+        path: '/users',
+        exact: false,
+        main: () => <Users />
+    },
+    {
+        path: '/user/:id/profile',
+        exact: false,
+        main: ({ match, history }) => <UserProfile match={match} history={history} />
     },
     {
         path: '/user/add-book',

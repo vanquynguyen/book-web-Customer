@@ -4,7 +4,7 @@ var initialState = {};
 
 const itemEditing = (state = initialState, action) => {
     switch(action.type){
-        case Types.EDIT_user:
+        case Types.GET_USER:
             return action.user;
         default :
             return state;

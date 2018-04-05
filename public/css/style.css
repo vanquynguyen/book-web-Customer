@@ -4893,6 +4893,10 @@ input[type="radio"], input[type="checkbox"] {
     
 }
 
+.filter-box {
+    width: 13%!important;
+}
+
 
 
 /*--//responsive--*/

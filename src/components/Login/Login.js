@@ -3,7 +3,7 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import { isEmail, isEmpty } from 'validator';
-// import swal from 'sweetalert';
+import { withRouter } from 'react-router';
 import axios from 'axios';
 import * as Config from '../../constants/Config';
 import { connect } from 'react-redux';
@@ -77,6 +77,7 @@ class Login extends Component {
                     if (token) {
                         this.props.onFetchUser(token);
                     }
+                    // this.props.history.push('/add-book');
                 }
             })
 
@@ -161,5 +162,5 @@ const mapDispatchToProps = (dispatch, props) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));
 
