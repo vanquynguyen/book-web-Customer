@@ -59,15 +59,16 @@ class Login extends Component {
                 password
             })
             .then(response=> {
-
-                if(response.data === 403) {
+                console.log(response.data.message);
+                if(response.data.message) {
                     this.setState({
-                        emailExist: 403
+                        emailExist: response.data.message
                     });
-
+                    console.log(1);
                 } else {
+                    console.log(true)
                     this.setState({
-                        user: response.data
+                        user: response.data.user
                     });
                     swal("Login Success!", "You clicked the button!", "success");
                     // const user = this.state;
@@ -80,13 +81,13 @@ class Login extends Component {
     }
 
     render() {
-        const emailExist = () => {
-            if (this.state.emailExist === 403) {
-                return <small className="form-text text-danger">Email doesn't exist</small>;
+        const checkRequest = () => {
+            if (this.state.emailExist.length > 0) {
+                return <small className="form-text text-danger">invalid_email_or_password</small>;
             }
         }
 
-        console.log(this.state.user);
+        // console.log(this.state.emailExist);
         return (
             <div>
                 <div className="modal fade" id="myModal1" tabIndex="-1" role="dialog" style={{ display: 'none' }}>
@@ -114,7 +115,7 @@ class Login extends Component {
                                                 type="text" 
                                                 placeholder="Email"
                                                 className="form-control" 
-                                                validations={[required, email, emailExist]}
+                                                validations={[required, email]}
                                             />
                                         </div>
                                         <div className="styled-input">
@@ -124,9 +125,10 @@ class Login extends Component {
                                                 type="password" 
                                                 placeholder="Password"
                                                 className="form-control" 
-                                                validations={[required, minLength]}
+                                                validations={[required, minLength, checkRequest]}
                                             />
                                         </div>
+                                        {/* <label>{emailExist}</label> */}
                                         <input type="submit" value="Sign In" />
                                         <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
                                     </Form>
