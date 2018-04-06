@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import swal from 'sweetalert';
 import { connect } from 'react-redux';
 
 class UsersItem extends Component {
 
     render() {
-        var { user, index } = this.props;
+        var { user } = this.props;
         return (
             <div className="hot-authors col-md-4">
                 <div className="author-content">

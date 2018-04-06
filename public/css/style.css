@@ -356,7 +356,7 @@ ul.multi-column-dropdown li a:hover{
 }
 .box_1 {
     text-align: center;
-    margin-top: 14px;
+    margin-top: 4px;
 }
 a.simpleCart_empty {
     color: #fff;
@@ -706,7 +706,7 @@ button.w3view-cart {
 .inner-men-cart-pro .link-product-add-cart {
     width: 61%;
     top: 0;
-    left: 17%;
+    left: 45px;
     margin: 0 auto;
     position: absolute;
     transition: all 0.5s ease-out 0s;
@@ -4897,6 +4897,30 @@ input[type="radio"], input[type="checkbox"] {
     width: 13%!important;
 }
 
+.UTT-cart-number {
+    position: relative;
+    border-radius: 4.4rem;
+    min-width: 1.1rem;
+    line-height: 1.2em;
+    padding: 0 .5rem;
+    text-align: center;
+    height: 32px;
+    border: .2rem solid #f74d18;
+    color: #ff5722;
+    background-color: #fff;
+    left: -1.8rem;
+    top: -.8rem;
+    padding-top: 4px!important;
+    margin-right: 25px;
+    top: -51px;
+    width: 19%;
+    float: right;
+    font-weight: bold;
+}
+
+.title-book {
+    height: 60px;
+}
 
 
 /*--//responsive--*/

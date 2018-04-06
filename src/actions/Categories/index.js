@@ -5,8 +5,7 @@ import axios from 'axios';
 export const actFetchCategoriesRequest = () => {
     return (dispatch) => {
         return axios.get(Config.API_URL + '/categories').then(res => {
-             console.log(res.data);
-             dispatch(actFetchCategories(res.data));
+            dispatch(actFetchCategories(res.data));
         })
     }
 }

@@ -3,10 +3,9 @@ import '../Pagination/style.css';
 
 import Breadscrumb from '../Sections/Breadcrumb';
 import List from '../Pagination/index';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import UsersItem from './UsersItem';
-// import { actFetchUsersRequest, actApproveUserRequest, searchUserRequest, actDeleteUserRequest } from '../../../actions/Users';
 import { FetchUserRequest, searchUserRequest } from '../../actions/Users';
 
 class UsersListPage extends Component {

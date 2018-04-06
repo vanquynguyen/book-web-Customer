@@ -9,3 +9,11 @@ export const UPDATE_USER = 'UPDATE_USER';
 export const LOGIN = 'LOGIN';
 export const FETCH_USER = 'FETCH_USER';
 export const FETCH_ALL_USER = 'FETCH_ALL_USER';
+
+//Book
+export const FETCH_HOME_BOOKS = "FETCH_HOME_BOOKS";
+export const GET_BOOK = "GET_BOOK";
+
+//ShoppingCart
+
+export const FETCH_ALL_CARTS = "FETCH_ALL_CARTS";

@@ -7,7 +7,7 @@ import axios from 'axios';
 import * as Config from '../../constants/Config';
 
 import { connect } from 'react-redux';
-// import { actFetchUserRequest } from '../../actions/Users';
+// import { actFetchCartsRequest } from '../../actions/Carts';
 
 class Header extends Component {
 
@@ -17,6 +17,11 @@ class Header extends Component {
             auth: {}
         };
     }
+
+    // componentDidMount() {
+    //     // Gọi trước khi component đc render lần đầu tiên
+    //     this.props.fetchAllCarts();
+    // }
 
     Logout = () => {
         const token = localStorage.getItem('token');
@@ -35,6 +40,7 @@ class Header extends Component {
     render() {
         const auth = this.props.account;
         // console.log(this.state);
+        // console.log(this.props.carts)
         return (
             <div>
                 <div className="header-bot">
@@ -100,14 +106,22 @@ class Header extends Component {
                                 </form>
                             </div>
                             <div className="top_nav_right">
-                                <div className="wthreecartaits wthreecartaits2 cart cart box_1">
-                                    <form action="#" method="post" className="last">
-                                        <input type="hidden" name="cmd" value="_cart" />
-                                        <input type="hidden" name="display" value="1" />
-                                        <button className="w3view-cart" type="submit" name="submit" value="">
-                                        <i className="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                                        </button>
-                                    </form>
+                                <div className="wthreecartaits wthreecartaits2 cart cart box_1" >
+                                    <div className="dropdown">
+                                        <a className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i className="fa fa-cart-arrow-down" aria-hidden="true" style={{ fontSize: '40px', color: 'white' }}></i>
+                                        </a>
+                                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px', width:'300px' }}>
+                                            <Link to={`/user/${auth.id}/profile`} className="dropdown-item" style={{color: 'black', cursor: 'pointer'}}>
+                                                <i className="fa fa-user"></i> Profile
+                                            </Link>
+                                            <br />
+                                            <Link to="/user/add-book" className="dropdown-item" style={{color: 'black', cursor: 'pointer'}}><i className="fa fa-check"></i> Request books</Link>
+                                            <br />
+                                            <a className="dropdown-item" style={{color: 'black', cursor: 'pointer'}} onClick={this.Logout}><i className="fa fa-sign-out"></i> Logout</a>
+                                        </ul>
+                                    </div>
+                                    <div className="UTT-cart-number"><span>5</span></div>
                                 </div>
                             </div>
                             <div className="clearfix"></div>
@@ -125,8 +139,17 @@ class Header extends Component {
 
 const mapStateToProps = state => {
     return {
-        account: state.account
+        account: state.account,
+        carts: state.carts
     }
 }
 
-export default connect(mapStateToProps)(withRouter(Header));
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        // fetchAllCarts: () => {
+        //     dispatch(actGetCartsRequest());
+        // },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

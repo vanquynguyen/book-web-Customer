@@ -15,11 +15,11 @@ const routes = [
         exact: true,
         main: () => <Home />
     },
-    {
-        path: '/product',
-        exact: false,
-        main: () => <DetailProduct />
-    },
+    // {
+    //     path: '/product',
+    //     exact: false,
+    //     main: () => <DetailProduct />
+    // },
     {
         path: '/books',
         exact: false,
@@ -50,6 +50,11 @@ const routes = [
         exact: false,
         main: () => <AddBook />
     },
+    {
+        path: '/book/:id/detail',
+        exact: false,
+        main: ({ match, history }) => <DetailProduct match={match} history={history} />
+    }
     // {
     //     path: '',
     //     exact: false,

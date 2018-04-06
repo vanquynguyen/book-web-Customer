@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Breadscrumb from '../Sections/Breadcrumb';
 
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
 import { actGetUserRequest } from '../../actions/Users/';
-import axios from 'axios'
+import * as Config from '../../constants/Config';
+// import axios from 'axios';
 
 class UserProfile extends Component {
 
@@ -26,7 +26,7 @@ class UserProfile extends Component {
         if (match) { // update
             var id = match.params.id;
             this.props.onGetUser(id)
-        } // else => add
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -57,7 +57,7 @@ class UserProfile extends Component {
                         </div>
                         <div className="prheadline">
                             <div className="pravatar"><a href="/users/my_profile" className="">
-                                <img className="img-circle pravatar-image img-responsive" src="http://wsm.framgia.vn//uploads/user/avatar/1727/Nguyen_Van_Quy_B__1_.jpg" alt="Avatar" />
+                                <img className="img-circle pravatar-image img-responsive" src={Config.LOCAL_URL+ '/images/' + this.state.avatar} alt="Avatar" />
                                 </a>
                             </div>
                             <div className="prheadlineinfo pull-right navbar-collapse">

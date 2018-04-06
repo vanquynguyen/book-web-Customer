@@ -4,7 +4,7 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import Textarea from 'react-validation/build/textarea';
 import CheckButton from 'react-validation/build/button';
-import { isEmail, isEmpty } from 'validator';
+import { isEmpty } from 'validator';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
@@ -18,15 +18,9 @@ const required = (defaultValue) => {
     }
 }
 
-const email = (defaultValue) => {
-    if (!isEmail(defaultValue)) {
-        return <small className="form-text text-danger">Invalid email format</small>;
-    }
-}
-
 const minLength = (defaultValue) => {
     if (defaultValue.trim().length < 6) {
-        return <small className="form-text text-danger">Password must be at least 6 characters long</small>;
+        return <small className="form-text text-danger">Title must be at least 6 characters long</small>;
     }
 }
 
@@ -71,11 +65,9 @@ class AddBook extends Component {
     }
 
     onSubmit = (e) => {
-        console.log(this.state);
         e.preventDefault();
 
         this.form.validateAll();
-        this.props.history.push('/');
         if ( this.checkBtn.context._errors.length === 0 ) {
             var { user_id, title, image, author, category_id, description, price, amount } = this.state;
             var book = new FormData()
@@ -89,17 +81,13 @@ class AddBook extends Component {
             book.append("amount", amount);
 
             axios.post(Config.API_URL + '/books', book).then(res => {
-                console.log(res)
                 swal("Good job!", "You clicked the button!", "success");
-                // this.props.history.push('/user/add-book');
-                // }
-               
+                this.props.history.push(`/user/${user_id}/profile`);
             });
         }
     }
 
     render() {
-        const user_id = this.props.account.id;
         const data = this.props.categories;
 
         const listCatgories = data.map((category, index) => 
@@ -141,7 +129,7 @@ class AddBook extends Component {
                                                 className="form-control" 
                                                 placeholder="Enter your book title..."
                                                 onChange={this.onChangeHandler}
-                                                validations={[required]}
+                                                validations={[required, minLength]}
                                             />
                                         </div>
                                     </div>
@@ -214,7 +202,7 @@ class AddBook extends Component {
                                                 rows="8"
                                                 onChange={this.onChangeHandler}
                                                 className="form-control b-r-0"
-                                                validations={[required]}
+                                                validations={[required, minLength]}
                                             ></Textarea>
                                         </div>
                                     </div>
@@ -226,7 +214,6 @@ class AddBook extends Component {
                                                 type="file" 
                                                 name="image" 
                                                 onChange={this.onChangeFile}
-                                                type="file" 
                                             />
                                         </div>
                                     </div>
