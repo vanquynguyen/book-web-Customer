@@ -71,9 +71,11 @@ class Login extends Component {
                     });
  
                 } else {
-                    const data = response.data.token
+                    const data = response.data.token;
                     localStorage.setItem('token', data);
                     const token = localStorage.getItem('token');
+                    const userId = response.data.user.id;
+                    localStorage.setItem('userId', userId);
                     if (token) {
                         this.props.onFetchUser(token);
                     }

@@ -11,9 +11,10 @@ export const FETCH_USER = 'FETCH_USER';
 export const FETCH_ALL_USER = 'FETCH_ALL_USER';
 
 //Book
-export const FETCH_HOME_BOOKS = "FETCH_HOME_BOOKS";
-export const GET_BOOK = "GET_BOOK";
+export const FETCH_HOME_BOOKS = 'FETCH_HOME_BOOKS';
+export const GET_BOOK = 'GET_BOOK';
 
 //ShoppingCart
 
-export const FETCH_ALL_CARTS = "FETCH_ALL_CARTS";
+export const FETCH_CARTS = 'FETCH_CARTS';
+export const DELETE_CART= 'DELETE_CART';

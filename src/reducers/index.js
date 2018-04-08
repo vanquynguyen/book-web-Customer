@@ -8,13 +8,16 @@ import usersEditing from './Users/ItemEditing';
 import books from './Books/Books';
 import booksEditing from './Books/ItemEditing';
 
+import carts from './Carts/Carts'
+
 const appReducers = combineReducers({
     categories,
     users,
     account,
     usersEditing,
     books,
-    booksEditing
+    booksEditing,
+    carts
 
 });
 
