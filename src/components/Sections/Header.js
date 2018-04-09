@@ -66,13 +66,13 @@ class Header extends Component {
     render() {
         const auth = this.props.account;
         const carts = this.props.carts;
-        
+
         const listCarts = carts.map((cart, index) => {
             return <div className="cart-item" key={index}>
-                        <img src="https://sachgiai.com/uploads/book/sach-giao-khoa-toan-1/sach-giao-khoa-toan-1-0.jpg" alt="" width="32"/>
-                        {cart.title}
+                        <img style={{ float: 'left'}} src="https://sachgiai.com/uploads/book/sach-giao-khoa-toan-1/sach-giao-khoa-toan-1-0.jpg" alt="" width="32"/>
+                        <p className="dropdown-cart-title">{cart.title}</p>
                         <i className="fa fa-times" style={{ float: 'right', marginTop: '13px' }} onClick={() => this.onDelete(cart.id)}></i>
-                        <div style={{ marginTop: '10px' }}>
+                        <div style={{ marginTop: '60px' }}>
                             <span style={{ color: '#ff5722' }}>
                                 $ {cart.price}
                             </span>
@@ -153,7 +153,7 @@ class Header extends Component {
                                         <a className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i className="fa fa-cart-arrow-down" aria-hidden="true" style={{ fontSize: '40px', color: 'white' }}></i>
                                         </a>
-                                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px', width:'265px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important' }}>
+                                        <ul className="dropdown-menu dropdown-carts" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px', width:'318px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important' }}>
                                             {carts.length > 0 && auth.id ? ( 
                                                 <div>
                                                     <span> {listCarts}</span>

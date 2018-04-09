@@ -8,9 +8,9 @@ const carts = (state = initialState, action) => {
     switch (action.type) {
         case Types.FETCH_CARTS:
             return [...action.carts];
-            case Types.DELETE_CART:
-            index = findIndex(state, id);
-            state.splice(index, 1);
+        case Types.DELETE_CART:
+        index = findIndex(state, id);
+        state.splice(index, 1);
             return [...state];
         default: return [...state];
     }

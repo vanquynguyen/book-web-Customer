@@ -4944,7 +4944,7 @@ input[type="radio"], input[type="checkbox"] {
 .cart-item {
     clear: both;
     /* float: left; */
-    width: 240px;
+    width: 300px;
     margin: 5px 0 5px;
     padding: 10px;
     list-style-type: none;
@@ -4952,6 +4952,21 @@ input[type="radio"], input[type="checkbox"] {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-cart-title {
+    margin-top: 14px;
+    margin-left: 6px;
+    float: left;
+    white-space: nowrap; 
+    width: 150px!important; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.dropdown-carts {
+    position: relative!important;
+    left: -260px!important;
 }
 
 /* .checkbox {

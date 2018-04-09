@@ -67,6 +67,7 @@ class Register extends Component {
                     });
                 } else {
                     jquery('.close').click();
+                    jquery('#myModal1').click();
                     swal("Register Success!", "You clicked the button!", "success");
                 }
                

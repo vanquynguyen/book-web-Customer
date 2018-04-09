@@ -9,7 +9,7 @@ import CheckButton from 'react-validation/build/button';
 import { isEmail, isEmpty } from 'validator'
 import axios from 'axios';
 import swal from 'sweetalert';
-import { actFetchCartsRequest, actDeleteCartRequest } from '../../../actions/Carts/index';
+import { actFetchCartsRequest, actDeleteCartRequest, actFetchTotalPrice } from '../../../actions/Carts/index';
 
 
 const required = (value) => {
@@ -41,9 +41,6 @@ class checkOut extends Component {
     constructor(props){
         super(props);
         this.state = {
-            carts: {},
-            amount: {},
-            price: {},
             user_id: '',
             full_name: '',
             email: '',
@@ -52,7 +49,6 @@ class checkOut extends Component {
             address: '',
             country: '',
             method: '',
-            products: ''
         };
     }
 
@@ -68,31 +64,45 @@ class checkOut extends Component {
             [e.target.name]: e.target.value,
             user_id: this.props.account.id,
             gender: this.refs.gender.value,
+            country: this.refs.country.value,
             method: this.refs.method.value
+            
         })
-       
     }
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state)
+        const { carts } = this.props
+        var totalPrice = 0;
+        for (var i = 0; i < carts.length; i++) {
+            totalPrice += carts[i].price
+        }
+
         this.form.validateAll();
         if ( this.checkBtn.context._errors.length === 0 ) {
-            // var { user_id, title, image, author, category_id, description, price, amount } = this.state;
-            // var book = new FormData()
-            // book.append("user_id", user_id);
-            // book.append("title", title);
-            // book.append("image", image);
-            // book.append("author", author);
-            // book.append("category_id", category_id);
-            // book.append("description", description);
-            // book.append("price", price);
-            // book.append("amount", amount);
+            var { user_id, full_name, email, phone, gender, address, country, method } = this.state;
+            var data = new FormData()
+            data.append("user_id", user_id);
+            data.append("full_name", full_name);
+            data.append("email", email);
+            data.append("phone", phone);
+            data.append("gender", gender);
+            data.append("address", address);
+            data.append("country", country);
+            data.append("method", method);
+            data.append("total_price", totalPrice);
 
-            // axios.post(Config.API_URL + '/books', book).then(res => {
-            //     swal("Good job!", "You clicked the button!", "success");
-            //     this.props.history.push(`/user/${user_id}/profile`);
-            // });
+            axios.post(Config.API_URL + '/orders', data).then(res => {
+                swal("Good job!", "You clicked the button!", "success");
+                const userId = localStorage.getItem('userId');
+                this.props.fetchAllCarts(userId);
+                if (res.data.status === 1) {
+                    this.props.history.push(`/user/${user_id}/profile`);
+                } else {
+                    const orderId = res.data.orderId;
+                }
+             
+            });
         }
     }
 
@@ -166,8 +176,12 @@ class checkOut extends Component {
     }
 
     render() {
-        // const auth = this.props.account;
         const carts = this.props.carts;
+        var totalPrice = 0;
+        for (var i = 0; i < carts.length; i++) {
+            totalPrice += carts[i].price
+        }
+       
         const listCarts = carts.map((cart, index) =>
             <tr className="rem1" key={index}>
                 <td className="invert">{index + 1}</td>
@@ -211,7 +225,7 @@ class checkOut extends Component {
                         </h3>
                         <div className="checkout-right">
                             <h4>Your shopping cart contains:
-                                <span style={{ marginLeft: '10px' }}>{carts.length} Products</span>
+                                <span style={{ marginLeft: '10px' }}>{carts.length} Products</span> {this.props.totalPrice}
                             </h4>
                             <div className="table-responsive">
                                 <table className="timetable_sub">
@@ -229,6 +243,7 @@ class checkOut extends Component {
                                         {listCarts}
                                     </tbody>
                                 </table>
+                                Price Total: $ {totalPrice}
                             </div>
                         </div>
                         <div className="checkout-left">
@@ -285,24 +300,31 @@ class checkOut extends Component {
                                                     <div className="w3_agileits_card_number_grid_right">
                                                         <div className="controls">
                                                             <Input 
+                                                                ref="address"
                                                                 type="text" 
                                                                 placeholder="Address" 
                                                                 name="address" 
                                                                 validations={[required]}
+                                                                onChange={this.onChangeHandler}
                                                             />
                                                         </div>
                                                     </div>
+                                                    <div className="controls">
+                                                    <select 
+                                                        className="option-w3ls"
+                                                        ref="country"
+                                                        onChange={this.onChangeHandler}
+                                                        validations={[required]}
+                                                    >
+                                                        <option>Select Country</option>
+                                                        <option value="0">Viet Nam</option>
+                                                        <option value="1">Overseas</option>
+                                                        <option value="1">Foreign</option>
+                                                    </select>
+                                                    </div>
                                                     <div className="clear"> </div>
                                                 </div>
-                                                <div className="controls">
-                                                    <Input 
-                                                        type="text" 
-                                                        placeholder="Country" 
-                                                        name="country" 
-                                                        validations={[required]}
-                                                        onChange={this.onChangeHandler}
-                                                    />
-                                                </div>
+                                               
                                                 <h2>Payment methods</h2>
                                                 <hr />
                                                 <div className="controls">

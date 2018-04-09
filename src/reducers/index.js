@@ -8,7 +8,7 @@ import usersEditing from './Users/ItemEditing';
 import books from './Books/Books';
 import booksEditing from './Books/ItemEditing';
 
-import carts from './Carts/Carts'
+import carts from './Carts/Carts';
 
 const appReducers = combineReducers({
     categories,
@@ -17,7 +17,7 @@ const appReducers = combineReducers({
     usersEditing,
     books,
     booksEditing,
-    carts
+    carts,
 
 });
 

@@ -9,7 +9,7 @@ import * as Config from '../../constants/Config';
 import { connect } from 'react-redux';
 import { actFetchUserRequest } from '../../actions/Users';
 import { actFetchCartsRequest } from '../../actions/Carts';
-import * as jquery from 'jquery';
+import jquery from 'jquery';
 
 const required = (value) => {
     if (isEmpty(value)) {

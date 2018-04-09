@@ -5,8 +5,10 @@ import axios from 'axios';
 export const actFetchCartsRequest = (userId) => {
     return (dispatch) => {
         return axios.get(Config.API_URL + '/carts', {params: {userId: userId}}).then(res => {
-            // console.log(res)
-            dispatch(actFetchCarts(res.data));
+            // console.log(res.data)
+            if (res) {
+                dispatch(actFetchCarts(res.data.carts));
+            }
         })
     }
 }
@@ -17,6 +19,7 @@ export const actFetchCarts = (carts) => {
         carts
     }
 }
+
 
 export const actDeleteCartRequest = (id) => {
     return (dispatch) => {
