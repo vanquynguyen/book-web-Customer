@@ -48,9 +48,9 @@ class AddBook extends Component {
     }
 
     onChangeHandler = (e) => {
-        // console.log(e.target.defaultValue)
+        e.preventDefault();
         this.setState({
-            [e.target.name]: e.target.defaultValue,
+            [e.target.name]: e.target.value,
             user_id: this.props.account.id,
             category_id: this.refs.categoryId.value,
         })

@@ -1,10 +1,40 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import BreadCrumb from '../../Sections/Breadcrumb';
+// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as Config from '../../../constants/Config';
+import Form from 'react-validation/build/form';
+import Input from 'react-validation/build/input';
+import CheckButton from 'react-validation/build/button';
+import { isEmail, isEmpty } from 'validator'
 import axios from 'axios';
 import swal from 'sweetalert';
 import { actFetchCartsRequest, actDeleteCartRequest } from '../../../actions/Carts/index';
+
+
+const required = (value) => {
+    if (isEmpty(value)) {
+        return <small className="form-text text-danger">This field is required</small>;
+    }
+}
+
+const email = (value) => {
+    if (!isEmail(value)) {
+        return <small className="form-text text-danger">Invalid email format</small>;
+    }
+}
+
+const number = (value) => {
+    if (isNaN(value) !== false) {
+        return <small className="form-text text-danger">Phone must be number</small>;
+    }
+}
+
+const minPhoneLength = (value) => {
+    if (value.trim().length < 10) {
+        return <small className="form-text text-danger">Phone must be at least 10 characters long</small>;
+    }
+}
 
 class checkOut extends Component {
 
@@ -13,7 +43,16 @@ class checkOut extends Component {
         this.state = {
             carts: {},
             amount: {},
-            price: {}
+            price: {},
+            user_id: '',
+            full_name: '',
+            email: '',
+            phone: '',
+            gender: '',
+            address: '',
+            country: '',
+            method: '',
+            products: ''
         };
     }
 
@@ -23,12 +62,46 @@ class checkOut extends Component {
         this.props.fetchAllCarts(userId); 
     }
 
+    onChangeHandler = (e) => {
+        e.preventDefault();
+        this.setState({
+            [e.target.name]: e.target.value,
+            user_id: this.props.account.id,
+            gender: this.refs.gender.value,
+            method: this.refs.method.value
+        })
+       
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        console.log(this.state)
+        this.form.validateAll();
+        if ( this.checkBtn.context._errors.length === 0 ) {
+            // var { user_id, title, image, author, category_id, description, price, amount } = this.state;
+            // var book = new FormData()
+            // book.append("user_id", user_id);
+            // book.append("title", title);
+            // book.append("image", image);
+            // book.append("author", author);
+            // book.append("category_id", category_id);
+            // book.append("description", description);
+            // book.append("price", price);
+            // book.append("amount", amount);
+
+            // axios.post(Config.API_URL + '/books', book).then(res => {
+            //     swal("Good job!", "You clicked the button!", "success");
+            //     this.props.history.push(`/user/${user_id}/profile`);
+            // });
+        }
+    }
+
     onMinus = (cart) => {
-        // const amountBook = response.data.amount;
+
         const userId = this.props.account.id;
         var amountCart = cart.amount - 1;
         var price = cart.price/2;
-        // parseInt
+
         const data = {
             'amount' : amountCart,
             'price' : price
@@ -52,7 +125,7 @@ class checkOut extends Component {
             const userId = this.props.account.id;
             var amountCart = cart.amount + 1;
             var price = cart.price*2;
-            // parseInt
+   
             const data = {
                 'amount' : amountCart,
                 'price' : price
@@ -93,14 +166,14 @@ class checkOut extends Component {
     }
 
     render() {
-        const auth = this.props.account;
+        // const auth = this.props.account;
         const carts = this.props.carts;
         const listCarts = carts.map((cart, index) =>
             <tr className="rem1" key={index}>
                 <td className="invert">{index + 1}</td>
                 <td className="invert-image">
                     <a>
-                    <img src="http://api-book.framgia.vn/image//2018/03/book/022cc11520a575b3ed61e0ccf0084401.jpg?p=thumbnail_web&s=1e5d93cf3f49841ae346eb30d0061468" alt=" " className="img-responsive" />
+                    <img src={Config.LOCAL_URL + '/images/books/' + cart.image} alt="" style={{ width: '64px'}} className="img-responsive" />
                     </a>
                 </td>
                 <td className="invert">
@@ -125,83 +198,139 @@ class checkOut extends Component {
         );
 
         return (
-            <div className="privacy">
-                <div className="container">
-                    <h3 className="tittle-w3l">Checkout
-                        <span className="heading-style">
-                        <i></i>
-                        <i></i>
-                        <i></i>
-                        </span>
-                    </h3>
-                    <div className="checkout-right">
-                        <h4>Your shopping cart contains:
-                            <span style={{ marginLeft: '10px' }}>{carts.length} Products</span>
-                        </h4>
-                        <div className="table-responsive">
-                            <table className="timetable_sub">
-                                <thead>
-                                    <tr>
-                                        <th>SL No.</th>
-                                        <th>Product</th>
-                                        <th>Quality</th>
-                                        <th>Product Name</th>
-                                        <th>Price</th>
-                                        <th>Remove</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {listCarts}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div className="checkout-left">
-                        <div className="address_form_agile">
-                            <h4>Add a new Details</h4>
-                            <form action="payment.html" method="post" className="creditly-card-form agileinfo_form">
-                                <div className="creditly-wrapper wthree, w3_agileits_wrapper">
-                                    <div className="information-wrapper">
-                                        <div className="first-row">
-                                            <div className="controls">
-                                                <input className="billing-address-name" type="text" name="name" placeholder="Full Name" required="" />
-                                            </div>
-                                            <div className="w3_agileits_card_number_grids">
-                                                <div className="w3_agileits_card_number_grid_left">
-                                                    <div className="controls">
-                                                        <input type="text" placeholder="Mobile Number" name="number" required="" />
-                                                    </div>
-                                                </div>
-                                                <div className="w3_agileits_card_number_grid_right">
-                                                    <div className="controls">
-                                                        <input type="text" placeholder="Landmark" name="landmark" required="" />
-                                                    </div>
-                                                </div>
-                                                <div className="clear"> </div>
-                                            </div>
-                                            <div className="controls">
-                                                <input type="text" placeholder="Town/City" name="city" required="" />
-                                            </div>
-                                            <div className="controls">
-                                                <select className="option-w3ls">
-                                                    <option>Select Address type</option>
-                                                    <option>Office</option>
-                                                    <option>Home</option>
-                                                    <option>Commercial</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <button className="submit check_out">Delivery to this Address</button>
-                                    </div>
-                                </div>
-                            </form>
-                            <div className="checkout-right-basket">
-                                <a>Make a Payment
-                                <span className="fa fa-hand-o-right" aria-hidden="true"></span>
-                                </a>
+            <div>
+                <BreadCrumb name="Checkout"/>
+                <div className="privacy">
+                    <div className="container">
+                        <h3 className="tittle-w3l">Checkout
+                            <span className="heading-style">
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            </span>
+                        </h3>
+                        <div className="checkout-right">
+                            <h4>Your shopping cart contains:
+                                <span style={{ marginLeft: '10px' }}>{carts.length} Products</span>
+                            </h4>
+                            <div className="table-responsive">
+                                <table className="timetable_sub">
+                                    <thead>
+                                        <tr>
+                                            <th>SL No.</th>
+                                            <th>Product</th>
+                                            <th>Quality</th>
+                                            <th>Product Name</th>
+                                            <th>Price</th>
+                                            <th>Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {listCarts}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div className="clearfix"> </div>
+                        <div className="checkout-left">
+                            <div className="address_form_agile">
+                                <h4>Add a new Details</h4>
+                                <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }} className="creditly-card-form agileinfo_form">
+                                    <div className="creditly-wrapper wthree, w3_agileits_wrapper">
+                                        <div className="information-wrapper">
+                                            <div className="first-row">
+                                                <div className="controls">
+                                                    <Input 
+                                                        className="billing-address-name" 
+                                                        type="text" 
+                                                        name="full_name" 
+                                                        placeholder="Full Name" 
+                                                        validations={[required]}
+                                                        onChange={this.onChangeHandler}
+                                                    />
+                                                </div>
+                                                <div className="controls">
+                                                    <Input 
+                                                        className="billing-address-name" 
+                                                        type="email" 
+                                                        name="email" 
+                                                        placeholder="Email" 
+                                                        validations={[required, email]}
+                                                        onChange={this.onChangeHandler}
+                                                    />
+                                                </div>
+                                                <div className="w3_agileits_card_number_grids">
+                                                    <div className="w3_agileits_card_number_grid_left">
+                                                        <div className="controls">
+                                                            <Input 
+                                                                type="text" 
+                                                                placeholder="Mobile Number" 
+                                                                name="phone" 
+                                                                validations={[required, minPhoneLength, number]}
+                                                                onChange={this.onChangeHandler}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="controls">
+                                                        <select 
+                                                            className="option-w3ls"
+                                                            ref="gender"
+                                                            onChange={this.onChangeHandler}
+                                                            validations={[required]}
+                                                        >
+                                                            <option>Select Gender</option>
+                                                            <option value="0">Male</option>
+                                                            <option value="1">Female</option>
+                                                        </select>
+                                                    </div>
+                                                    <div className="w3_agileits_card_number_grid_right">
+                                                        <div className="controls">
+                                                            <Input 
+                                                                type="text" 
+                                                                placeholder="Address" 
+                                                                name="address" 
+                                                                validations={[required]}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="clear"> </div>
+                                                </div>
+                                                <div className="controls">
+                                                    <Input 
+                                                        type="text" 
+                                                        placeholder="Country" 
+                                                        name="country" 
+                                                        validations={[required]}
+                                                        onChange={this.onChangeHandler}
+                                                    />
+                                                </div>
+                                                <h2>Payment methods</h2>
+                                                <hr />
+                                                <div className="controls">
+                                                    <select 
+                                                        className="option-w3ls"
+                                                        ref="method"
+                                                        validations={[required]}
+                                                        onChange={this.onChangeHandler}
+                                                    >
+                                                        <option>Select Method Payment</option>
+                                                        <option value="0">Cash on delivery (COD)</option>
+                                                        <option value="1">Credit/Debit(new)</option>
+                                                    </select>
+                                                </div>
+                                                <hr />
+                                                <div className="checkout-right-basket">
+                                                    <button type="submit" style={{ cursor: 'pointer' }}>Make a Payment
+                                                        <span className="fa fa-hand-o-right" aria-hidden="true"></span>
+                                                    </button>
+                                                </div>
+                                                <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Form>
+                            </div>
+                            <div className="clearfix"> </div>
+                        </div>
                     </div>
                 </div>
             </div>

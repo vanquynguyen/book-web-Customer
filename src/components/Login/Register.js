@@ -3,6 +3,7 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import { isEmail, isEmpty } from 'validator';
+import * as jquery from 'jquery';
 
 // import { actAddUserRequest } from '../../actions/Users';
 // import { connect } from 'react-redux';
@@ -64,12 +65,9 @@ class Register extends Component {
                     this.setState({
                         emailExist: 403
                     });
-                    
-                    // swal("Email already exist!", "You clicked the button!", "warning");
                 } else {
-                    // this.props.onAddUser(user);
+                    jquery('.close').click();
                     swal("Register Success!", "You clicked the button!", "success");
-                    // this.props.history.push('/') ;
                 }
                
             });

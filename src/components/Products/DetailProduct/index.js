@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Breadscrumb from '../../Sections/Breadcrumb';
 import { connect } from 'react-redux';
-// import swal from 'sweetalert';
 import { actGetBookRequest } from '../../../actions/Books/index';
+import { actFetchCartsRequest } from '../../../actions/Carts';
 import * as Config from '../../../constants/Config';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 class DetailProduct extends Component {
 
@@ -51,6 +52,59 @@ class DetailProduct extends Component {
                 amount: booksEditing.amount,
             })
         }
+    }
+
+    onSubmit(id) {
+        const bookId = id
+        axios.get(Config.API_URL+ '/cart/get-book-id', {params: {bookId: bookId}}).then(res => {
+          
+            var data = res.data;
+       
+            if (data.length > 0) {
+                var bookId = id;
+                var addedAmount = data['0'].amount + 1;
+                var price = data['0'].price*2;
+                var request = {
+                    'amount' : addedAmount,
+                    'price' : price
+                }
+                axios.get(Config.API_URL+ `/books/${bookId}`).then(response => {
+                    // console.log(response)
+                    const amountBook = response.data.amount;
+                    const userId = this.props.account.id;
+                    if (addedAmount <= amountBook) {
+                        axios.put(Config.API_URL+ `/carts/${data['0'].id}`, request).then(response => {
+                           
+                            swal({
+                                title: `Added ${addedAmount} / ${amountBook} products`,
+                                text: "You clicked the button!",
+                                icon: "success",
+                            });
+
+                            this.props.fetchAllCarts(userId);
+                        });
+                    } else {
+                        swal({
+                            title: "Too many amount allowed!",
+                            text: "You clicked the button!",
+                            icon: "warning",
+                        });
+                    }
+                });
+            } else {
+                const userId = this.props.account.id;
+                const bookId = id;
+                const data = {
+                    bookId: bookId,
+                    userId: userId
+                }
+                axios.post(Config.API_URL+ '/carts', data).then(response => {
+                    swal("Good job!", "You clicked the button!", "success");
+                    this.props.fetchAllCarts(userId);
+                });
+            }
+
+        });
     }
     
     render () {
@@ -145,23 +199,8 @@ class DetailProduct extends Component {
                                     <i className="fa fa-refresh" aria-hidden="true"></i>{this.state.description}
                                 </p>
                             </div>
-                            <div className="occasion-cart">
-                                <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                    <form action="#" method="post">
-                                        <fieldset>
-                                            <input type="hidden" name="cmd" value="_cart" />
-                                            <input type="hidden" name="add" value="1" />
-                                            <input type="hidden" name="business" value=" " />
-                                            <input type="hidden" name="item_name" value="Zeeba Premium Basmati Rice - 5 KG" />
-                                            <input type="hidden" name="amount" value="950.00" />
-                                            <input type="hidden" name="discount_amount" value="1.00" />
-                                            <input type="hidden" name="currency_code" value="USD" />
-                                            <input type="hidden" name="return" value=" " />
-                                            <input type="hidden" name="cancel_return" value=" " />
-                                            <input type="submit" name="submit" value="Add to cart" className="button" />
-                                        </fieldset>
-                                    </form>
-                                </div>
+                            <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                                <input type="button" name="submit" value="Add to cart" onClick={e => this.onSubmit(this.state.id)} className="button" />
                             </div>
                         </div>
                         <div className="clearfix"> </div>
@@ -366,6 +405,7 @@ class DetailProduct extends Component {
 const mapStateToProps = state => {
     return {
         booksEditing : state.booksEditing,
+        account: state.account,
     }
 }
 
@@ -373,6 +413,9 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         onGetBook: (id) => {
             dispatch(actGetBookRequest(id));
+        },
+        fetchAllCarts: (userId) => {
+            dispatch(actFetchCartsRequest(userId));
         },
     }
 }

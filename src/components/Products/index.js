@@ -21,6 +21,18 @@ const List = () => {
                     <div className="agileinfo-ads-display col-md-9">
                         <div className="wrapper">
                             <NewBooks />
+                            <div className="product-sec1 product-sec2">
+                                <div className="col-xs-7 effect-bg">
+                                    <h3 className="">Pure Energy</h3>
+                                    <h6>Enjoy our all healthy Products</h6>
+                                    <p>Get Extra 10% Off</p>
+                                </div>
+                                <h3 className="w3l-nut-middle">Reading &amp; Feeling Books</h3>
+                                <div className="col-xs-5 bg-right-nut">
+                                    <img src="http://www.top7thuvi.com/wp-content/uploads/2017/03/me-before-you.jpg" width="240" alt="" />
+                                </div>
+                                <div className="clearfix"></div>
+                            </div>
                             <div className="product-sec1">
                                 <h3 className="heading-tittle">Top Booking</h3>
                                 <div className="col-md-4 product-men">
@@ -144,7 +156,7 @@ const List = () => {
                     </div>
                 </div>
             </div>
-            <div className="featured-section" id="projects">
+            {/* <div className="featured-section" id="projects">
                 <div className="container">
                     <h3 className="tittle-w3l">Special Offers
                         <span className="heading-style">
@@ -431,7 +443,7 @@ const List = () => {
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

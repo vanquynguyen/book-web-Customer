@@ -8,6 +8,8 @@ import axios from 'axios';
 import * as Config from '../../constants/Config';
 import { connect } from 'react-redux';
 import { actFetchUserRequest } from '../../actions/Users';
+import { actFetchCartsRequest } from '../../actions/Carts';
+import * as jquery from 'jquery';
 
 const required = (value) => {
     if (isEmpty(value)) {
@@ -76,10 +78,11 @@ class Login extends Component {
                     const token = localStorage.getItem('token');
                     const userId = response.data.user.id;
                     localStorage.setItem('userId', userId);
+                    this.props.fetchAllCarts(userId);
                     if (token) {
                         this.props.onFetchUser(token);
                     }
-                    // this.props.history.push('/add-book');
+                    jquery('.close').click();
                 }
             })
 
@@ -160,6 +163,9 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         onFetchUser: (token) => {
             dispatch(actFetchUserRequest(token));
+        },
+        fetchAllCarts: (userId) => {
+            dispatch(actFetchCartsRequest(userId));
         },
     }
 }

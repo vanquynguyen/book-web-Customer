@@ -6,6 +6,7 @@ import Register from '../Login/Register';
 import axios from 'axios';
 import swal from 'sweetalert';
 import * as Config from '../../constants/Config';
+import $ from 'jquery';
 
 import { connect } from 'react-redux';
 import { actFetchCartsRequest, actDeleteCartRequest } from '../../actions/Carts';
@@ -70,7 +71,15 @@ class Header extends Component {
             return <div className="cart-item" key={index}>
                         <img src="https://sachgiai.com/uploads/book/sach-giao-khoa-toan-1/sach-giao-khoa-toan-1-0.jpg" alt="" width="32"/>
                         {cart.title}
-                        <i className="fa fa-times" style={{marginLeft: '15px'}} onClick={() => this.onDelete(cart.id)}></i>
+                        <i className="fa fa-times" style={{ float: 'right', marginTop: '13px' }} onClick={() => this.onDelete(cart.id)}></i>
+                        <div style={{ marginTop: '10px' }}>
+                            <span style={{ color: '#ff5722' }}>
+                                $ {cart.price}
+                            </span>
+                            <span style={{ float: 'right' }}>
+                                {cart.amount} products
+                            </span>
+                        </div>
                     </div>
         });
 
@@ -80,10 +89,10 @@ class Header extends Component {
                     <div className="header-bot_inner_wthreeinfo_header_mid">
                         <div className="col-md-4 logo_agile">
                             <h1>
-                                <Link to="/">
-                                <span>UTT</span>
-                                <span>BOOK</span>
-                                <img src="/images/logo2.png" alt="" />
+                                <Link to="/" className="scroller-home">
+                                    <span>UTT</span>
+                                    <span>BOOK</span>
+                                    <img src="/images/logo2.png" alt="" />
                                 </Link>
                             </h1>
                         </div>
@@ -107,13 +116,13 @@ class Header extends Component {
                                                 <img width="20" src="https://images.viblo.asia/avatar/398ff412-f7d3-4e32-85b3-50efae907d6b.png" alt=""/> {auth.email}
                                             </a>
                                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px' }}>
-                                                <Link to={`/user/${auth.id}/profile`} className="dropdown-item" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}}>
+                                                <Link to={`/user/${auth.id}/profile`} className="dropdown-item scroller" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}}>
                                                     <i className="fa fa-user"></i> Profile
                                                 </Link>
                                                 <br />
-                                                <Link to="/user/add-book" className="dropdown-item" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}}><i className="fa fa-check"></i> Request books</Link>
+                                                <Link to="/user/add-book" className="dropdown-item scroller" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}}><i className="fa fa-check"></i> Request books</Link>
                                                 <br />
-                                                <a className="dropdown-item" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}} onClick={this.Logout}><i className="fa fa-sign-out"></i> Logout</a>
+                                                <a className="dropdown-item scroller" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}} onClick={this.Logout}><i className="fa fa-sign-out"></i> Logout</a>
                                             </ul>
                                         </div>
                                     </li>
@@ -149,7 +158,7 @@ class Header extends Component {
                                                 <div>
                                                     <span> {listCarts}</span>
                                                     <hr />
-                                                    <Link to='/checkout' style={{marginLeft: '27px'}}> <button className="minicartk-submit">Check out & Payment</button> </Link>
+                                                    <Link to='/checkout' className="scroller" id="checkout" style={{marginLeft: '27px'}}> <button className="minicartk-submit">Check out & Payment</button> </Link>
                                                 </div>
                                             ) : (
                                                 <span>Your shopping cart is empty</span>
@@ -177,7 +186,6 @@ class Header extends Component {
     }
 };
 
-
 const mapStateToProps = state => {
     return {
         account: state.account,
@@ -195,5 +203,11 @@ const mapDispatchToProps = (dispatch, props) => {
         }
     }
 }
+
+$(document).ready(function(){  
+    $('.scroller').click(function() {
+        $('html, body').animate({scrollTop:0}, 'slow');
+    });
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

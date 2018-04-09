@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './author.css';
 
 const Author = () => {
@@ -189,9 +190,9 @@ const Author = () => {
             </div>
             <hr />
             <div className="sidebar-box-links">
-                <a className="accented-link">
-                <i aria-hidden="true" className="fa fa-tags mr-05"></i> All authors
-                </a>
+                <Link to="/users" className="accented-link">
+                    <i aria-hidden="true" className="fa fa-tags mr-05"></i> All authors
+                </Link>
             </div>
         </div>
     );

@@ -39,7 +39,8 @@ class BooksItem extends Component {
         axios.get(Config.API_URL+ '/cart/get-book-id', {params: {bookId: bookId}}).then(res => {
           
             var data = res.data;
-            if (data['0'].id !== "undefined") {
+ 
+            if (data.length > 0) {
                 var bookId = id;
                 var addedAmount = data['0'].amount + 1;
                 var price = data['0'].price*2;
@@ -78,7 +79,12 @@ class BooksItem extends Component {
                     userId: userId
                 }
                 axios.post(Config.API_URL+ '/carts', data).then(response => {
-                    swal("Good job!", "You clicked the button!", "success");
+                    swal({
+                        title: `Added 1 products`,
+                        text: "You clicked the button!",
+                        icon: "success",
+                    });
+
                     this.props.fetchAllCarts(userId);
                 });
             }
