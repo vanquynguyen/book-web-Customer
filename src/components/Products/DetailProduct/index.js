@@ -228,7 +228,7 @@ class DetailProduct extends Component {
                             CHƯƠNG VIII – TỪ VI MÔ ĐÊN VĨ MÔ
                         </p>
                     </div>
-                    <NavTab />
+                    <NavTab id={this.state.id}/>
                 </div>
                 <div className="featured-section" id="projects">
                 <div className="container">

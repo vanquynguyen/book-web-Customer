@@ -5,10 +5,11 @@ import Books from './components/Products/Books/index';
 import Checkout from './components/Carts/Checkout/index';
 import Payment from './components/Carts/Payment/index';
 import AddBook from './components/Products/AddBook/index';
-import UserProfile from './components/Profile/index';
+import MyProfile from './components/Profile/index';
+import UserProfile from './components/Profile/User';
 import Users from './components/Users/index';
 // import NotFound from './components/NotFound';
-
+const auth = localStorage.getItem('userId');
 const routes = [
     {
         path: '/',
@@ -41,14 +42,19 @@ const routes = [
         main: () => <Users />
     },
     {
-        path: '/user/:id/profile',
+        path: '/user/profile',
         exact: false,
-        main: ({ match, history }) => <UserProfile match={match} history={history} />
+        main: () => <MyProfile />
     },
     {
         path: '/user/add-book',
         exact: false,
         main: () => <AddBook />
+    },
+    {
+        path: '/user/:id',
+        exact: false,
+        main: ({ match, history }) => <UserProfile match={match} history={history} />
     },
     {
         path: '/book/:id/detail',

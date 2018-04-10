@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 // import swal from 'sweetalert';
 import { actGetUserRequest } from '../../actions/Users/';
 import * as Config from '../../constants/Config';
+// import axios from 'axios';
 
 class UserProfile extends Component {
 
@@ -21,8 +22,11 @@ class UserProfile extends Component {
     }
 
     componentWillMount() {
-        const id = localStorage.getItem('userId');
-        this.props.onGetUser(id);
+        var { match } = this.props;
+        if (match) { // update
+            var id = match.params.id;
+            this.props.onGetUser(id)
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -153,7 +157,6 @@ class UserProfile extends Component {
 const mapStateToProps = state => {
     return {
         usersEditing : state.usersEditing,
-        account: state.account
     }
 }
 

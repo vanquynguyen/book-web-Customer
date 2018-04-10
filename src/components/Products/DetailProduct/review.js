@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import axios from 'axios';
 import * as Config from '../../../constants/Config';
+import { actFetchReviewsRequest } from '../../../actions/Reviews';
 import * as jquery from 'jquery';
 
 class review extends Component {
@@ -13,6 +14,10 @@ class review extends Component {
         this.state = {
             rate: 5,
         };
+    }
+
+    componentDidMount() {
+        this.props.fetchAllReviews();
     }
 
     onStarClick(nextValue, prevValue, name) {
@@ -36,6 +41,7 @@ class review extends Component {
                 swal("Only once review!", "You clicked the button!", "warning");
             } else {
                 swal("Good job!", "You clicked the button!", "success");
+                this.props.fetchAllReviews();
             }
                 jquery('.close').click();
         });
@@ -102,7 +108,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-       
+        fetchAllReviews: () => {
+            dispatch(actFetchReviewsRequest());
+        }
     }
 }
 
