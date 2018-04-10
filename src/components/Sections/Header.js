@@ -69,7 +69,7 @@ class Header extends Component {
 
         const listCarts = carts.map((cart, index) => {
             return <div className="cart-item" key={index}>
-                        <img style={{ float: 'left'}} src="https://sachgiai.com/uploads/book/sach-giao-khoa-toan-1/sach-giao-khoa-toan-1-0.jpg" alt="" width="32"/>
+                        <img style={{ float: 'left'}} src={Config.LOCAL_URL + '/images/books/' + cart.image} alt="" width="32"/>
                         <p className="dropdown-cart-title">{cart.title}</p>
                         <i className="fa fa-times" style={{ float: 'right', marginTop: '13px' }} onClick={() => this.onDelete(cart.id)}></i>
                         <div style={{ marginTop: '60px' }}>
@@ -77,7 +77,7 @@ class Header extends Component {
                                 $ {cart.price}
                             </span>
                             <span style={{ float: 'right' }}>
-                                {cart.amount} products
+                                Amount: {cart.amount}x
                             </span>
                         </div>
                     </div>
@@ -129,12 +129,14 @@ class Header extends Component {
                                 ) : (
                                     <span>
                                         <li>
-                                            <a  data-toggle="modal" data-target="#myModal1">
-                                        <span className="fa fa-unlock-alt" aria-hidden="true"></span> Sign In </a>
+                                            <a data-toggle="modal" data-target="#myModal1">
+                                                <span className="fa fa-unlock-alt" aria-hidden="true"></span> Sign In 
+                                            </a>
                                         </li>
                                         <li>
-                                            <a  data-toggle="modal" data-target="#myModal2">
-                                            <span className="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up </a>
+                                            <a data-toggle="modal" data-target="#myModal2">
+                                                <span className="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up 
+                                            </a>
                                         </li>
                                     </span>
                                 )}
@@ -153,12 +155,12 @@ class Header extends Component {
                                         <a className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i className="fa fa-cart-arrow-down" aria-hidden="true" style={{ fontSize: '40px', color: 'white' }}></i>
                                         </a>
-                                        <ul className="dropdown-menu dropdown-carts" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px', width:'318px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important' }}>
+                                        <ul className="dropdown-menu dropdown-carts" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px', width:'326px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important' }}>
                                             {carts.length > 0 && auth.id ? ( 
                                                 <div>
                                                     <span> {listCarts}</span>
                                                     <hr />
-                                                    <Link to='/checkout' className="scroller" id="checkout" style={{marginLeft: '27px'}}> <button className="minicartk-submit">Check out & Payment</button> </Link>
+                                                    <Link to='/checkout' className="scroller" id="checkout" style={{marginLeft: '55px'}}> <button className="minicartk-submit">Check out & Payment</button> </Link>
                                                 </div>
                                             ) : (
                                                 <span>Your shopping cart is empty</span>

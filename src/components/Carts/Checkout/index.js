@@ -6,10 +6,11 @@ import * as Config from '../../../constants/Config';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
-import { isEmail, isEmpty } from 'validator'
+import { isEmail, isEmpty } from 'validator';
+import { withRouter } from 'react-router';
 import axios from 'axios';
 import swal from 'sweetalert';
-import { actFetchCartsRequest, actDeleteCartRequest, actFetchTotalPrice } from '../../../actions/Carts/index';
+import { actFetchCartsRequest, actDeleteCartRequest } from '../../../actions/Carts/index';
 
 
 const required = (value) => {
@@ -100,6 +101,7 @@ class checkOut extends Component {
                     this.props.history.push(`/user/${user_id}/profile`);
                 } else {
                     const orderId = res.data.orderId;
+                    this.props.history.push(`/order/${orderId}/payment`);
                 }
              
             });
@@ -380,4 +382,4 @@ const mapDispatchToProps = (dispatch, props) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(checkOut);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(checkOut));

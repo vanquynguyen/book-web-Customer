@@ -15,6 +15,8 @@ export const FETCH_HOME_BOOKS = 'FETCH_HOME_BOOKS';
 export const GET_BOOK = 'GET_BOOK';
 
 //ShoppingCart
-
 export const FETCH_CARTS = 'FETCH_CARTS';
 export const DELETE_CART= 'DELETE_CART';
+
+//Review
+export const FETCH_REVIEWS= 'FETCH_REVIEWS';

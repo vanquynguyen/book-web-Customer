@@ -120,7 +120,7 @@ class BooksItem extends Component {
                 <div className="men-pro-item simpleCart_shelfItem">
                     <div className="men-thumb-item">
                         <Link to={`/book/${book.id}/detail`}>
-                            <img src={Config.LOCAL_URL+ '/images/books/' + book.image} alt="" width="150" height="200"/>
+                            <img src={Config.LOCAL_URL + '/images/books/' + book.image} alt="" width="150" height="200"/>
                         </Link>
                         <div className="men-cart-pro">
                             <div className="inner-men-cart-pro">

@@ -9,6 +9,7 @@ import books from './Books/Books';
 import booksEditing from './Books/ItemEditing';
 
 import carts from './Carts/Carts';
+import reviews from './Reviews/Reviews';
 
 const appReducers = combineReducers({
     categories,
@@ -18,6 +19,7 @@ const appReducers = combineReducers({
     books,
     booksEditing,
     carts,
+    reviews
 
 });
 

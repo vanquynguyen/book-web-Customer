@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Breadscrumb from '../../Sections/Breadcrumb';
+import NavTab from './navTab';
+import Review from './review';
 import { connect } from 'react-redux';
 import { actGetBookRequest } from '../../../actions/Books/index';
 import { actFetchCartsRequest } from '../../../actions/Carts';
+import { actFetchReviewsRequest } from '../../../actions/Reviews';
 import * as Config from '../../../constants/Config';
 import axios from 'axios';
 import swal from 'sweetalert';
@@ -23,6 +26,10 @@ class DetailProduct extends Component {
            price: '',
            amount: '',
         };
+    }
+
+    componentDidMount() {
+        this.props.fetchAllReviews();
     }
 
     componentWillMount() {
@@ -109,7 +116,6 @@ class DetailProduct extends Component {
     
     render () {
         const image = this.state.image;
-
         return (
             <div>
                 <Breadscrumb name='Detail'/>
@@ -136,18 +142,21 @@ class DetailProduct extends Component {
                                 {this.state.author}
                             </h4>
                             <div style={{marginTop: '10px'}} className="rating1">
-                                <span className="starRating">
-                                <input id="rating5" type="radio" name="rating" value="5" />
-                                <label>5</label>
-                                <input id="rating4" type="radio" name="rating" value="4" />
-                                <label>4</label>
-                                <input id="rating3" type="radio" name="rating" value="3" checked="" />
-                                <label>3</label>
-                                <input id="rating2" type="radio" name="rating" value="2" />
-                                <label>2</label>
-                                <input id="rating1" type="radio" name="rating" value="1" />
-                                <label>1</label>
-                                </span>
+                                <a data-toggle="modal" data-target="#review-rate"> 
+                                    <span className="starRating">
+                                        <input id="rating5" type="radio" name="rating" value="5" />
+                                        <label>5</label>
+                                        <input id="rating4" type="radio" name="rating" value="4" />
+                                        <label>4</label>
+                                        <input id="rating3" type="radio" name="rating" value="3" checked="" />
+                                        <label>3</label>
+                                        <input id="rating2" type="radio" name="rating" value="2" />
+                                        <label>2</label>
+                                        <input id="rating1" type="radio" name="rating" value="1" />
+                                        <label>1</label>
+                                    </span>
+                                </a>
+                                <Review id={this.state.id}/>
                             </div>
                             <h4 style={{marginTop: '10px'}}>
                                 Poster: 
@@ -203,8 +212,23 @@ class DetailProduct extends Component {
                                 <input type="button" name="submit" value="Add to cart" onClick={e => this.onSubmit(this.state.id)} className="button" />
                             </div>
                         </div>
-                        <div className="clearfix"> </div>
+                        
                     </div>
+                    <div className="container" style={{ marginTop: '20px'}}>
+                        <h3>Description</h3>
+                        <p>
+                            Giới thiệu: Sách giáo khoa vật lý 12, bao gồm 8 chương:
+                            CHƯƠNG I – DAO ĐỘNG CƠ
+                            CHƯƠNG II – SÓNG CƠ VÀ SÓNG ÂM
+                            CHƯƠNG III – DÒNG ĐIỆN XOAY CHIỀU
+                            CHƯƠNG IV – DAO ĐỘNG VÀ SÓNG ĐIỆN TỪ
+                            CHƯƠNG V – SÓNG ÁNH SÁNG
+                            CHƯƠNG VI – LƯỢNG TỰ ÁNH SÁNG
+                            CHƯƠNG VII – HẠT NHÂN NGUYÊN TỬ
+                            CHƯƠNG VIII – TỪ VI MÔ ĐÊN VĨ MÔ
+                        </p>
+                    </div>
+                    <NavTab />
                 </div>
                 <div className="featured-section" id="projects">
                 <div className="container">
@@ -406,6 +430,7 @@ const mapStateToProps = state => {
     return {
         booksEditing : state.booksEditing,
         account: state.account,
+        reviews: state.reviews
     }
 }
 
@@ -417,6 +442,9 @@ const mapDispatchToProps = (dispatch, props) => {
         fetchAllCarts: (userId) => {
             dispatch(actFetchCartsRequest(userId));
         },
+        fetchAllReviews: () => {
+            dispatch(actFetchReviewsRequest());
+        }
     }
 }
 

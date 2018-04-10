@@ -54,6 +54,11 @@ const routes = [
         path: '/book/:id/detail',
         exact: false,
         main: ({ match, history }) => <DetailProduct match={match} history={history} />
+    },
+    {
+        path: '/order/:id/payment',
+        exact: false,
+        main: ({ match, history }) => <Payment match={match} history={history} />
     }
     // {
     //     path: '',

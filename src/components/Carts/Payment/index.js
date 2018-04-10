@@ -2,128 +2,84 @@ import React, { Component } from 'react';
 import BreadCrumb from '../../Sections/Breadcrumb';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import Form from 'react-validation/build/form';
+import Input from 'react-validation/build/input';
+import CheckButton from 'react-validation/build/button';
+import { isEmpty } from 'validator';
 import * as Config from '../../../constants/Config';
 import axios from 'axios';
 import swal from 'sweetalert';
-import { actFetchCartsRequest, actDeleteCartRequest } from '../../../actions/Carts/index';
+
+const required = (value) => {
+    if (isEmpty(value)) {
+        return <small className="form-text text-danger">This field is required</small>;
+    }
+}
+
+const number = (value) => {
+    if (isNaN(value) !== false) {
+        return <small className="form-text text-danger">Phone must be number</small>;
+    }
+}
 
 class Payment extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            carts: {},
-            amount: {},
-            price: {}
+            orderId: '',
+            number_card: '',
+            cvc: '',
+            exp_month: '',
+            exp_year: ''
+
         };
     }
 
-    componentDidMount() {
-        // Gọi trước khi component đc render lần đầu tiên
-        const userId = localStorage.getItem('userId');
-        this.props.fetchAllCarts(userId); 
+    componentWillMount() {
+        var { match } = this.props;
+        if (match) { // update
+            var orderId = match.params.id;
+            this.setState({
+                orderId: orderId
+            })
+        }
     }
 
-    onMinus = (cart) => {
-        // const amountBook = response.data.amount;
-        const userId = this.props.account.id;
-        var amountCart = cart.amount - 1;
-        var price = cart.price/2;
-        // parseInt
-        const data = {
-            'amount' : amountCart,
-            'price' : price
-        }
-        if (amountCart > 0) {
-            axios.put(Config.API_URL+ `/carts/${cart.id}`, data).then(response => {
-                this.props.fetchAllCarts(userId);
+    onChangeHandler = (e) => {
+        e.preventDefault();
+        this.setState({
+            [e.target.name]: e.target.value,
+            exp_month: this.refs.exp_month.value,
+            exp_year: this.refs.exp_year.value,
+            
+        })
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+
+        this.form.validateAll();
+        if ( this.checkBtn.context._errors.length === 0 ) {
+            var { orderId, number_card, cvc, exp_month, exp_year } = this.state;
+            var data = new FormData()
+            data.append("orderId", orderId);
+            data.append("number_card", number_card);
+            data.append("cvc", cvc);
+            data.append("exp_month", exp_month);
+            data.append("exp_year", exp_year);
+
+            axios.put(Config.API_URL + `/orders/${orderId}`, data).then(res => {
+                const userId = this.props.account.id;
+                this.props.history.push(`/user/${userId}/profile`);
+                swal("Good job!", "You clicked the button!", "success");
             });
-        } else {
-            swal({
-                title: "Quantity must be greater than 0!",
-                text: "You clicked the button!",
-                icon: "warning",
-              });
         }
-    }
-
-    onPlus = (cart) => {
-        axios.get(Config.API_URL+ `/books/${cart.book_id}`).then(response => {
-            const amountBook = response.data.amount;
-            const userId = this.props.account.id;
-            var amountCart = cart.amount + 1;
-            var price = cart.price*2;
-            // parseInt
-            const data = {
-                'amount' : amountCart,
-                'price' : price
-            }
-            if (amountCart <= amountBook) {
-                axios.put(Config.API_URL+ `/carts/${cart.id}`, data).then(response => {
-                    this.props.fetchAllCarts(userId);
-                });
-            } else {
-                swal({
-                    title: "Too many amount allowed!",
-                    text: "You clicked the button!",
-                    icon: "warning",
-                  });
-            }
-        })
-    }
-
-    onDelete = (id) => {
-        console.log(id)
-        swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this imaginary file!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-                swal("Poof! Your imaginary file has been deleted!", {
-                    icon: "success",
-                });
-                this.props.onDeleteCart(id);
-            } else {
-                swal("Your imaginary file is safe!");
-            }
-        });
     }
 
     render() {
-        const auth = this.props.account;
-        const carts = this.props.carts;
-        const listCarts = carts.map((cart, index) =>
-            <tr className="rem1" key={index}>
-                <td className="invert">{index + 1}</td>
-                <td className="invert-image">
-                    <a>
-                    <img src={Config.LOCAL_URL + '/images/books/' + cart.image} alt="" style={{ width: '64px'}} className="img-responsive" />
-                    </a>
-                </td>
-                <td className="invert">
-                    <div className="quantity">
-                        <div className="quantity-select">
-                            <div className="entry value-minus" onClick={() => this.onMinus(cart)}>&nbsp;</div>
-                            <div className="entry value">
-                                <span>{cart.amount}</span>
-                            </div>
-                            <div className="entry value-plus active" onClick={() => this.onPlus(cart)}>&nbsp;</div>
-                        </div>
-                    </div>
-                </td>
-                <td className="invert">{cart.title}</td>
-                <td className="invert">${cart.price}</td>
-                <td className="invert">
-                    <div className="rem">
-                        <div className="close1" onClick={() => this.onDelete(cart.id)}></div>
-                    </div>
-                </td>
-            </tr>
-        );
+        const auth = this.props.account;;
 
         return (
             <div>
@@ -137,207 +93,111 @@ class Payment extends Component {
                             <i></i>
                             </span>
                         </h3>
-                        {/* <div className="checkout-right">
-                            <div id="parentHorizontalTab" style={{ display: 'block', width: '100%', margin: '0px' }}>
-                                <ul className="resp-tabs-list hor_1">
-                                    <li className="resp-tab-item hor_1" aria-controls="hor_1_tab_item-0" role="tab" style={{ backgroundColor: 'rgb(245, 245, 245)', borderColor: 'rgb(193, 193, 193)'}}>Cash on delivery (COD)</li>
-                                    <li className="resp-tab-item hor_1" aria-controls="hor_1_tab_item-1" role="tab" style={{ backgroundColor: 'rgb(245, 245, 245)', borderColor: 'rgb(193, 193, 193)'}}>Credit/Debit</li>
-                                    <li className="resp-tab-item hor_1" aria-controls="hor_1_tab_item-2" role="tab" style={{ backgroundColor: 'rgb(245, 245, 245)', borderColor: 'rgb(193, 193, 193)'}}>Net Banking</li>
-                                    <li className="resp-tab-item hor_1 resp-tab-active" aria-controls="hor_1_tab_item-3" role="tab" style={{ backgroundColor: 'white', borderColor: 'rgb(193, 193, 193)' }}>Paypal Account</li>
+                        <div id="payment">
+                            <br />
+                            <div className="form-group col-sm-6 col-xs-12">
+                                <label  className="blankLabel"></label>
+                                <ul className="list-inline">
+                                    <li><a ><img src="http://framgia-travel.herokuapp.com/images/img_sites/booking/master-card.jpg" alt="" /></a></li>
+                                    <li><a ><img src="http://framgia-travel.herokuapp.com/images/img_sites/booking/discover.jpg" alt="" /></a></li>
+                                    <li><a ><img src="http://framgia-travel.herokuapp.com/images/img_sites/booking/visa.jpg" alt="" /></a></li>
+                                    <li><a ><img src="http://framgia-travel.herokuapp.com/images/img_sites/booking/paypal.jpg" alt="" /></a></li>
                                 </ul>
-                                <div className="resp-tabs-container hor_1" style={{ borderColor: 'rgb(193, 193, 193)' }}>
-                                    <h2 className="resp-accordion hor_1" role="tab" aria-controls="hor_1_tab_item-0" style={{ background: 'none rgb(245, 245, 245)', borderColor: 'rgb(193, 193, 193)' }}><span className="resp-arrow"></span>Cash on delivery (COD)</h2>
-                                    <div className="resp-tab-content hor_1" aria-labelledby="hor_1_tab_item-0">
-                                        <div className="vertical_post check_box_agile">
-                                            <h5>COD</h5>
-                                            <div className="checkbox">
-                                                <div className="check_box_one cashon_delivery">
-                                                    <label className="anim">
-                                                    <input type="checkbox" className="checkbox" />
-                                                    <span> We also accept Credit/Debit card on delivery. Please Check with the agent.</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h2 className="resp-accordion hor_1" role="tab" aria-controls="hor_1_tab_item-1" style={{ background: 'none rgb(245, 245, 245)', borderColor: 'rgb(193, 193, 193)' }}><span className="resp-arrow"></span>Credit/Debit</h2>
-                                    <div className="resp-tab-content hor_1" aria-labelledby="hor_1_tab_item-1">
-                                        <form action="#" method="post" className="creditly-card-form agileinfo_form">
-                                            <div className="creditly-wrapper wthree, w3_agileits_wrapper">
-                                                <div className="credit-card-wrapper">
-                                                    <div className="first-row form-group">
-                                                        <div className="controls">
-                                                            <label className="control-label">Name on Card</label>
-                                                            <input className="billing-address-name form-control" type="text" name="name" placeholder="John Smith" />
-                                                        </div>
-                                                        <div className="w3_agileits_card_number_grids">
-                                                            <div className="w3_agileits_card_number_grid_left">
-                                                                <div className="controls">
-                                                                    <label className="control-label">Card Number</label>
-                                                                    <input className="number credit-card-number form-control" type="text" name="number"  placeholder="•••• •••• •••• ••••" />
-                                                                </div>
-                                                            </div>
-                                                            <div className="w3_agileits_card_number_grid_right">
-                                                                <div className="controls">
-                                                                    <label className="control-label">CVV</label>
-                                                                    <input className="security-code form-control" type="text" name="security-code" placeholder="•••" />
-                                                                </div>
-                                                            </div>
-                                                            <div className="clear"> </div>
-                                                        </div>
-                                                        <div className="controls">
-                                                            <label className="control-label">Expiration Date</label>
-                                                            <input className="expiration-month-and-year form-control" type="text" name="expiration-month-and-year" placeholder="MM / YY" />
-                                                        </div>
-                                                    </div>
-                                                    <button className="submit">
-                                                    <span>Make a payment </span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <h2 className="resp-accordion hor_1" role="tab" aria-controls="hor_1_tab_item-2" style={{ background: 'none rgb(245, 245, 245)', borderColor: 'rgb(193, 193, 193)' }}><span className="resp-arrow"></span>Net Banking</h2>
-                                    <div className="resp-tab-content hor_1" aria-labelledby="hor_1_tab_item-2">
-                                        <div className="vertical_post">
-                                            <form action="#" method="post">
-                                                <h5>Select From Popular Banks</h5>
-                                                <div className="swit-radio">
-                                                    <div className="check_box_one">
-                                                        <div className="radio_one">
-                                                            <label>
-                                                            <input type="radio" name="radio" checked="" />
-                                                            <i></i>Syndicate Bank</label>
-                                                        </div>
-                                                    </div>
-                                                    <div className="check_box_one">
-                                                        <div className="radio_one">
-                                                            <label>
-                                                            <input type="radio" name="radio" />
-                                                            <i></i>Bank of Baroda</label>
-                                                        </div>
-                                                    </div>
-                                                    <div className="check_box_one">
-                                                        <div className="radio_one">
-                                                            <label>
-                                                            <input type="radio" name="radio" />
-                                                            <i></i>Canara Bank</label>
-                                                        </div>
-                                                    </div>
-                                                    <div className="check_box_one">
-                                                        <div className="radio_one">
-                                                            <label>
-                                                            <input type="radio" name="radio" />
-                                                            <i></i>ICICI Bank</label>
-                                                        </div>
-                                                    </div>
-                                                    <div className="check_box_one">
-                                                        <div className="radio_one">
-                                                            <label>
-                                                            <input type="radio" name="radio" />
-                                                            <i></i>State Bank Of India</label>
-                                                        </div>
-                                                    </div>
-                                                    <div className="clearfix"></div>
-                                                </div>
-                                                <h5>Or Select Other Bank</h5>
-                                                <div className="section_room_pay">
-                                                    <select className="year">
-                                                        <option value="">=== Other Banks ===</option>
-                                                        <option value="ALB-NA">Allahabad Bank NetBanking</option>
-                                                        <option value="ADB-NA">Andhra Bank</option>
-                                                        <option value="BBK-NA">Bank of Bahrain and Kuwait NetBanking</option>
-                                                        <option value="BBC-NA">Bank of Baroda Corporate NetBanking</option>
-                                                        <option value="BBR-NA">Bank of Baroda Retail NetBanking</option>
-                                                        <option value="BOI-NA">Bank of India NetBanking</option>
-                                                        <option value="BOM-NA">Bank of Maharashtra NetBanking</option>
-                                                        <option value="CSB-NA">Catholic Syrian Bank NetBanking</option>
-                                                        <option value="CBI-NA">Central Bank of India</option>
-                                                        <option value="CUB-NA">City Union Bank NetBanking</option>
-                                                        <option value="CRP-NA">Corporation Bank</option>
-                                                        <option value="DBK-NA">Deutsche Bank NetBanking</option>
-                                                        <option value="DCB-NA">Development Credit Bank</option>
-                                                        <option value="DC2-NA">Development Credit Bank - Corporate</option>
-                                                        <option value="DLB-NA">Dhanlaxmi Bank NetBanking</option>
-                                                        <option value="FBK-NA">Federal Bank NetBanking</option>
-                                                        <option value="IDS-NA">Indusind Bank NetBanking</option>
-                                                        <option value="IOB-NA">Indian Overseas Bank</option>
-                                                        <option value="ING-NA">ING Vysya Bank (now Kotak)</option>
-                                                        <option value="JKB-NA">Jammu and Kashmir NetBanking</option>
-                                                        <option value="JSB-NA">Janata Sahakari Bank Limited</option>
-                                                        <option value="KBL-NA">Karnataka Bank NetBanking</option>
-                                                        <option value="KVB-NA">Karur Vysya Bank NetBanking</option>
-                                                        <option value="LVR-NA">Lakshmi Vilas Bank NetBanking</option>
-                                                        <option value="OBC-NA">Oriental Bank of Commerce NetBanking</option>
-                                                        <option value="CPN-NA">PNB Corporate NetBanking</option>
-                                                        <option value="PNB-NA">PNB NetBanking</option>
-                                                        <option value="RSD-DIRECT">Rajasthan State Co-operative Bank-Debit Card</option>
-                                                        <option value="RBS-NA">RBS (The Royal Bank of Scotland)</option>
-                                                        <option value="SWB-NA">Saraswat Bank NetBanking</option>
-                                                        <option value="SBJ-NA">SB Bikaner and Jaipur NetBanking</option>
-                                                        <option value="SBH-NA">SB Hyderabad NetBanking</option>
-                                                        <option value="SBM-NA">SB Mysore NetBanking</option>
-                                                        <option value="SBT-NA">SB Travancore NetBanking</option>
-                                                        <option value="SVC-NA">Shamrao Vitthal Co-operative Bank</option>
-                                                        <option value="SIB-NA">South Indian Bank NetBanking</option>
-                                                        <option value="SBP-NA">State Bank of Patiala NetBanking</option>
-                                                        <option value="SYD-NA">Syndicate Bank NetBanking</option>
-                                                        <option value="TNC-NA">Tamil Nadu State Co-operative Bank NetBanking</option>
-                                                        <option value="UCO-NA">UCO Bank NetBanking</option>
-                                                        <option value="UBI-NA">Union Bank NetBanking</option>
-                                                        <option value="UNI-NA">United Bank of India NetBanking</option>
-                                                        <option value="VJB-NA">Vijaya Bank NetBanking</option>
-                                                    </select>
-                                                </div>
-                                                <input type="submit" value="PAY NOW" />
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <h2 className="resp-accordion hor_1 resp-tab-active" role="tab" aria-controls="hor_1_tab_item-3" style={{ background: 'none rgb(245, 245, 245)', borderColor: 'rgb(193, 193, 193)' }}><span className="resp-arrow"></span>Paypal Account</h2>
-                                    <div className="resp-tab-content hor_1 resp-tab-content-active" aria-labelledby="hor_1_tab_item-3" style={{ display: 'block' }}>
-                                        <div id="tab4" className="tab-grid" style={{ display: 'block' }}>
-                                            <div className="row">
-                                                <div className="col-md-6">
-                                                    <img className="pp-img" src="images/paypal.png" alt="Image Alternative text" title="Image Title" />
-                                                    <p>Important: You will be redirected to PayPal's website to securely complete your payment.</p>
-                                                    <a className="btn btn-primary">Checkout via Paypal</a>
-                                                </div>
-                                                <div className="col-md-6 number-paymk">
-                                                    <form className="cc-form">
-                                                        <div className="clearfix">
-                                                            <div className="form-group form-group-cc-number">
-                                                                <label>Card Number</label>
-                                                                <input className="form-control" placeholder="xxxx xxxx xxxx xxxx" type="text" />
-                                                                <span className="cc-card-icon"></span>
-                                                            </div>
-                                                            <div className="form-group form-group-cc-cvc">
-                                                                <label>CVV</label>
-                                                                <input className="form-control" placeholder="xxxx" type="text" />
-                                                            </div>
-                                                        </div>
-                                                        <div className="clearfix">
-                                                            <div className="form-group form-group-cc-name">
-                                                                <label>Card Holder Name</label>
-                                                                <input className="form-control" type="text" />
-                                                            </div>
-                                                            <div className="form-group form-group-cc-date">
-                                                                <label>Valid Thru</label>
-                                                                <input className="form-control" placeholder="mm/yy" type="text" />
-                                                            </div>
-                                                        </div>
-                                                        <div className="checkbox checkbox-small">
-                                                            <label>
-                                                            <input className="i-check" type="checkbox" checked="" />Add to My Cards</label>
-                                                        </div>
-                                                        <input type="submit" className="submit" value="Proceed Payment" />
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
+                            </div>
+                            <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
+                                <div className="form-group col-sm-6 col-xs-12">
+                                    <label >Card Number</label>
+                                    <Input 
+                                        ref="number_card"
+                                        type="text" 
+                                        className="form-control" 
+                                        name="number_card" 
+                                        // value="4242424242424242" 
+                                        validations={[required, number]}
+                                        onChange={this.onChangeHandler}
+                                    />
+                                </div>
+                                <div className="form-group col-sm-6 col-xs-12">
+                                    <label >CVC</label>
+                                    <Input 
+                                        type="text" 
+                                        className="form-control" 
+                                        name="cvc" 
+                                        // value="123" 
+                                        validations={[required]}
+                                        onChange={this.onChangeHandler}
+                                    />
+                                </div>
+                                <div className="form-group col-sm-6 col-xs-12">
+                                    <label  className="blankLabel">Expiration Month</label>
+                                    <div className="bookingDrop">
+                                        <select 
+                                            ref="exp_month"
+                                            name="exp_month" 
+                                            className="form-control" 
+                                            validations={[required]}
+                                            onChange={this.onChangeHandler}
+                                        >
+                                            <option value="0">Month</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                        </select>
                                     </div>
                                 </div>
-                            </div>
-                        </div> */}
+                                <div className="form-group col-sm-6 col-xs-12">
+                                    <label >Expiration Year</label>
+                                    <div className="">
+                                        <select 
+                                            ref="exp_year"
+                                            name="exp_year"
+                                            className="form-control" 
+                                            validations={[required]}
+                                            onChange={this.onChangeHandler}
+                                        >
+                                            <option value="0">Year</option>
+                                            <option value="2019">2019</option>
+                                            <option value="2020">2020</option>
+                                            <option value="2021">2021</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="checkbox col-xs-12">
+                                    <label>
+                                    <input type="checkbox" />I will agree to UTT Book Shop
+                                    <a >Term &amp; Condition</a>
+                                    </label>
+                                </div>
+                                <div className="col-xs-12">
+                                    <div className="buttonArea galleryBtnArea">
+                                        <ul className="list-inline">
+                                            <li>
+                                                <div className="active nav nav-tab" role="tablist">
+                                                    <Link to={`/user/${auth.id}/profile`} className="btn buttonTransparent btn-back" aria-expanded="true">
+                                                    Back
+                                                    </Link>
+                                                </div>
+                                            </li>
+                                            <li className="pull-right">
+                                                <button type="submit" id="btnt" className="btn buttonTransparent btn-payment">
+                                                    Payment
+                                                </button>
+                                                <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </Form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -347,22 +207,16 @@ class Payment extends Component {
 
 const mapStateToProps = state => {
     return {
-        books: state.books,
         account: state.account,
-        carts: state.carts
+
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        fetchAllCarts: (userId) => {
-            dispatch(actFetchCartsRequest(userId));
-        },
-        onDeleteCart: (id) => {
-            dispatch(actDeleteCartRequest(id))
-        }
+        //
     }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Payment);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Payment));

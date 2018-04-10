@@ -61,7 +61,38 @@ class UserProfile extends Component {
                                 </a>
                             </div>
                             <div className="prheadlineinfo pull-right navbar-collapse">
-                                <ul className="nav nav-tabs prnav-tabs">
+                            <ul className="nav nav-tabs" role="tablist">
+                            <li role="presentation" className="active">
+                                <a href="#overview" aria-controls="overview" role="tab" data-toggle="tab" aria-expanded="true">Overview</a>
+                            </li>
+                            <li role="presentation" className="">
+                                <a href="#itinerary" aria-controls="itinerary" role="tab" data-toggle="tab" aria-expanded="false">Itinerary</a>
+                            </li>
+                            <li role="presentation" className="">
+                                <a href="#start_at" aria-controls="start_at" role="tab" data-toggle="tab" aria-expanded="false">Start at</a>
+                            </li>
+                            <li role="presentation" className="">
+                                <a href="#note" aria-controls="note" role="tab" data-toggle="tab" aria-expanded="false">Note</a>
+                            </li>
+                            <li role="presentation" className="">
+                                <a href="#comment" aria-controls="comment" role="tab" data-toggle="tab" aria-expanded="false">Comments</a>
+                            </li>
+                        </ul>
+
+                        <div className="tab-content">
+                            <div role="tabpanel" className="tab-pane active" id="overview">
+                            
+                            </div>
+                            <div role="tabpanel" className="tab-pane" id="itinerary">
+                            </div>
+                            <div role="tabpanel" className="tab-pane" id="start_at">
+                            </div>
+                            <div role="tabpanel" className="tab-pane" id="note">
+                            </div>
+                            <div role="tabpanel" className="tab-pane" id="comment">
+                            </div>
+                        </div>
+                                {/* <ul className="nav nav-tabs prnav-tabs">
                                     <li className="active">
                                         <a data-toggle="tab" href="#suggested_books">Suggest Books</a>
                                     </li>
@@ -77,7 +108,7 @@ class UserProfile extends Component {
                                     <li>
                                         <a data-toggle="tab" href="#reviewed_books">Reviewed Books</a>
                                     </li>
-                                </ul>
+                                </ul> */}
                             </div>
                         </div>
                         <div className="row">
@@ -110,7 +141,7 @@ class UserProfile extends Component {
                                 <div className="title-bar"></div>
                             </div>
                             <div className="col-sm-9">
-                                <div className="tab-content" style={{ marginTop: '60px' }}>
+                                {/* <div className="tab-content" style={{ marginTop: '60px' }}>
                                     <div>
                                         <h1>hihi</h1>
                                     </div>
@@ -130,7 +161,7 @@ class UserProfile extends Component {
                                      <div>
                                         <h1>hihi</h1>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
