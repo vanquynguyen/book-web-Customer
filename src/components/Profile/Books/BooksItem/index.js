@@ -27,6 +27,7 @@ class BooksList extends Component {
     constructor(props) {
         super();
         this.state = {
+            imagePreview: 'https://znews-photo-td.zadn.vn/w1024/Uploaded/pgi_cuhbatag2/2017_01_23/189789dacnhantambody_2_2mr0gpfamp6f8.jpg',
             category: '',
             categories: '',
             open: false,
@@ -64,6 +65,21 @@ class BooksList extends Component {
         });
     }
 
+    _handleImageChange = (e) => {
+        e.preventDefault();
+
+        let reader = new FileReader();
+        let file = e.target.files[0];
+
+        reader.onloadend = () => {
+            this.setState({
+                imagePreview: reader.result
+            });
+        }
+
+        reader.readAsDataURL(file)
+    }
+
     showCategories() {
         var result = null;
         if (this.state.categories.length > 0) {
@@ -77,13 +93,12 @@ class BooksList extends Component {
 
     onChangeHandler = (e) => {
         e.preventDefault();
-        var target = e.target;
-        var name = target.name;
-        var value = target.type === 'checkbox' ? target.checked : target.value;
+        const target = e.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
         this.setState({
-            [name]: value,
+            [name]: e.target.value,
             user_id: this.props.account.id,
-            category_id: this.refs.categoryId.value,
         })
     }
 
@@ -149,7 +164,8 @@ class BooksList extends Component {
             <div className="col-md-4 product-men">
                 <div className="men-pro-item simpleCart_shelfItem">
                     <div className="men-thumb-item">
-                        <img src={Config.LOCAL_URL + '/images/books/' + book.image} alt="" width="150" height="200"/>
+                        {/* <img src={Config.LOCAL_URL + '/images/books/' + book.image} alt="" width="150" height="200"/> */}
+                        <img src="https://znews-photo-td.zadn.vn/w1024/Uploaded/pgi_cuhbatag2/2017_01_23/189789dacnhantambody_2_2mr0gpfamp6f8.jpg" alt="" width="150" height="200"/>
                         <div className="men-cart-pro">
                             <div className="inner-men-cart-pro">
                                 <a className="link-product-add-cart quick-view" style={{marginLeft: '53px', width: '42%'}} onClick={this.onOpenModal}>Quick View</a>
@@ -164,22 +180,6 @@ class BooksList extends Component {
                         <div className="info-product-price">
                             <span className="item_price">${book.price}</span>
                         </div>
-                        {/* <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                            <form action="#" method="post">
-                                <fieldset>
-                                    <input type="hidden" name="cmd" value="_cart" />
-                                    <input type="hidden" name="add" value="1" />
-                                    <input type="hidden" name="business" value=" " />
-                                    <input type="hidden" name="item_name" value="Almonds, 100g" />
-                                    <input type="hidden" name="amount" value="149.00" />
-                                    <input type="hidden" name="discount_amount" value="1.00" />
-                                    <input type="hidden" name="currency_code" value="USD" />
-                                    <input type="hidden" name="return" value=" " />
-                                    <input type="hidden" name="cancel_return" value=" " />
-                                    <input type="submit" name="submit" value="Add to cart" className="button" />
-                                </fieldset>
-                            </form>
-                        </div> */}
                     </div>
                 </div>
                 <Modal open={open} onClose={this.onCloseModal} little>
@@ -191,10 +191,12 @@ class BooksList extends Component {
                         <div className="modal_body_left modal_body_left1">
                             <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
                                 <div className="col-md-6">
-                                    <img src={Config.LOCAL_URL + '/images/books/' + book.image} style={{width: '85%'}} alt=""/>
+                                    {/* <img src={Config.LOCAL_URL + '/images/books/' + book.image} style={{width: '85%'}} alt=""/> */}
+                                    <img src={this.state.imagePreview} style={{width: '200px', height: '300px'}} alt=""/>
                                     <input 
                                         type="file" 
                                         name="image" 
+                                        onChange={(e)=>this._handleImageChange(e)} 
                                     />
                                 </div>
                                 <div className="col-md-6">
@@ -214,12 +216,11 @@ class BooksList extends Component {
                                         onChange={this.onChangeHandler}
                                     />
                                      <select 
-                                        ref="categoryId"
+                                        name="category_id"
                                         className="form-control bg-danger b-r-0" 
                                         onChange={this.onChangeHandler}
-                                        // validations={[required]}
                                     >
-                                        <option value={category.id} >{category.name}</option>
+                                        <option value={category.id}>{category.name}</option>
                                         {listCategories}
                                     </select>
                                     <Input 
@@ -232,7 +233,7 @@ class BooksList extends Component {
                                     />
                                     <Input 
                                         type="text" 
-                                        ref="amount"
+                                        name="amount"
                                         value={book.amount} 
                                         placehoder="amount"
                                         onChange={this.onChangeHandler}

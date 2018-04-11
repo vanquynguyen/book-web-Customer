@@ -2,18 +2,14 @@ import React, { Component } from 'react';
 import '../../../Pagination/style.css';
 import List from '../../../Pagination/index';
 import * as Config from '../../../../constants/Config';
-// import Modal from 'react-responsive-modal';
-import { connect } from 'react-redux';
-import BooksItem from '../BooksItem';
 import axios from 'axios';
-import { actFetchUserBooksRequest } from '../../../../actions/Books';
 
-class BooksListPage extends Component {
+class HistoryOrder extends Component {
     
     constructor() {
         super();
         this.state = {
-            books: [],
+            Orders: [],
             currentPage: 1,
             PerPage: 5,
             class: 'default'
@@ -21,10 +17,13 @@ class BooksListPage extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    componentDidMount() {
-        // Gọi trước khi component đc render lần đầu tiên
-        const userId = localStorage.getItem('userId');
-        this.props.fetchAllUserBooks(userId);
+    componentWillMount() {
+        const id = localStorage.getItem('userId');
+        axios.get(Config.API_URL + `/user/${id}/get-manage-order`).then(res => {
+            this.setState({
+                Orders: res.data
+            })
+        })
     }
 
     handleClick(id) {
@@ -50,33 +49,40 @@ class BooksListPage extends Component {
         })
     }
 
-    showBooks(books) {
+    showOrders = () => {
         const {currentPage, PerPage } = this.state;
         const indexOfLastTodo = currentPage * PerPage;
         const indexOfFirstTodo = indexOfLastTodo - PerPage;
         var result = null;
-        if(this.state.books.length > 0) {
-            const currentBooks = this.state.books.slice(indexOfFirstTodo, indexOfLastTodo);
+        if(this.state.Orders.length > 0) {
+            const currentOrders = this.state.Orders.slice(indexOfFirstTodo, indexOfLastTodo);
             
-            if (currentBooks.length > 0) {
-                result = currentBooks.map((book, index) => {
-                    return <BooksItem book={book} key={index} index={index} fetchAllUserBooks={this.props.fetchAllUserBooks} userId={this.props.account.id}  />
+            if (currentOrders.length > 0) {
+                result = currentOrders.map((order, index) => {
+                    return  <tr key={index}>
+                                <td>{index + 1}</td>3
+                                <td>{order.user_id}</td>
+                                <td>{order.total_price}</td>
+                                <td>{order.method}</td>
+                                <td>{order.status}</td>
+                            </tr>
                 });
             }
             
             return result;
-        } else {
-            if (books.length > 0) {
-                const currentBooks = books.slice(indexOfFirstTodo, indexOfLastTodo);
-                if (currentBooks.length > 0) {
-                    result = currentBooks.map((book, index) => {
-                        return <BooksItem book={book} key={index} index={index} />
-                    });
-                }
-        
-                return result;
-            }
         }
+        // } else {
+        //     if (orders.length > 0) {
+        //         const currentOrders = orders.slice(indexOfFirstTodo, indexOfLastTodo);
+        //         if (currentOrders.length > 0) {
+        //             result = currentOrders.map((order, index) => {
+        //                 return 
+        //             });
+        //         }
+        
+        //         return result;
+        //     }
+        // }
        
     }
     onSearch = (event) => {
@@ -90,10 +96,9 @@ class BooksListPage extends Component {
     }
 
     render() {
-        var { books } = this.props;
         const { PerPage, activeItem } = this.state;
         const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(books.length / PerPage); i++) {
+        for (let i = 1; i <= Math.ceil(this.state.Orders.length / PerPage); i++) {
           pageNumbers.push(i);
         }
         const renderPageNumbers = pageNumbers.map(number =>
@@ -102,7 +107,7 @@ class BooksListPage extends Component {
         
         return (
             <div>
-                <p><strong>Amount:</strong> <strong>{books.length}</strong> books</p>
+                {/* <p><strong>Amount:</strong> <strong>{books.length}</strong> books</p> */}
                 <div className="row" style={{ paddingTop: '25px' }}>
                     <div className="col-md-6">
                         <span style={{ float: 'left' }}>Show:</span>
@@ -123,7 +128,20 @@ class BooksListPage extends Component {
                         </div>
                     </div>
                 </div>
-                {this.showBooks(books)}
+                <table className="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Hành Động</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.showOrders}
+                    </tbody>
+                </table>
                 <div className="col-md-12">
                     <ul className="pagination">
                         {renderPageNumbers}
@@ -134,20 +152,4 @@ class BooksListPage extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        account: state.account,
-        books: state.userBooks
-
-    }
-}
-
-const mapDispatchToProps = (dispatch, props) => {
-    return {
-        fetchAllUserBooks: (userId) => {
-            dispatch(actFetchUserBooksRequest(userId));
-        },
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(BooksListPage);
+export default HistoryOrder;

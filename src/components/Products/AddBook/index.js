@@ -29,6 +29,7 @@ class AddBook extends Component {
     constructor() {
         super();
         this.state = {
+            imagePreview: 'https://www.123freevectors.com/wp-content/uploads/new/icon/102-red-book-icon-free-vector-illustration.png',
             user_id: '',
             title: '',
             author: '',
@@ -57,11 +58,20 @@ class AddBook extends Component {
        
     }
 
-    onChangeFile = (e) => {
+    _handleImageChange = (e) => {
         e.preventDefault();
-        this.setState({
-            image: e.target.files[0]
-        })
+
+        let reader = new FileReader();
+        let file = e.target.files[0];
+
+        reader.onloadend = () => {
+            this.setState({
+                image: file,
+                imagePreview: reader.result
+            });
+        }
+
+        reader.readAsDataURL(file)
     }
 
     onSubmit = (e) => {
@@ -119,6 +129,18 @@ class AddBook extends Component {
                             <div className="suggestedTitle"></div>
                             <div className="space-10"></div>
                             <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
+                                <img src={this.state.imagePreview} alt="" height="320" width="240" style={{ marginLeft: '146px'}} />
+                                <div className="row upload-image" id="row-image1">
+                                    <div className="col-xs-12 col-sm-8">
+                                        <div className="form-group">
+                                            <input 
+                                                type="file" 
+                                                name="image" 
+                                                onChange={(e)=>this._handleImageChange(e)} 
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="row">
                                     <div className="col-xs-12 col-sm-12">
                                         <div className="form-group">
@@ -207,25 +229,6 @@ class AddBook extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row upload-image" id="row-image1">
-                                    <div className="col-xs-12 col-sm-8">
-                                        <div className="form-group">
-                                            <input 
-                                                type="file" 
-                                                name="image" 
-                                                onChange={this.onChangeFile}
-                                            />
-                                        </div>
-                                    </div>
-                                    {/* <div className="col-xs-12 col-sm-4">
-                                        <span className="glyphicon glyphicon-plus btn-info btn-xs add-more-image" id="btn-plus1" data-toggle="tooltip" title="Add more image"></span>
-                                        <span className="glyphicon glyphicon-minus btn-danger btn-xs clear-image hidden" id="btn-minus1" key="1" data-toggle="tooltip" title="Clear image"></span>
-                                    </div> */}
-                                    <div className="col-xs-12 col-sm-6">
-                                        <img className="pre-img hidden" alt="" />
-                                    </div>
-                                </div>
-                                <div id="append-aria"></div>
                                 <div className="row">
                                     <div className="space-20"></div>
                                     <div className="col-xs-12 col-sm-6">

@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import swal from 'sweetalert';
 import BooksList from './Books/BookListsPage';
+import HistoryOrder from './Order/HistoryOrder';
 import { actGetUserRequest } from '../../actions/Users/';
 import * as Config from '../../constants/Config';
 
@@ -60,13 +61,13 @@ class UserProfile extends Component {
                             <div className="prheadlineinfo pull-right navbar-collapse">
                                 <ul className="nav nav-tabs" role="tablist">
                                     <li role="presentation" className="active">
-                                        <a href="#manage-book" aria-controls="overview" role="tab" data-toggle="tab" aria-expanded="true">Manage Books</a>
+                                        <a href="#manage-book" aria-controls="manage-book" role="tab" data-toggle="tab" aria-expanded="true">Manage Books</a>
                                     </li>
+                                    {/* <li role="presentation" className="">
+                                        <a href="#my-order" aria-controls="my-order" role="tab" data-toggle="tab" aria-expanded="false">Manage Order</a>
+                                    </li> */}
                                     <li role="presentation" className="">
-                                        <a href="#itinerary" aria-controls="itinerary" role="tab" data-toggle="tab" aria-expanded="false">Manage Booking</a>
-                                    </li>
-                                    <li role="presentation" className="">
-                                        <a href="#start_at" aria-controls="start_at" role="tab" data-toggle="tab" aria-expanded="false">Start at</a>
+                                        <a href="#history-order" aria-controls="history-order" role="tab" data-toggle="tab" aria-expanded="false">History Order</a>
                                     </li>
                                     <li role="presentation" className="">
                                         <a href="#note" aria-controls="note" role="tab" data-toggle="tab" aria-expanded="false">Note</a>
@@ -112,12 +113,7 @@ class UserProfile extends Component {
                                         <div role="tabpanel" className="tab-pane active" id="manage-book">
                                             <div className="ads-grid">
                                                 <div className="container">
-                                                    {/* <div className="side-bar col-md-3">
-                                                        <Category />
-                                                    </div> */}
                                                     <div className="agileinfo-ads-display">
-                                                        {/* <SortBy /> */}
-                                                        {/* <p><strong>16</strong> of <strong>35</strong> book found</p> */}
                                                         <div className="wrapper">
                                                             <div className="product-sec1">
                                                                 <h3 className="heading-tittle">Books</h3>
@@ -131,9 +127,24 @@ class UserProfile extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div role="tabpanel" className="tab-pane" id="itinerary">
-                                        </div>
-                                        <div role="tabpanel" className="tab-pane" id="start_at">
+                                        {/* <div role="tabpanel" className="tab-pane" id="my-order">
+                                        </div> */}
+                                        <div role="tabpanel" className="tab-pane" id="history-order">
+                                            <div className="ads-grid">
+                                                <div className="container">
+                                                    <div className="agileinfo-ads-display">
+                                                        <div className="wrapper">
+                                                            <div className="product-sec1">
+                                                                <h3 className="heading-tittle">View Orders</h3>
+                                                                <hr />
+                                                                <HistoryOrder />
+                                                                <div className="clearfix"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                        
+                                                </div>
+                                            </div>
                                         </div>
                                         <div role="tabpanel" className="tab-pane" id="note">
                                         </div>
