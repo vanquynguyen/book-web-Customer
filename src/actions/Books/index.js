@@ -17,6 +17,21 @@ export const actFetchHomeBooks = (books) => {
     }
 }
 
+export const actFetchUserBooksRequest = (userId) => {
+    return (dispatch) => {
+        return axios.get(Config.API_URL + `/user/${userId}/books`, ).then(res => {
+            dispatch(actFetchUserBooks(res.data));
+        })
+    }
+}
+
+export const actFetchUserBooks = (books) => {
+    return {
+        type: Types.FETCH_USER_BOOKS,
+        books
+    }
+}
+
 export const actGetBookRequest = (id) => {
     return dispatch => {
         return axios.get(Config.API_URL + `/books/${id}`).then(res => {

@@ -4969,6 +4969,16 @@ input[type="radio"], input[type="checkbox"] {
     left: -260px!important;
 }
 
+/* .quick-view {
+    background: #FF5722;
+    color: #fff;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    text-transform: uppercase;
+    transition: all 0.5s ease-out 0s;
+} */
+
 /* .checkbox {
     padding-left: 20px; }
     .checkbox label {

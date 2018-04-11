@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import '../../Pagination/style.css';
-
-import Breadscrumb from '../../Sections/Breadcrumb';
-import List from '../../Pagination/index';
-import { Link } from 'react-router-dom';
+import '../../../Pagination/style.css';
+import List from '../../../Pagination/index';
+import * as Config from '../../../../constants/Config';
 import { connect } from 'react-redux';
-import CategoriesList from '../CategoriesList';
-import CategoriesItem from '../CategoriesItem';
-import { actFetchCategoriesRequest, searchCategoryRequest, actDeleteCategoryRequest } from '../../../actions/Categories';
+import BooksItem from '../BooksItem';
+import axios from 'axios';
+import { actFetchUserBooksRequest } from '../../../../actions/Books';
 
-class CategoriesListPage extends Component {
-
+class BooksListPage extends Component {
+    
     constructor() {
         super();
         this.state = {
-            categories: [],
+            books: [],
             currentPage: 1,
             PerPage: 5,
             class: 'default'
@@ -24,7 +22,8 @@ class CategoriesListPage extends Component {
 
     componentDidMount() {
         // Gọi trước khi component đc render lần đầu tiên
-        this.props.fetchAllCategories();
+        const userId = localStorage.getItem('userId');
+        this.props.fetchAllUserBooks(userId);
     }
 
     handleClick(id) {
@@ -50,32 +49,50 @@ class CategoriesListPage extends Component {
         })
     }
 
-    showCategories(categories) {
+    showBooks(books) {
         const {currentPage, PerPage } = this.state;
         const indexOfLastTodo = currentPage * PerPage;
         const indexOfFirstTodo = indexOfLastTodo - PerPage;
-        const currentCategories = this.props.categories.slice(indexOfFirstTodo, indexOfLastTodo);
-
         var result = null;
-        var { onDeleteCategory } = this.props;
-        if (currentCategories.length > 0) {
-            result = currentCategories.map((category, index) => {
-                return <CategoriesItem category={category} key={index} index={index} onDeleteCategory={onDeleteCategory} />
-            });
+        if(this.state.books.length > 0) {
+            const currentBooks = this.state.books.slice(indexOfFirstTodo, indexOfLastTodo);
+            
+            if (currentBooks.length > 0) {
+                result = currentBooks.map((book, index) => {
+                    return <BooksItem book={book} key={index} index={index} fetchAllUserBooks={this.props.fetchAllUserBooks} userId={this.props.account.id}  />
+                });
+            }
+            
+            return result;
+        } else {
+            if (books.length > 0) {
+                const currentBooks = books.slice(indexOfFirstTodo, indexOfLastTodo);
+                if (currentBooks.length > 0) {
+                    result = currentBooks.map((book, index) => {
+                        return <BooksItem book={book} key={index} index={index} />
+                    });
+                }
+        
+                return result;
+            }
         }
-
-        return result;
+       
     }
-
     onSearch = (event) => {
-        this.props.onSearchCategory(event.target.value);
+        const userId = this.props.account.id;
+        var keywork = event.target.value;
+        axios.get(Config.API_URL + `/user/${userId}/search-books`, {params:{keywork:keywork}}).then(res => {
+            this.setState({
+                books: res.data
+            })
+        });
     }
 
     render() {
-        var { categories } = this.props;
+        var { books } = this.props;
         const { PerPage, activeItem } = this.state;
         const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(categories.length / PerPage); i++) {
+        for (let i = 1; i <= Math.ceil(books.length / PerPage); i++) {
           pageNumbers.push(i);
         }
         const renderPageNumbers = pageNumbers.map(number =>
@@ -84,41 +101,32 @@ class CategoriesListPage extends Component {
         
         return (
             <div>
-                <Breadscrumb name="Manage Category"/>
-                <div className="content-top">
-                    <div className="grid-form">
-                        <h3 className="panel-title">Categories List</h3>
-                        <br />
-                        <Link to="/category/add">
-                            <button className="btn btn-primary"><i className="fa fa-plus"> Add Category</i></button>
-                        </Link>
-                        <div className="row" style={{ paddingTop: '25px' }}>
-                        <div className="col-md-6">
-                            <span style={{ float: 'left' }}>Show:</span>
-                            <select className="form-control filter-box" onChange={this.handleFilterList}>
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
+                <p><strong>Amount:</strong> <strong>{books.length}</strong> books</p>
+                <div className="row" style={{ paddingTop: '25px' }}>
+                    <div className="col-md-6">
+                        <span style={{ float: 'left' }}>Show:</span>
+                        <select className="form-control filter-box" onChange={this.handleFilterList}>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div className="col-md-6">
+                        <div className="col-md-4">
+                            <span style={{ float: 'right' }}>Search:</span>
                         </div>
-                        <div className="col-md-6">
-                            <div className="col-md-4">
-                                <span style={{ float: 'right' }}>Search:</span>
-                            </div>
-                            <div className="col-md-8">
-                                <span><input type="text" className="form-control search-form" onChange={this.onSearch}/></span>
-                            </div>
+                        <div className="col-md-8">
+                            <span><input type="text" className="form-control search-form" onChange={this.onSearch}/></span>
                         </div>
                     </div>
-                        <CategoriesList>
-                            {this.showCategories(categories)}
-                        </CategoriesList>
-                        <ul className="pagination">
-                            {renderPageNumbers}
-                        </ul>
-                    </div>
+                </div>
+                {this.showBooks(books)}
+                <div className="col-md-12">
+                    <ul className="pagination">
+                        {renderPageNumbers}
+                    </ul>
                 </div>
             </div>
         );
@@ -127,24 +135,18 @@ class CategoriesListPage extends Component {
 
 const mapStateToProps = state => {
     return {
-        categories: state.categories
+        account: state.account,
+        books: state.userBooks
+
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        fetchAllCategories: () => {
-            dispatch(actFetchCategoriesRequest());
-        },
-        
-        onSearchCategory: (keywork) => {
-            dispatch(searchCategoryRequest(keywork))
-        },
-        
-        onDeleteCategory: (id) => {
-            dispatch(actDeleteCategoryRequest(id));
+        fetchAllUserBooks: (userId) => {
+            dispatch(actFetchUserBooksRequest(userId));
         },
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoriesListPage);
+export default connect(mapStateToProps, mapDispatchToProps)(BooksListPage);

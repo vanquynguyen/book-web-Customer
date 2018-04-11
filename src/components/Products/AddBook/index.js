@@ -181,7 +181,7 @@ class AddBook extends Component {
                                         <div className="form-group">
                                             <label>Amount</label>
                                             <Input 
-                                            ref="amount"
+                                                ref="amount"
                                                 type="text" 
                                                 name="amount" 
                                                 className="form-control bg-danger b-r-0" 

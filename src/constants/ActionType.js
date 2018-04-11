@@ -13,6 +13,7 @@ export const FETCH_ALL_USER = 'FETCH_ALL_USER';
 //Book
 export const FETCH_HOME_BOOKS = 'FETCH_HOME_BOOKS';
 export const GET_BOOK = 'GET_BOOK';
+export const FETCH_USER_BOOKS = 'FETCH_USER_BOOKS';
 
 //ShoppingCart
 export const FETCH_CARTS = 'FETCH_CARTS';

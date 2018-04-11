@@ -3,7 +3,6 @@ import '../Pagination/style.css';
 
 import Breadscrumb from '../Sections/Breadcrumb';
 import List from '../Pagination/index';
-// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import UsersItem from './UsersItem';
 import { FetchUserRequest, searchUserRequest } from '../../actions/Users';

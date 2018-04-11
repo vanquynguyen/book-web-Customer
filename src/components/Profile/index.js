@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import swal from 'sweetalert';
+import BooksList from './Books/BookListsPage';
 import { actGetUserRequest } from '../../actions/Users/';
 import * as Config from '../../constants/Config';
 
@@ -59,10 +60,10 @@ class UserProfile extends Component {
                             <div className="prheadlineinfo pull-right navbar-collapse">
                                 <ul className="nav nav-tabs" role="tablist">
                                     <li role="presentation" className="active">
-                                        <a href="#overview" aria-controls="overview" role="tab" data-toggle="tab" aria-expanded="true">Overview</a>
+                                        <a href="#manage-book" aria-controls="overview" role="tab" data-toggle="tab" aria-expanded="true">Manage Books</a>
                                     </li>
                                     <li role="presentation" className="">
-                                        <a href="#itinerary" aria-controls="itinerary" role="tab" data-toggle="tab" aria-expanded="false">Itinerary</a>
+                                        <a href="#itinerary" aria-controls="itinerary" role="tab" data-toggle="tab" aria-expanded="false">Manage Booking</a>
                                     </li>
                                     <li role="presentation" className="">
                                         <a href="#start_at" aria-controls="start_at" role="tab" data-toggle="tab" aria-expanded="false">Start at</a>
@@ -74,20 +75,6 @@ class UserProfile extends Component {
                                         <a href="#comment" aria-controls="comment" role="tab" data-toggle="tab" aria-expanded="false">Comments</a>
                                     </li>
                                 </ul>
-
-                                <div className="tab-content">
-                                    <div role="tabpanel" className="tab-pane active" id="overview">
-                                    
-                                    </div>
-                                    <div role="tabpanel" className="tab-pane" id="itinerary">
-                                    </div>
-                                    <div role="tabpanel" className="tab-pane" id="start_at">
-                                    </div>
-                                    <div role="tabpanel" className="tab-pane" id="note">
-                                    </div>
-                                    <div role="tabpanel" className="tab-pane" id="comment">
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div className="row">
@@ -120,27 +107,40 @@ class UserProfile extends Component {
                                 <div className="title-bar"></div>
                             </div>
                             <div className="col-sm-9">
-                                {/* <div className="tab-content" style={{ marginTop: '60px' }}>
-                                    <div>
-                                        <h1>hihi</h1>
+                                <div className="tab-content">
+                                    <div className="tab-content">
+                                        <div role="tabpanel" className="tab-pane active" id="manage-book">
+                                            <div className="ads-grid">
+                                                <div className="container">
+                                                    {/* <div className="side-bar col-md-3">
+                                                        <Category />
+                                                    </div> */}
+                                                    <div className="agileinfo-ads-display">
+                                                        {/* <SortBy /> */}
+                                                        {/* <p><strong>16</strong> of <strong>35</strong> book found</p> */}
+                                                        <div className="wrapper">
+                                                            <div className="product-sec1">
+                                                                <h3 className="heading-tittle">Books</h3>
+                                                                <hr />
+                                                                <BooksList />
+                                                                <div className="clearfix"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" className="tab-pane" id="itinerary">
+                                        </div>
+                                        <div role="tabpanel" className="tab-pane" id="start_at">
+                                        </div>
+                                        <div role="tabpanel" className="tab-pane" id="note">
+                                        </div>
+                                        <div role="tabpanel" className="tab-pane" id="comment">
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h1>hihi</h1>
-                                    </div>
-                                    <div>
-                                        <h1>hihi</h1>
-                                    </div>
-
-                                     <div>
-                                        <h1>hihi</h1>
-                                    </div>
-                                    <div>
-                                        <h1>hihi</h1>
-                                    </div>
-                                     <div>
-                                        <h1>hihi</h1>
-                                    </div>
-                                </div> */}
+                                </div>
                             </div>
                         </div>
                     </div>

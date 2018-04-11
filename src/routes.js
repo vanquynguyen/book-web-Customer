@@ -9,7 +9,7 @@ import MyProfile from './components/Profile/index';
 import UserProfile from './components/Profile/User';
 import Users from './components/Users/index';
 // import NotFound from './components/NotFound';
-const auth = localStorage.getItem('userId');
+// const auth = localStorage.getItem('userId');
 const routes = [
     {
         path: '/',

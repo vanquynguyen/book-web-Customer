@@ -4,9 +4,6 @@ var initialState = {};
 
 const books = (state = initialState, action) => {
     switch(action.type){
-        case Types.FETCH_HOME_BOOKS:
- 
-            return action.books;
         case Types.FETCH_USER_BOOKS:
 
             return action.books;

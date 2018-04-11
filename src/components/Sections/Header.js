@@ -41,7 +41,7 @@ class Header extends Component {
                     icon: "success",
                 });
                 this.props.onDeleteCart(id);
-                console.log(id)
+               
             } else {
                 swal("Your imaginary file is safe!");
             }
@@ -116,7 +116,7 @@ class Header extends Component {
                                                 <img width="20" src="https://images.viblo.asia/avatar/398ff412-f7d3-4e32-85b3-50efae907d6b.png" alt=""/> {auth.email}
                                             </a>
                                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px' }}>
-                                                <Link to={`/user/${auth.id}/profile`} className="dropdown-item scroller" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}}>
+                                                <Link to={`/user/profile`} className="dropdown-item scroller" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}}>
                                                     <i className="fa fa-user"></i> Profile
                                                 </Link>
                                                 <br />
