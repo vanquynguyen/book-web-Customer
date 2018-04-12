@@ -20,3 +20,39 @@ export const actCheckFollow = (check) => {
         check
     }
 }
+
+export const actFollowersRequest = (id) => {
+    return (dispatch) => {
+        return axios({
+            method: 'get',
+            url: Config.API_URL + `/user/${id}/follower`
+        }).then(res => {
+            dispatch(actFollowers(res.data))
+        })
+    }
+}
+
+export const actFollowers = (followers) => {
+    return {
+        type: Types.FETCH_ALL_FOLLOWER,
+        followers
+    }
+}
+
+export const actFollowingsRequest = (id) => {
+    return (dispatch) => {
+        return axios({
+            method: 'get',
+            url: Config.API_URL + `/user/${id}/following`
+        }).then(res => {
+            dispatch(actFollowings(res.data))
+        })
+    }
+}
+
+export const actFollowings = (followings) => {
+    return {
+        type: Types.FETCH_ALL_FOLLOWING,
+        followings
+    }
+}

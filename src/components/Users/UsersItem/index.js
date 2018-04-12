@@ -6,6 +6,7 @@ class UsersItem extends Component {
 
     render() {
         var { user } = this.props;
+        var account = this.props.account;
         return (
             <div className="hot-authors col-md-4">
                 <div className="author-content">
@@ -25,7 +26,11 @@ class UsersItem extends Component {
                         )}
                         <hr />
                         <div className="ph-20">
-                            <Link to={`/user/${user.id}`} style={{ width: '90%', background: '#47abda', borderColor: '#FE8800' }} className="btn btn-primary btn-block scroller">View Profile</Link>
+                            {user.id === account.id ? (
+                                <Link to='/user/profile' style={{ width: '90%', background: '#47abda', borderColor: '#FE8800' }} className="btn btn-primary btn-block scroller">View Profile</Link>
+                            ):(
+                                <Link to={`/user/${user.id}`} style={{ width: '90%', background: '#47abda', borderColor: '#FE8800' }} className="btn btn-primary btn-block scroller">View Profile</Link>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -36,7 +41,8 @@ class UsersItem extends Component {
 
 const mapStateToProps = state => {
     return {
-        users: state.users
+        users: state.users,
+        account: state.account
     }
 }
 

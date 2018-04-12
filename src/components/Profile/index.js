@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 
 // import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Modal from 'react-responsive-modal';
 // import swal from 'sweetalert';
 import BooksList from './Books/BookListsPage';
 import HistoryOrder from './Order/HistoryOrder';
 import { actGetUserRequest } from '../../actions/Users/';
 import * as Config from '../../constants/Config';
+import { actFollowersRequest, actFollowingsRequest } from '../../actions/Follows';
 
 class UserProfile extends Component {
 
@@ -19,7 +21,15 @@ class UserProfile extends Component {
            email: '',
            address: '',
            gender: '',
+           openFollower: false,
+           openFollowing: false,
         };
+    }
+
+    componentDidMount() {
+        const id = localStorage.getItem('userId');
+        this.props.onGetFollower(id);
+        this.props.onGetFollowing(id);
     }
 
     componentWillMount() {
@@ -41,7 +51,26 @@ class UserProfile extends Component {
         }
     }
 
+    onOpenModalFollower = () => {
+        this.setState({ openFollower: true });
+    };
+
+    onOpenModalFollowing = () => {
+        this.setState({ openFollowing: true });
+    };
+     
+    onCloseModalFollower = () => {
+        this.setState({ openFollower: false });
+    };
+
+    onCloseModalFollowing = () => {
+        this.setState({ openFollowing: false });
+    };
+
     render() {
+        console.log(this.props.Followers)
+        const openFollower = this.state.openFollower;
+        const openFollowing = this.state.openFollowing;
         return (
             <div style={{ height: 'auto' }}>
                 <section className="relative fix m-bottom50 gray-bg" id="sc3">
@@ -98,13 +127,37 @@ class UserProfile extends Component {
                                             <h4 className="tip-left">Address: </h4>
                                             <p className="">{this.state.address}</p>
                                             <h4 className="tip-left">Follower: </h4>
-                                            <p className=""><a href="" data-toggle="modal" data-target="#followed">1 people</a></p>
+                                            <p className=""><a onClick={this.onOpenModalFollower}>1 people</a></p>
                                             <h4 className="tip-left">Following: </h4>
-                                            <p className=""><a href="" data-toggle="modal" data-target="#following">0 people</a></p>
+                                            <p className=""><a onClick={this.onOpenModalFollowing}>0 people</a></p>
                                             {/* <h4><a href="javascript:void(0);" data-toggle="modal" data-target="#favoritecategories"> <i className="icofont icofont-arrow-right"></i></a></h4> */}
                                         </div>
                                     </div>
                                 </div>
+                                <Modal open={openFollower} onClose={this.onCloseModalFollower} little>
+                                    <h3>Follower</h3>
+                                    <div className="modal-body modal-body-sub_agile">
+                                        <div className="main-mailposi">
+                                            <span className="fa fa-book" aria-hidden="true"></span>
+                                        </div>
+                                        <div className="modal_body_left modal_body_left1">
+  
+                                        </div>
+                                        <div className="clearfix"></div>
+                                    </div>
+                                </Modal>
+                                <Modal open={openFollowing} onClose={this.onCloseModalFollowing} little>
+                                    <h3>Following</h3>
+                                    <div className="modal-body modal-body-sub_agile">
+                                        <div className="main-mailposi">
+                                            <span className="fa fa-book" aria-hidden="true"></span>
+                                        </div>
+                                        <div className="modal_body_left modal_body_left1">
+  
+                                        </div>
+                                        <div className="clearfix"></div>
+                                    </div>
+                                </Modal>
                                 <div className="title-bar"></div>
                             </div>
                             <div className="col-sm-9">
@@ -164,7 +217,9 @@ class UserProfile extends Component {
 const mapStateToProps = state => {
     return {
         usersEditing : state.usersEditing,
-        account: state.account
+        account: state.account,
+        Followers:  state.Followers,
+        Followings: state.Followings
     }
 }
 
@@ -173,6 +228,12 @@ const mapDispatchToProps = (dispatch, props) => {
         onGetUser: (id) => {
             dispatch(actGetUserRequest(id));
         },
+        onGetFollower: (id) => {
+            dispatch(actFollowersRequest(id));
+        },
+        onGetFollowing: (id) => {
+            dispatch(actFollowingsRequest(id));
+        }
     }
 }
 

@@ -15,6 +15,8 @@ import reviews from './Reviews/Reviews';
 import orders from './Orders/Orders';
 
 import check from './Follows/Follows';
+import Followers from './Follows/Follower';
+import Followings from './Follows/Following';
 
 const appReducers = combineReducers({
     categories,
@@ -27,7 +29,9 @@ const appReducers = combineReducers({
     carts,
     reviews,
     orders,
-    check
+    check,
+    Followers,
+    Followings
 
 });
 
