@@ -124,7 +124,7 @@ class BooksItem extends Component {
                         </Link>
                         <div className="men-cart-pro">
                             <div className="inner-men-cart-pro">
-                                <Link to={`/book/${book.id}/detail`} className="link-product-add-cart">Quick View</Link>
+                                <Link to={`/book/${book.id}/detail`} className="link-product-add-cart scroller">Quick View</Link>
                             </div>
                         </div>
                         <span className="product-new-top">New</span>

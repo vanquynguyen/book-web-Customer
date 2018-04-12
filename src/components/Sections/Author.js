@@ -190,7 +190,7 @@ const Author = () => {
             </div>
             <hr />
             <div className="sidebar-box-links">
-                <Link to="/users" className="accented-link">
+                <Link to="/users" className="accented-link scroller">
                     <i aria-hidden="true" className="fa fa-tags mr-05"></i> All authors
                 </Link>
             </div>

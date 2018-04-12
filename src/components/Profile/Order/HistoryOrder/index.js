@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import '../../../Pagination/style.css';
 import List from '../../../Pagination/index';
+import { connect } from 'react-redux';
+import { actFetchOrdersRequest } from '../../../../actions/Orders';
 import * as Config from '../../../../constants/Config';
 import axios from 'axios';
 
@@ -17,13 +20,17 @@ class HistoryOrder extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const id = localStorage.getItem('userId');
-        axios.get(Config.API_URL + `/user/${id}/get-manage-order`).then(res => {
+        this.props.fetchAllUserOrders(id);
+    }
+    componentWillReceiveProps(nextProps) {
+        if(nextProps && nextProps.orders){
+            var {orders} = nextProps;
             this.setState({
-                Orders: res.data
+                Orders: orders
             })
-        })
+        }
     }
 
     handleClick(id) {
@@ -49,65 +56,82 @@ class HistoryOrder extends Component {
         })
     }
 
-    showOrders = () => {
+    showOrders = (Orders) => {
         const {currentPage, PerPage } = this.state;
         const indexOfLastTodo = currentPage * PerPage;
         const indexOfFirstTodo = indexOfLastTodo - PerPage;
         var result = null;
-        if(this.state.Orders.length > 0) {
-            const currentOrders = this.state.Orders.slice(indexOfFirstTodo, indexOfLastTodo);
-            
-            if (currentOrders.length > 0) {
-                result = currentOrders.map((order, index) => {
-                    return  <tr key={index}>
-                                <td>{index + 1}</td>3
-                                <td>{order.user_id}</td>
-                                <td>{order.total_price}</td>
-                                <td>{order.method}</td>
-                                <td>{order.status}</td>
-                            </tr>
-                });
-            }
-            
-            return result;
-        }
-        // } else {
-        //     if (orders.length > 0) {
-        //         const currentOrders = orders.slice(indexOfFirstTodo, indexOfLastTodo);
-        //         if (currentOrders.length > 0) {
-        //             result = currentOrders.map((order, index) => {
-        //                 return 
-        //             });
-        //         }
+        const currentOrders = this.state.Orders.slice(indexOfFirstTodo, indexOfLastTodo);
         
-        //         return result;
-        //     }
-        // }
-       
-    }
-    onSearch = (event) => {
-        const userId = this.props.account.id;
-        var keywork = event.target.value;
-        axios.get(Config.API_URL + `/user/${userId}/search-books`, {params:{keywork:keywork}}).then(res => {
-            this.setState({
-                books: res.data
-            })
-        });
+        result = currentOrders.map((order, index) =>
+           <tr key={index}>
+                <td>{index + 1}</td>
+                <td>${order.total_price}</td>
+                {order.method === 0 ? (
+                    <td>Cash on delivery(COD)</td>
+                ) : (
+                    <td>Banking</td>
+                )}
+                {order.status === 0 ? (
+                    <td>
+                        <p className="label label-inprogress" >inprogress</p>
+                    </td>
+                ) : (
+                    <td>
+                        <p className="label label-success">Paymented</p>
+                    </td>
+                )}
+                {order.status === 0 ? (
+                    <td>
+                        <Link to={`/order/${order.id}/payment`} >
+                            <button className="btn btn-primary">Payment</button>
+                        </Link>
+                    </td>
+                ) : (
+                    <td>
+                        <button disabled className="btn btn-success">Paymented</button>
+                    </td>
+                )}
+            </tr>
+        );
+
+        return result;
+    }  
+
+    handleFilterStatus = (event) => {
+     
+        var status = event.target.value;
+        if (status === 'null') {
+            const id = localStorage.getItem('userId');
+            this.props.fetchAllUserOrders(id);
+        } else {
+            axios.get(Config.API_URL + '/filter-status', {params:{status: status}}).then(res => {
+                this.setState({
+                    Orders: res.data
+                })
+            });
+        }
     }
 
     render() {
+        // console.log(this.state)
+        const Orders = this.props.orders;
         const { PerPage, activeItem } = this.state;
         const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(this.state.Orders.length / PerPage); i++) {
-          pageNumbers.push(i);
-        }
-        const renderPageNumbers = pageNumbers.map(number =>
-            <List handleClick={this.handleClick} id={number} key={number} isActive={activeItem === number} default={this.state.class} />
-        );
+            for (let i = 1; i <= Math.ceil(this.props.orders.length / PerPage); i++) {
+            pageNumbers.push(i);
+            }
+            const renderPageNumbers = pageNumbers.map(number =>
+                <List handleClick={this.handleClick} id={number} key={number} isActive={activeItem === number} default={this.state.class} />
+            );
         
         return (
             <div>
-                {/* <p><strong>Amount:</strong> <strong>{books.length}</strong> books</p> */}
+                { Orders.length > 0 ? (
+                    <p><strong>Amount:</strong> <strong>{Orders.length}</strong> Orders</p>
+                ) : (
+                    <p><strong>Amount:</strong> <strong>0</strong> Orders</p>
+                )}
                 <div className="row" style={{ paddingTop: '25px' }}>
                     <div className="col-md-6">
                         <span style={{ float: 'left' }}>Show:</span>
@@ -121,25 +145,29 @@ class HistoryOrder extends Component {
                     </div>
                     <div className="col-md-6">
                         <div className="col-md-4">
-                            <span style={{ float: 'right' }}>Search:</span>
+                            <span style={{ float: 'right' }}>Status:</span>
                         </div>
                         <div className="col-md-8">
-                            <span><input type="text" className="form-control search-form" onChange={this.onSearch}/></span>
+                            <select className="form-control" onChange={this.handleFilterStatus}>
+                                <option value="null">All</option>
+                                <option value="0">Inprogress</option>
+                                <option value="1">Paymented</option>
+                            </select>
                         </div>
                     </div>
                 </div>
-                <table className="table table-bordered table-hover">
+                <table style={{ marginTop: '10px' }} className="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Hành Động</th>
-                            <th>Hành Động</th>
+                            <th>Total Price</th>
+                            <th>Method</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {this.showOrders}
+                        {this.showOrders(Orders)}
                     </tbody>
                 </table>
                 <div className="col-md-12">
@@ -152,4 +180,20 @@ class HistoryOrder extends Component {
     }
 }
 
-export default HistoryOrder;
+const mapStateToProps = state => {
+    return {
+        account: state.account,
+        orders: state.orders
+    }
+}
+
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        fetchAllUserOrders: (id) => {
+            dispatch(actFetchOrdersRequest(id));
+        },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HistoryOrder);
+

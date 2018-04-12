@@ -6,10 +6,10 @@ import Register from '../Login/Register';
 import axios from 'axios';
 import swal from 'sweetalert';
 import * as Config from '../../constants/Config';
-import $ from 'jquery';
 
 import { connect } from 'react-redux';
 import { actFetchCartsRequest, actDeleteCartRequest } from '../../actions/Carts';
+import { actFetchUserRequest } from '../../actions/Users';
 
 class Header extends Component {
 
@@ -25,6 +25,15 @@ class Header extends Component {
        // Gọi trước khi component đc render lần đầu tiên
         const userId = localStorage.getItem('userId');
         this.props.fetchAllCarts(userId);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps && nextProps.account){
+            var { account } = nextProps;
+            this.setState({
+                auth: account
+            })
+        }
     }
 
     onDelete = (id) => {
@@ -58,13 +67,15 @@ class Header extends Component {
         .then(response=> {
             localStorage.setItem('token', '');
             localStorage.setItem('userId', '');
-            window.location = 'http://localhost:3000/';
+            this.setState({
+                auth: {}
+            })
         })
        
     }
 
     render() {
-        const auth = this.props.account;
+        const auth = this.state.auth;
         const carts = this.props.carts;
 
         const listCarts = carts.map((cart, index) => {
@@ -89,7 +100,7 @@ class Header extends Component {
                     <div className="header-bot_inner_wthreeinfo_header_mid">
                         <div className="col-md-4 logo_agile">
                             <h1>
-                                <Link to="/" className="scroller-home">
+                                <Link to="/" className="scroller">
                                     <span>UTT</span>
                                     <span>BOOK</span>
                                     <img src="/images/logo2.png" alt="" />
@@ -202,14 +213,11 @@ const mapDispatchToProps = (dispatch, props) => {
         },
         onDeleteCart: (id) => {
             dispatch(actDeleteCartRequest(id))
+        },
+        onFetchUser: (token) => {
+            dispatch(actFetchUserRequest(token));
         }
     }
 }
-
-$(document).ready(function(){  
-    $('.scroller').click(function() {
-        $('html, body').animate({scrollTop:0}, 'slow');
-    });
-});
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

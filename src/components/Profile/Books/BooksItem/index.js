@@ -91,16 +91,16 @@ class BooksList extends Component {
         return result;
     }
 
-    onChangeHandler = (e) => {
-        e.preventDefault();
-        const target = e.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-        this.setState({
-            [name]: e.target.value,
-            user_id: this.props.account.id,
-        })
-    }
+    // onChangeHandler = (e) => {
+    //     e.preventDefault();
+    //     const target = e.target;
+    //     const value = target.type === 'checkbox' ? target.checked : target.value;
+    //     const name = target.name;
+    //     this.setState({
+    //         [name]: e.target.value,
+    //         user_id: this.props.account.id,
+    //     })
+    // }
 
     onSubmit = (e) => {
         e.preventDefault();

@@ -50,6 +50,7 @@ class checkOut extends Component {
             address: '',
             country: '',
             method: '',
+            classPayment: '',
         };
     }
 
@@ -103,7 +104,9 @@ class checkOut extends Component {
                     const orderId = res.data.orderId;
                     this.props.history.push(`/order/${orderId}/payment`);
                 }
-             
+                this.setState({
+                    classPayment: 'scroller'
+                })
             });
         }
     }
@@ -178,6 +181,7 @@ class checkOut extends Component {
     }
 
     render() {
+        const classPayment = this.state.classPayment;
         const carts = this.props.carts;
         var totalPrice = 0;
         for (var i = 0; i < carts.length; i++) {
@@ -343,7 +347,7 @@ class checkOut extends Component {
                                                 </div>
                                                 <hr />
                                                 <div className="checkout-right-basket">
-                                                    <button type="submit" style={{ cursor: 'pointer' }}>Make a Payment
+                                                    <button type="submit" className={ classPayment } style={{ cursor: 'pointer' }}>Make a Payment
                                                         <span className="fa fa-hand-o-right" aria-hidden="true"></span>
                                                     </button>
                                                 </div>

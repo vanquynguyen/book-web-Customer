@@ -4,8 +4,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import swal from 'sweetalert';
 import { actGetUserRequest } from '../../actions/Users/';
+import { actCheckFollowRequest } from '../../actions/Follows';
 import * as Config from '../../constants/Config';
-// import axios from 'axios';
+import axios from 'axios';
 
 class UserProfile extends Component {
 
@@ -18,6 +19,7 @@ class UserProfile extends Component {
            email: '',
            address: '',
            gender: '',
+           check: '',
         };
     }
 
@@ -25,13 +27,27 @@ class UserProfile extends Component {
         var { match } = this.props;
         if (match) { // update
             var id = match.params.id;
+            const following_id = localStorage.getItem('userId');
             this.props.onGetUser(id)
+            const data = {
+                follower_id: id,
+                following_id: following_id
+            }
+            axios({
+                method: 'post',
+                url: Config.API_URL + '/user/check-follow', 
+                data: data
+            }).then(res => {
+                this.setState({
+                    check: res.data
+                })
+            })
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps && nextProps.usersEditing){
-            var {usersEditing} = nextProps;
+        if(nextProps && nextProps.usersEditing && nextProps.check){
+            var {usersEditing, check} = nextProps;
             this.setState({
                 id: usersEditing.id,
                 full_name: usersEditing.full_name,
@@ -39,11 +55,37 @@ class UserProfile extends Component {
                 email: usersEditing.email,
                 address: usersEditing.address,
                 gender: usersEditing.gender,
+                check: check
             })
         }
     }
 
+    follow = () => {
+        const data = {
+            follower_id: this.state.id,
+            following_id: this.props.account.id
+        }
+
+        axios.post(Config.API_URL + '/user/follow', data).then(res => {
+            this.props.onCheckFollow(data);
+           
+        });
+    }
+
+    unfollow = () => {
+        const data = {
+            follower_id: this.state.id,
+            following_id: this.props.account.id
+        }
+
+        axios.post(Config.API_URL + '/user/unfollow', data).then(res => {
+            this.props.onCheckFollow(data);
+        });
+    }
+
     render() {
+        const checkFollow = this.state.check;
+
         return (
             <div style={{ height: 'auto' }}>
                 <section className="relative fix m-bottom50 gray-bg" id="sc3">
@@ -100,6 +142,12 @@ class UserProfile extends Component {
                                 <div className="text-center">
                                     <h2><strong>{ this.state.full_name }</strong></h2>
                                 </div>
+                                {!checkFollow.id ? (
+                                    <button onClick={this.follow} className="btn" style={{ marginLeft: '188px', marginTop: '10px', backgroundColor: '#ffb13b', color: 'white', fontWeight: 'bold' }}>Follow</button>
+                                ) : (
+                                    <button onClick={this.unfollow} className="btn" style={{ marginLeft: '188px', marginTop: '10px', backgroundColor: '#ffb13b', color: 'white', fontWeight: 'bold' }}>UnFollow</button>
+                                )}
+                                
                                 <hr className="hr-profile"/>
                                 <div className="title-bar"></div>
                                 <div>
@@ -157,6 +205,8 @@ class UserProfile extends Component {
 const mapStateToProps = state => {
     return {
         usersEditing : state.usersEditing,
+        account: state.account,
+        check: state.check
     }
 }
 
@@ -165,6 +215,9 @@ const mapDispatchToProps = (dispatch, props) => {
         onGetUser: (id) => {
             dispatch(actGetUserRequest(id));
         },
+        onCheckFollow: (data) => {
+            dispatch(actCheckFollowRequest(data));
+        }
     }
 }
 

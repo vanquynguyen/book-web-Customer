@@ -21,3 +21,11 @@ export const DELETE_CART= 'DELETE_CART';
 
 //Review
 export const FETCH_REVIEWS= 'FETCH_REVIEWS';
+
+//Order
+export const FETCH_ORDERS = 'FETCH_ORDERS';
+
+//Follow
+export const CHECK_FOLLOW = 'CHECK_FOLLOW';
+export const FETCH_ALL_FOLLOWER = 'FETCH_ALL_FOLLOWER';
+export const FETCH_ALL_FOLLOWING = 'FETCH_ALL_FOLLOWING';

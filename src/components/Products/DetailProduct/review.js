@@ -16,10 +16,6 @@ class review extends Component {
         };
     }
 
-    componentDidMount() {
-        this.props.fetchAllReviews();
-    }
-
     onStarClick(nextValue, prevValue, name) {
         this.setState({rate: nextValue});
     }
@@ -41,7 +37,7 @@ class review extends Component {
                 swal("Only once review!", "You clicked the button!", "warning");
             } else {
                 swal("Good job!", "You clicked the button!", "success");
-                this.props.fetchAllReviews();
+                this.props.fetchAllReviews(book_id);
             }
                 jquery('.close').click();
         });
@@ -108,8 +104,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        fetchAllReviews: () => {
-            dispatch(actFetchReviewsRequest());
+        fetchAllReviews: (id) => {
+            dispatch(actFetchReviewsRequest(id));
         }
     }
 }

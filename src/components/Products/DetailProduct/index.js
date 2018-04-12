@@ -29,7 +29,11 @@ class DetailProduct extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchAllReviews();
+        var { match } = this.props;
+        if (match) { // update
+            var id = match.params.id;
+            this.props.fetchAllReviews(id);
+        }
     }
 
     componentWillMount() {
@@ -116,6 +120,7 @@ class DetailProduct extends Component {
     
     render () {
         const image = this.state.image;
+
         return (
             <div>
                 <Breadscrumb name='Detail'/>
@@ -228,7 +233,7 @@ class DetailProduct extends Component {
                             CHƯƠNG VIII – TỪ VI MÔ ĐÊN VĨ MÔ
                         </p>
                     </div>
-                    <NavTab id={this.state.id}/>
+                    <NavTab id={this.state.id} reviews={this.props.reviews}/>
                 </div>
                 <div className="featured-section" id="projects">
                 <div className="container">
@@ -442,8 +447,8 @@ const mapDispatchToProps = (dispatch, props) => {
         fetchAllCarts: (userId) => {
             dispatch(actFetchCartsRequest(userId));
         },
-        fetchAllReviews: () => {
-            dispatch(actFetchReviewsRequest());
+        fetchAllReviews: (id) => {
+            dispatch(actFetchReviewsRequest(id));
         }
     }
 }

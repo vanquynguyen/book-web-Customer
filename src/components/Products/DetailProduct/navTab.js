@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { actFetchReviewsRequest } from '../../../actions/Reviews';
+// import { actFetchReviewsRequest } from '../../../actions/Reviews';
 import StarRatingComponent from 'react-star-rating-component';
 import { connect } from 'react-redux';
 
@@ -10,10 +10,6 @@ class navTabs extends Component {
         this.state = {
             id: ''
         }
-    }
-
-    componentDidMount() {
-        this.props.fetchAllReviews();
     }
 
     componentWillMount() {
@@ -97,9 +93,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        fetchAllReviews: () => {
-            dispatch(actFetchReviewsRequest());
-        }
+       //
     }
 }
 
