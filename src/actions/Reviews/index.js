@@ -5,10 +5,10 @@ import axios from 'axios';
 export const actFetchReviewsRequest = (id) => {
     return (dispatch) => {
         return axios({
-            method: 'get',
-            url: Config.API_URL + '/get-reviews', 
-            params: {id: id}
+            method: 'post',
+            url: Config.API_URL + `/book/${id}/get-reviews`, 
         }).then(res => {
+            
             dispatch(actFetchReviews(res.data))
         })
     }

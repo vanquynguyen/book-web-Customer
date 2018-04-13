@@ -22,18 +22,26 @@ class navTabs extends Component {
     render () {
         const book_id = this.state.id;
         const reviews = this.props.reviews;
-
+        // console.log(reviews)
         const listReviews = reviews.map((review, index) => {
             return <div key={index}>
-                        <img src="" alt="" width="64"/>
                         {review.created_at}
                         <br />
-                        <StarRatingComponent 
-                            name="rate1" 
-                            starCount={5}
-                            value={review.rate}
-                        />
-                        {review.content}
+                        <div className="review-content">
+                            <div className="col-md-2 img-review">
+                                <img src="https://images.viblo.asia/avatar/398ff412-f7d3-4e32-85b3-50efae907d6b.png" alt="" width="64"/>
+                            </div>
+                            <div className="col-md-10">
+                                {review.user.full_name}
+                                <StarRatingComponent 
+                                    name="rate1" 
+                                    starCount={5}
+                                    value={review.rate}
+                                />
+                                <br />
+                                {review.content}
+                            </div>
+                        </div>
                     </div>
         });
 

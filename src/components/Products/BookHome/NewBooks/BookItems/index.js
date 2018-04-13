@@ -36,14 +36,19 @@ class BooksItem extends Component {
 
     onSubmit(id) {
         const bookId = id
-        axios.get(Config.API_URL+ '/cart/get-book-id', {params: {bookId: bookId}}).then(res => {
+        const userId = localStorage.getItem('userId');
+        const data = {
+            bookId: bookId,
+            userId: userId
+        }
+        axios.post(Config.API_URL+ '/cart/get-book-id', data).then(res => {
           
-            var data = res.data;
+            var result = res.data;
  
-            if (data.length > 0) {
+            if (result.length > 0) {
                 var bookId = id;
-                var addedAmount = data['0'].amount + 1;
-                var price = data['0'].price*2;
+                var addedAmount = result['0'].amount + 1;
+                var price = result['0'].price*2;
                 var request = {
                     'amount' : addedAmount,
                     'price' : price
@@ -53,7 +58,7 @@ class BooksItem extends Component {
                     const amountBook = response.data.amount;
                     const userId = this.props.account.id;
                     if (addedAmount <= amountBook) {
-                        axios.put(Config.API_URL+ `/carts/${data['0'].id}`, request).then(response => {
+                        axios.put(Config.API_URL+ `/carts/${result['0'].id}`, request).then(response => {
                            
                             swal({
                                 title: `Added ${addedAmount} / ${amountBook} products`,

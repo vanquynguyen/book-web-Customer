@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Modal from 'react-responsive-modal';
 // import swal from 'sweetalert';
 import BooksList from './Books/BookListsPage';
 import HistoryOrder from './Order/HistoryOrder';
 import { actGetUserRequest } from '../../actions/Users/';
+import { actCheckFollowRequest } from '../../actions/Follows';
+// import axios from 'axios';
 import * as Config from '../../constants/Config';
 import { actFollowersRequest, actFollowingsRequest } from '../../actions/Follows';
 
@@ -23,13 +25,16 @@ class UserProfile extends Component {
            gender: '',
            openFollower: false,
            openFollowing: false,
+           Followings: '',
+           Followers: '',
+           check: '',
         };
     }
 
     componentDidMount() {
         const id = localStorage.getItem('userId');
-        this.props.onGetFollower(id);
-        this.props.onGetFollowing(id);
+        this.props.onGetFollowers(id);
+        this.props.onGetFollowings(id);
     }
 
     componentWillMount() {
@@ -38,7 +43,7 @@ class UserProfile extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps && nextProps.usersEditing){
+        if(nextProps && nextProps.usersEditing) {
             var {usersEditing} = nextProps;
             this.setState({
                 id: usersEditing.id,
@@ -49,6 +54,20 @@ class UserProfile extends Component {
                 gender: usersEditing.gender,
             })
         }
+
+        if(nextProps && nextProps.Followings) {
+            var {Followings} = nextProps;
+            this.setState({
+                Followings: Followings
+            })
+        }
+
+        if(nextProps && nextProps.Followers) {
+            var {Followers} = nextProps;
+            this.setState({
+                Followers: Followers
+            })
+        }
     }
 
     onOpenModalFollower = () => {
@@ -56,7 +75,9 @@ class UserProfile extends Component {
     };
 
     onOpenModalFollowing = () => {
-        this.setState({ openFollowing: true });
+        this.setState({ 
+            openFollowing: true
+        });
     };
      
     onCloseModalFollower = () => {
@@ -68,9 +89,41 @@ class UserProfile extends Component {
     };
 
     render() {
-        console.log(this.props.Followers)
+      
         const openFollower = this.state.openFollower;
         const openFollowing = this.state.openFollowing;
+        const Followings = this.state.Followings;
+        const Followers = this.props.Followers;
+        let listFollowings
+        if (Followings.length > 0 ) {
+            listFollowings = Followings.map((following, index) => 
+                <div className="row" key={index} style={{ marginBottom: '10px' }}>
+                    <div className="col-md-8">
+                        <img src="http://localhost:8000/images/avatar.png" clasName="img-circle" width="50px" alt="" />
+                        <span style={{ marginLeft: '5px' }}>{following.follower_user.full_name}</span>
+                    </div>
+                    <div className="col-md-4">
+                        <Link to={`/user/${following.follower_user.id}`} className="scroller"><button className="btn" style={{ backgroundColor: '#ffb13b', color: 'white', fontWeight: 'bold' }}>Detail</button></Link>
+                    </div>
+                </div>
+            )
+        }
+
+        let listFollowers
+         if (Followers.length > 0 ) {
+            listFollowers = Followers.map((follower, index) => 
+                <div className="row" key={index} style={{ marginBottom: '10px' }}>
+                    <div className="col-md-8">
+                        <img src="http://localhost:8000/images/avatar.png" clasName="img-circle" width="50px" alt="" />
+                        <span style={{ marginLeft: '5px' }}>{follower.following_user.full_name}</span>
+                    </div>
+                    <div className="col-md-4">
+                        <Link to={`/user/${follower.following_user.id}`} className="scroller"><button onClick={this.follow} className="btn" style={{ marginTop: '10px', backgroundColor: '#ffb13b', color: 'white', fontWeight: 'bold' }}>Detail</button></Link>
+                    </div>
+                </div>
+            )
+        }
+       
         return (
             <div style={{ height: 'auto' }}>
                 <section className="relative fix m-bottom50 gray-bg" id="sc3">
@@ -127,9 +180,9 @@ class UserProfile extends Component {
                                             <h4 className="tip-left">Address: </h4>
                                             <p className="">{this.state.address}</p>
                                             <h4 className="tip-left">Follower: </h4>
-                                            <p className=""><a onClick={this.onOpenModalFollower}>1 people</a></p>
+                                            <p className=""><a onClick={this.onOpenModalFollower}>{Followers.length} people</a></p>
                                             <h4 className="tip-left">Following: </h4>
-                                            <p className=""><a onClick={this.onOpenModalFollowing}>0 people</a></p>
+                                            <p className=""><a data-toggle="modal" data-target="#myModal123" onClick={this.onOpenModalFollowing}>{Followings.length} people</a></p>
                                             {/* <h4><a href="javascript:void(0);" data-toggle="modal" data-target="#favoritecategories"> <i className="icofont icofont-arrow-right"></i></a></h4> */}
                                         </div>
                                     </div>
@@ -141,7 +194,7 @@ class UserProfile extends Component {
                                             <span className="fa fa-book" aria-hidden="true"></span>
                                         </div>
                                         <div className="modal_body_left modal_body_left1">
-  
+                                            {listFollowers}
                                         </div>
                                         <div className="clearfix"></div>
                                     </div>
@@ -153,7 +206,7 @@ class UserProfile extends Component {
                                             <span className="fa fa-book" aria-hidden="true"></span>
                                         </div>
                                         <div className="modal_body_left modal_body_left1">
-  
+                                            {listFollowings}
                                         </div>
                                         <div className="clearfix"></div>
                                     </div>
@@ -228,11 +281,14 @@ const mapDispatchToProps = (dispatch, props) => {
         onGetUser: (id) => {
             dispatch(actGetUserRequest(id));
         },
-        onGetFollower: (id) => {
+        onGetFollowers: (id) => {
             dispatch(actFollowersRequest(id));
         },
-        onGetFollowing: (id) => {
+        onGetFollowings: (id) => {
             dispatch(actFollowingsRequest(id));
+        },
+        onCheckFollow: (data) => {
+            dispatch(actCheckFollowRequest(data));
         }
     }
 }
