@@ -127,7 +127,7 @@ class UserProfile extends Component {
                                             <h4 className="tip-left">Address: </h4>
                                             <p className="">{this.state.address}</p>
                                             <h4 className="tip-left">Follower: </h4>
-                                            <p className=""><a onClick={this.onOpenModalFollower}>1 people</a></p>
+                                            <p className=""><a onClick={this.onOpenModalFollower}>0 people</a></p>
                                             <h4 className="tip-left">Following: </h4>
                                             <p className=""><a onClick={this.onOpenModalFollowing}>0 people</a></p>
                                             {/* <h4><a href="javascript:void(0);" data-toggle="modal" data-target="#favoritecategories"> <i className="icofont icofont-arrow-right"></i></a></h4> */}
