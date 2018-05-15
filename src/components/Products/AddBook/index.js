@@ -47,7 +47,7 @@ class AddBook extends Component {
         // Gọi trước khi component đc render lần đầu tiên
         this.props.fetchAllCategories();
     }
-
+    
     onChangeHandler = (e) => {
         e.preventDefault();
         this.setState({

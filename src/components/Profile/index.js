@@ -94,13 +94,13 @@ class UserProfile extends Component {
         const openFollowing = this.state.openFollowing;
         const Followings = this.state.Followings;
         const Followers = this.props.Followers;
-        console.log(Followings);
+
         let listFollowings
         if (Followings.length > 0 ) {
             listFollowings = Followings.map((following, index) => 
                 <div className="row" key={index} style={{ marginBottom: '10px' }}>
                     <div className="col-md-8">
-                        <img src="http://localhost:8000/images/avatar.png" clasName="img-circle" width="50px" alt="" />
+                        <img src={Config.LOCAL_URL + 'images/' + following.follower_user.avatar} alt="" width="150" height="200"/>
                         <span style={{ marginLeft: '5px' }}>{following.follower_user.full_name}</span>
                     </div>
                     <div className="col-md-4">
@@ -115,7 +115,7 @@ class UserProfile extends Component {
             listFollowers = Followers.map((follower, index) => 
                 <div className="row" key={index} style={{ marginBottom: '10px' }}>
                     <div className="col-md-8">
-                        <img src="http://localhost:8000/images/avatar.png" clasName="img-circle" width="50px" alt="" />
+                        <img src={Config.LOCAL_URL + 'images/' + follower.following_user.avatar} alt="" width="150" height="200"/>
                         <span style={{ marginLeft: '5px' }}>{follower.following_user.full_name}</span>
                     </div>
                     <div className="col-md-4">
