@@ -1,2 +1,2 @@
-export const API_URL = 'http://localhost:8000/api/auth';
-export const LOCAL_URL = 'http://localhost:8000';
+export const API_URL = 'https://utt-book.herokuapp.com//api/auth';
+export const LOCAL_URL = 'https://utt-book.herokuapp.com/';

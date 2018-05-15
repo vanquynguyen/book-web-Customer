@@ -41,60 +41,68 @@ class BooksItem extends Component {
             bookId: bookId,
             userId: userId
         }
-        axios.post(Config.API_URL+ '/cart/get-book-id', data).then(res => {
-          
-            var result = res.data;
- 
-            if (result.length > 0) {
-                var bookId = id;
-                var addedAmount = result['0'].amount + 1;
-                var price = result['0'].price*2;
-                var request = {
-                    'amount' : addedAmount,
-                    'price' : price
-                }
-                axios.get(Config.API_URL+ `/books/${bookId}`).then(response => {
-                    // console.log(response)
-                    const amountBook = response.data.amount;
-                    const userId = this.props.account.id;
-                    if (addedAmount <= amountBook) {
-                        axios.put(Config.API_URL+ `/carts/${result['0'].id}`, request).then(response => {
-                           
-                            swal({
-                                title: `Added ${addedAmount} / ${amountBook} products`,
-                                text: "You clicked the button!",
-                                icon: "success",
-                            });
 
-                            this.props.fetchAllCarts(userId);
-                        });
-                    } else {
-                        swal({
-                            title: "Too many amount allowed!",
-                            text: "You clicked the button!",
-                            icon: "warning",
-                        });
+        if (this.props.book.amount !== 0) {
+            axios.post(Config.API_URL+ '/cart/get-book-id', data).then(res => {
+                var result = res.data;
+     
+                if (result.length > 0) {
+                    var bookId = id;
+                    var addedAmount = result['0'].amount + 1;
+                    var price = result['0'].price*2;
+                    var request = {
+                        'amount' : addedAmount,
+                        'price' : price
                     }
-                });
-            } else {
-                const userId = this.props.account.id;
-                const bookId = id;
-                const data = {
-                    bookId: bookId,
-                    userId: userId
-                }
-                axios.post(Config.API_URL+ '/carts', data).then(response => {
-                    swal({
-                        title: `Added 1 products`,
-                        text: "You clicked the button!",
-                        icon: "success",
+                    axios.get(Config.API_URL+ `/books/${bookId}`).then(response => {
+                        // console.log(response)
+                        const amountBook = response.data.amount;
+                        const userId = this.props.account.id;
+                        if (addedAmount <= amountBook) {
+                            axios.put(Config.API_URL+ `/carts/${result['0'].id}`, request).then(response => {
+                               
+                                swal({
+                                    title: `Added ${addedAmount} / ${amountBook} products`,
+                                    text: "You clicked the button!",
+                                    icon: "success",
+                                });
+    
+                                this.props.fetchAllCarts(userId);
+                            });
+                        } else {
+                            swal({
+                                title: "Too many amount allowed!",
+                                text: "You clicked the button!",
+                                icon: "warning",
+                            });
+                        }
                     });
-
-                    this.props.fetchAllCarts(userId);
-                });
-            }
-
-        });
+                } else {
+                    const userId = this.props.account.id;
+                    const bookId = id;
+                    const data = {
+                        bookId: bookId,
+                        userId: userId
+                    }
+                    axios.post(Config.API_URL+ '/carts', data).then(response => {
+                        swal({
+                            title: `Added 1 products`,
+                            text: "You clicked the button!",
+                            icon: "success",
+                        });
+    
+                        this.props.fetchAllCarts(userId);
+                    });
+                }
+    
+            });
+        } else {
+            swal({
+                title: "Oversell!",
+                text: "You clicked the button!",
+                icon: "warning",
+            });
+        }
     }
 
     onDelete = (id) => {
