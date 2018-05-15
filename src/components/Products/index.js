@@ -45,7 +45,6 @@ class List extends Component {
                                 </div>   
                                 <TopBookings />
                                 <TopReviews />
-                                </div>
                             </div>
                         </div>
                     </div>
