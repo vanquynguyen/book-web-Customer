@@ -1,0 +1,70 @@
+.prgreen-bg {
+    background-color: #2f323e;
+}
+
+.prcover {
+    display: block;
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+    text-decoration: none;
+    text-align: center;
+    color: white
+}
+
+.prheadline {
+    position: relative;
+    width: 100%;
+    min-height: 50px;
+}
+/* .text-white prhellofont {
+    font-size: 100px!important;
+} */
+
+.pravatar {
+    left: 120px;
+    top: -123px;
+    margin-top: 0;
+    position: absolute;
+}
+
+.pravatar-image {
+    max-height: 166px;
+    border-radius: 50% !important;
+    height: 166px;
+    width: 166px;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    margin-left: 20px;
+}
+
+.hr-profile {
+    border-bottom: 2px solid black!important;
+}
+
+.prheadlineinfo {
+    margin-right: 240px;
+    margin-top: 56px;
+}
+
+.prheadlineinfo a {
+    color: black;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 19px;
+}
+
+.active a {
+    color: #ff5722!important;
+    background-color: #ddd!important;
+    border-bottom: 2px solid #ff5722!important;
+}
+
+.book-content-profile {
+    margin-left: 40px;
+}
+
+.tip-left {
+    margin-bottom: 7px;
+}
