@@ -98,12 +98,14 @@ class checkOut extends Component {
                 swal("Good job!", "You clicked the button!", "success");
                 const userId = localStorage.getItem('userId');
                 this.props.fetchAllCarts(userId);
-                if (res.data.status === 1) {
+       
+                if (res.data.status.status === 1) {
                     this.props.history.push(`/user/${user_id}/profile`);
                 } else {
                     const orderId = res.data.orderId;
                     this.props.history.push(`/order/${orderId}/payment`);
                 }
+
                 this.setState({
                     classPayment: 'scroller'
                 })
@@ -252,113 +254,117 @@ class checkOut extends Component {
                                 Price Total: $ {totalPrice}
                             </div>
                         </div>
-                        <div className="checkout-left">
+                        { carts.length > 0 ? (
+                            <div className="checkout-left">
                             <div className="address_form_agile">
                                 <h4>Add a new Details</h4>
-                                <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }} className="creditly-card-form agileinfo_form">
-                                    <div className="creditly-wrapper wthree, w3_agileits_wrapper">
-                                        <div className="information-wrapper">
-                                            <div className="first-row">
-                                                <div className="controls">
-                                                    <Input 
-                                                        className="billing-address-name" 
-                                                        type="text" 
-                                                        name="full_name" 
-                                                        placeholder="Full Name" 
-                                                        validations={[required]}
-                                                        onChange={this.onChangeHandler}
-                                                    />
-                                                </div>
-                                                <div className="controls">
-                                                    <Input 
-                                                        className="billing-address-name" 
-                                                        type="email" 
-                                                        name="email" 
-                                                        placeholder="Email" 
-                                                        validations={[required, email]}
-                                                        onChange={this.onChangeHandler}
-                                                    />
-                                                </div>
-                                                <div className="w3_agileits_card_number_grids">
-                                                    <div className="w3_agileits_card_number_grid_left">
-                                                        <div className="controls">
-                                                            <Input 
-                                                                type="text" 
-                                                                placeholder="Mobile Number" 
-                                                                name="phone" 
-                                                                validations={[required, minPhoneLength, number]}
-                                                                onChange={this.onChangeHandler}
-                                                            />
-                                                        </div>
+                                    <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }} className="creditly-card-form agileinfo_form">
+                                        <div className="creditly-wrapper wthree, w3_agileits_wrapper">
+                                            <div className="information-wrapper">
+                                                <div className="first-row">
+                                                    <div className="controls">
+                                                        <Input 
+                                                            className="billing-address-name" 
+                                                            type="text" 
+                                                            name="full_name" 
+                                                            placeholder="Full Name" 
+                                                            validations={[required]}
+                                                            onChange={this.onChangeHandler}
+                                                        />
                                                     </div>
                                                     <div className="controls">
+                                                        <Input 
+                                                            className="billing-address-name" 
+                                                            type="email" 
+                                                            name="email" 
+                                                            placeholder="Email" 
+                                                            validations={[required, email]}
+                                                            onChange={this.onChangeHandler}
+                                                        />
+                                                    </div>
+                                                    <div className="w3_agileits_card_number_grids">
+                                                        <div className="w3_agileits_card_number_grid_left">
+                                                            <div className="controls">
+                                                                <Input 
+                                                                    type="text" 
+                                                                    placeholder="Mobile Number" 
+                                                                    name="phone" 
+                                                                    validations={[required, minPhoneLength, number]}
+                                                                    onChange={this.onChangeHandler}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="controls">
+                                                            <select 
+                                                                className="option-w3ls"
+                                                                ref="gender"
+                                                                onChange={this.onChangeHandler}
+                                                                validations={[required]}
+                                                            >
+                                                                <option>Select Gender</option>
+                                                                <option value="0">Male</option>
+                                                                <option value="1">Female</option>
+                                                            </select>
+                                                        </div>
+                                                        <div className="w3_agileits_card_number_grid_right">
+                                                            <div className="controls">
+                                                                <Input 
+                                                                    ref="address"
+                                                                    type="text" 
+                                                                    placeholder="Address" 
+                                                                    name="address" 
+                                                                    validations={[required]}
+                                                                    onChange={this.onChangeHandler}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="controls">
                                                         <select 
                                                             className="option-w3ls"
-                                                            ref="gender"
+                                                            ref="country"
                                                             onChange={this.onChangeHandler}
                                                             validations={[required]}
                                                         >
-                                                            <option>Select Gender</option>
-                                                            <option value="0">Male</option>
-                                                            <option value="1">Female</option>
+                                                            <option>Select Country</option>
+                                                            <option value="0">Viet Nam</option>
+                                                            <option value="1">Overseas</option>
+                                                            <option value="1">Foreign</option>
+                                                        </select>
+                                                        </div>
+                                                        <div className="clear"> </div>
+                                                    </div>
+                                                
+                                                    <h2>Payment methods</h2>
+                                                    <hr />
+                                                    <div className="controls">
+                                                        <select 
+                                                            className="option-w3ls"
+                                                            ref="method"
+                                                            validations={[required]}
+                                                            onChange={this.onChangeHandler}
+                                                        >
+                                                            <option>Select Method Payment</option>
+                                                            <option value="0">Cash on delivery (COD)</option>
+                                                            <option value="1">Credit/Debit(new)</option>
                                                         </select>
                                                     </div>
-                                                    <div className="w3_agileits_card_number_grid_right">
-                                                        <div className="controls">
-                                                            <Input 
-                                                                ref="address"
-                                                                type="text" 
-                                                                placeholder="Address" 
-                                                                name="address" 
-                                                                validations={[required]}
-                                                                onChange={this.onChangeHandler}
-                                                            />
-                                                        </div>
+                                                    <hr />
+                                                    <div className="checkout-right-basket">
+                                                        <button type="submit" className={ classPayment } style={{ cursor: 'pointer' }}>Make a Payment
+                                                            <span className="fa fa-hand-o-right" aria-hidden="true"></span>
+                                                        </button>
                                                     </div>
-                                                    <div className="controls">
-                                                    <select 
-                                                        className="option-w3ls"
-                                                        ref="country"
-                                                        onChange={this.onChangeHandler}
-                                                        validations={[required]}
-                                                    >
-                                                        <option>Select Country</option>
-                                                        <option value="0">Viet Nam</option>
-                                                        <option value="1">Overseas</option>
-                                                        <option value="1">Foreign</option>
-                                                    </select>
-                                                    </div>
-                                                    <div className="clear"> </div>
+                                                    <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
                                                 </div>
-                                               
-                                                <h2>Payment methods</h2>
-                                                <hr />
-                                                <div className="controls">
-                                                    <select 
-                                                        className="option-w3ls"
-                                                        ref="method"
-                                                        validations={[required]}
-                                                        onChange={this.onChangeHandler}
-                                                    >
-                                                        <option>Select Method Payment</option>
-                                                        <option value="0">Cash on delivery (COD)</option>
-                                                        <option value="1">Credit/Debit(new)</option>
-                                                    </select>
-                                                </div>
-                                                <hr />
-                                                <div className="checkout-right-basket">
-                                                    <button type="submit" className={ classPayment } style={{ cursor: 'pointer' }}>Make a Payment
-                                                        <span className="fa fa-hand-o-right" aria-hidden="true"></span>
-                                                    </button>
-                                                </div>
-                                                <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
                                             </div>
                                         </div>
-                                    </div>
-                                </Form>
+                                    </Form>
+                                </div>
+                                <div className="clearfix"> </div>
                             </div>
-                            <div className="clearfix"> </div>
-                        </div>
+                        ) : (
+                            <p>Please add product</p>
+                        )}
                     </div>
                 </div>
             </div>
