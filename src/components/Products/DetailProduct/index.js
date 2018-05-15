@@ -30,8 +30,10 @@ class DetailProduct extends Component {
 
     componentDidMount() {
         var { match } = this.props;
+        // var userId = localStorage.getItem('userId');
         if (match) { // update
             var id = match.params.id;
+            
             this.props.fetchAllReviews(id);
         }
     }

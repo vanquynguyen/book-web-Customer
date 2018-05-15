@@ -38,6 +38,7 @@ class review extends Component {
             } else {
                 swal("Good job!", "You clicked the button!", "success");
                 this.props.fetchAllReviews(book_id);
+                this.refs.content.value = '';
             }
                 jquery('.close').click();
         });
