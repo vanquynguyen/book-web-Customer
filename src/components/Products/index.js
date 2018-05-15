@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 import Author from '../Sections/Author';
 import NewBooks from './BookHome/NewBooks/index';
+import TopBookings from './BookHome/TopBookings/index';
+import TopReviews from './BookHome/TopReviews/index';
 
 class List extends Component {
 
@@ -40,18 +42,9 @@ class List extends Component {
                                         <img src="http://www.top7thuvi.com/wp-content/uploads/2017/03/me-before-you.jpg" width="240" alt="" />
                                     </div>
                                     <div className="clearfix"></div>
-                                </div>
-                                <div className="product-sec1">
-                                    <h3 className="heading-tittle">Top Booking</h3>
-                                    <NewBooks />
-                                    <div className="clearfix"></div>
-                                    <div className="ph-20" style={{ marginTop: '30px', textAlign: 'center' }}><a className="btn btn-primary btn-block" style={{ width: '35%', background: '#f0ad4e', borderColor: 'rgb(254, 136, 0)'}}>View more</a></div>
-                                </div>
-                                <div className="product-sec1">
-                                    <h3 className="heading-tittle">Top Review</h3>
-                                    <NewBooks />
-                                    <div className="clearfix"></div>
-                                    <div className="ph-20" style={{ marginTop: '30px', textAlign: 'center' }}><a className="btn btn-primary btn-block" style={{ width: '35%', background: '#f0ad4e', borderColor: 'rgb(254, 136, 0)'}}>View more</a></div>
+                                </div>   
+                                <TopBookings />
+                                <TopReviews />
                                 </div>
                             </div>
                         </div>
