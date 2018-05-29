@@ -30,10 +30,10 @@ class CategoriesActionPage extends Component {
 
     componentWillMount() {
         var { match } = this.props;
-        if (match) { // update
+        if (match) {
             var id = match.params.id;
             this.props.onEditCategory(id)
-        } // else => add
+        } 
     }
 
     componentWillReceiveProps(nextProps) {

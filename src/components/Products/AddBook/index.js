@@ -47,7 +47,7 @@ class AddBook extends Component {
         // Gọi trước khi component đc render lần đầu tiên
         this.props.fetchAllCategories();
     }
-
+    
     onChangeHandler = (e) => {
         e.preventDefault();
         this.setState({
@@ -92,7 +92,7 @@ class AddBook extends Component {
 
             axios.post(Config.API_URL + '/books', book).then(res => {
                 swal("Good job!", "You clicked the button!", "success");
-                this.props.history.push(`/user/${user_id}/profile`);
+                this.props.history.push(`/user/profile`);
             });
         }
     }

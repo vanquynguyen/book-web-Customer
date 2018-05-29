@@ -27,7 +27,7 @@ class BooksList extends Component {
     constructor(props) {
         super();
         this.state = {
-            imagePreview: 'https://znews-photo-td.zadn.vn/w1024/Uploaded/pgi_cuhbatag2/2017_01_23/189789dacnhantambody_2_2mr0gpfamp6f8.jpg',
+            imagePreview: '',
             category: '',
             categories: '',
             open: false,
@@ -44,7 +44,10 @@ class BooksList extends Component {
     }
 
     onOpenModal = () => {
-        this.setState({ open: true });
+        this.setState({ 
+            open: true,
+            imagePreview:`${Config.LOCAL_URL}/images/books/${this.props.book.image}`
+        });
     };
      
     onCloseModal = () => {
@@ -91,37 +94,37 @@ class BooksList extends Component {
         return result;
     }
 
-    // onChangeHandler = (e) => {
-    //     e.preventDefault();
-    //     const target = e.target;
-    //     const value = target.type === 'checkbox' ? target.checked : target.value;
-    //     const name = target.name;
-    //     this.setState({
-    //         [name]: e.target.value,
-    //         user_id: this.props.account.id,
-    //     })
-    // }
+    onChangeHandler = (e) => {
+        e.preventDefault();
+        const target = e.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+
+        this.setState({
+            [e.target.name]: value,
+            user_id: this.props.account.id,
+        })
+    }
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state)
-        // this.form.validateAll();
-        if ( this.checkBtn.context._errors.length === 0 ) {
-            // var { user_id, title, image, author, category_id, description, price, amount } = this.state;
-            // var book = new FormData()
-            // book.append("user_id", user_id);
-            // book.append("title", title);
-            // book.append("image", image);
-            // book.append("author", author);
-            // book.append("category_id", category_id);
-            // book.append("description", description);
-            // book.append("price", price);
-            // book.append("amount", amount);
+        this.form.validateAll();
 
-            // axios.post(Config.API_URL + '/books', book).then(res => {
-            //     swal("Good job!", "You clicked the button!", "success");
-            //     this.props.history.push(`/user/${user_id}/profile`);
-            // });
+        if ( this.checkBtn.context._errors.length === 0 ) {
+            var {title, image, author, category_id, description, price, amount } = this.state;
+            var id = this.props.book.id;
+            var book = new FormData()
+            book.append("user_id", this.props.account.id);
+            book.append("title", title);
+            book.append("image", image);
+            book.append("author", author);
+            book.append("category_id", category_id);
+            book.append("description", description);
+            book.append("price", price);
+            book.append("amount", amount);
+            
+            axios.put(Config.API_URL + `/books/${id}` , book).then(res => {
+                swal("Good job!", "You clicked the button!", "success");
+            });
         }
     }
 
@@ -164,8 +167,7 @@ class BooksList extends Component {
             <div className="col-md-4 product-men">
                 <div className="men-pro-item simpleCart_shelfItem">
                     <div className="men-thumb-item">
-                        {/* <img src={Config.LOCAL_URL + '/images/books/' + book.image} alt="" width="150" height="200"/> */}
-                        <img src="https://znews-photo-td.zadn.vn/w1024/Uploaded/pgi_cuhbatag2/2017_01_23/189789dacnhantambody_2_2mr0gpfamp6f8.jpg" alt="" width="150" height="200"/>
+                        <img src={Config.LOCAL_URL + '/images/books/' + book.image} alt="" width="150" height="200"/>
                         <div className="men-cart-pro">
                             <div className="inner-men-cart-pro">
                                 <a className="link-product-add-cart quick-view" style={{marginLeft: '53px', width: '42%'}} onClick={this.onOpenModal}>Quick View</a>
@@ -191,7 +193,6 @@ class BooksList extends Component {
                         <div className="modal_body_left modal_body_left1">
                             <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
                                 <div className="col-md-6">
-                                    {/* <img src={Config.LOCAL_URL + '/images/books/' + book.image} style={{width: '85%'}} alt=""/> */}
                                     <img src={this.state.imagePreview} style={{width: '200px', height: '300px'}} alt=""/>
                                     <input 
                                         type="file" 
@@ -249,17 +250,12 @@ class BooksList extends Component {
                                     >
                                     </Textarea>
                                     <div className="row" style={{ marginLeft: '5px', marginTop: '10px' }}>
-                                        <button type="submit" className="btn btn-success" style={{marginRight: '5px'}}>Save</button>
+                                        <button type="submit" className="btn btn-success" style={{marginRight: '5px', float: 'left'}}>Save</button>
+                                        <button type="button" onClick={e => this.onDelete(e)} className="btn btn-danger" style={{paddingRight: '5px', paddingLeft: '4px', float: 'left'}}>Delete</button>
                                         <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
                                     </div>
                                 </div>
                             </Form>
-                            <div className="col-md-12">
-                                <form onSubmit={e => this.onDelete(e)} ref={c => { this.form = c }} style={{float: 'right'}}>
-                                    Are you Delete this book?
-                                    <button type="submit" className="btn btn-danger" style={{paddingRight: '5px', paddingLeft: '4px'}}>Delete</button>
-                                </form>
-                            </div>
                         </div>
                         <div className="clearfix"></div>
                     </div>

@@ -36,7 +36,7 @@ class NewBooks extends Component {
 
         return (
             <div className="product-sec1">
-                <h3 className="heading-tittle">New Books</h3>
+                <h3 className="heading-tittle">Top Bookings</h3>
                 {this.showBooks(books)}
                 <div className="clearfix"></div>
                 <div className="ph-20" style={{ marginTop: '30px', textAlign: 'center' }}><a className="btn btn-primary btn-block" style={{ width: '35%', background: '#f0ad4e', borderColor: 'rgb(254, 136, 0)'}}>View more</a></div>

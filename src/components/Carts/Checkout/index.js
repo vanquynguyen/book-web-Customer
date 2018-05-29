@@ -100,7 +100,7 @@ class checkOut extends Component {
                 this.props.fetchAllCarts(userId);
        
                 if (res.data.status.status === 1) {
-                    this.props.history.push(`/user/${user_id}/profile`);
+                    this.props.history.push(`/user/profile`);
                 } else {
                     const orderId = res.data.orderId;
                     this.props.history.push(`/order/${orderId}/payment`);
