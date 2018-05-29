@@ -15,7 +15,7 @@ class BooksListPage extends Component {
         this.state = {
             books: [],
             currentPage: 1,
-            PerPage: 5,
+            PerPage: 6,
             class: 'default'
         };
         this.handleClick = this.handleClick.bind(this);

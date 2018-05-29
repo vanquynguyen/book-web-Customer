@@ -17,7 +17,10 @@ class Header extends Component {
         super();
         this.state = {
             auth: {},
-            carts: []
+            carts: [],
+            books: [],
+            display: 'show-search',
+            search: '',
         };
     }
 
@@ -74,12 +77,29 @@ class Header extends Component {
        
     }
 
+    onSearch = (event) => {
+        var keywork = event.target.value;
+        this.setState({
+            search: keywork
+        })
+        if (this.state.search !== '') {
+            axios.get(Config.API_URL + '/book/search', {params:{keywork:keywork}}).then(res => {
+                this.setState({
+                    books: res.data
+                })
+            });
+        }
+    }
+
     render() {
+        const display = this.state.display
+        const check = this.state.search
+        const books = this.state.books
         const auth = this.state.auth;
         const carts = this.props.carts;
 
         const listCarts = carts.map((cart, index) => {
-            return <div className="cart-item" key={index}>
+            return  <div className="cart-item" key={index}>
                         <img style={{ float: 'left'}} src={Config.LOCAL_URL + '/images/books/' + cart.image} alt="" width="32"/>
                         <p className="dropdown-cart-title">{cart.title}</p>
                         <i className="fa fa-times" style={{ float: 'right', marginTop: '13px' }} onClick={() => this.onDelete(cart.id)}></i>
@@ -92,6 +112,18 @@ class Header extends Component {
                             </span>
                         </div>
                     </div>
+        });
+
+        const listBooks = books.map((book, index) => {
+            return <div className="search-result" id={check === '' ? display: ''} style={{backgroundColor: 'white', height: '100%', width: '90%', zIndex: '1030'}} key={index}>
+                    <li className="row" style={{ paddingLeft: '30px', paddingTop: '10px' }}>
+                        <Link to={`/book/${book.id}/detail`} class="scroller">
+                            <img style={{ float: 'left', marginRight: '15px'}} src={Config.LOCAL_URL + '/images/books/' + book.image} alt="" width="50"/>
+                            <p>{book.title}</p>
+                        </Link>
+                   </li>
+                   <br />
+                </div>
         });
 
         return (
@@ -153,12 +185,13 @@ class Header extends Component {
                                 )}
                             </ul>
                             <div className="agileits_search">
-                                <form action="#" method="post">
-                                    <input name="Search" type="search" placeholder="How can we help you today?" required="" />
-                                    <button type="submit" className="btn btn-default" aria-label="Left Align">
+                                <form action="" method="post">
+                                    <input name="Search" type="search" onChange={this.onSearch} placeholder="How can we help you today?" required="" />
+                                    <button type="button" className="btn btn-default" aria-label="Left Align">
                                     <span className="fa fa-search" aria-hidden="true"> </span>
                                     </button>
                                 </form>
+                                {listBooks}
                             </div>
                             <div className="top_nav_right">
                                 <div className="wthreecartaits wthreecartaits2 cart cart box_1" >

@@ -4901,6 +4901,18 @@ input[type="radio"], input[type="checkbox"] {
     cursor: pointer;
 }
 
+.search-result li {
+    list-style-type: none;
+}
+
+#show-search {
+    display: none;
+}
+
+.amount-book {
+    color: red
+}
+
 .UTT-cart-number {
     position: relative;
     border-radius: 4.4rem;

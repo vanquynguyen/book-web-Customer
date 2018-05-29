@@ -138,7 +138,7 @@ class DetailProduct extends Component {
     
     render () {
         const image = this.state.image;
-
+        const amount = this.state.amount;
         return (
             <div>
                 <Breadscrumb name='Detail'/>
@@ -188,7 +188,7 @@ class DetailProduct extends Component {
                                     {this.state.poster}
                                 </Link>
                             </h4>
-                            <h4>Amount: {this.state.amount}</h4>
+                            <h4>Amount: {amount > 0 ? amount: '(het hang)'}</h4>
                             <p style={{marginTop: '10px'}}>
                                 <span className="item_price">${this.state.price}</span>
                                 {/* <label>Free delivery</label> */}
@@ -215,20 +215,7 @@ class DetailProduct extends Component {
                                     <i className="fa fa-hand-o-right" aria-hidden="true"></i>
                                     {this.state.description}
                                 </p>
-                                {/* <ul>
-                                    <li>
-                                        Best for Biryani and Pulao.
-                                    </li>
-                                    <li>
-                                        After cooking, Zeeba Basmati rice grains attain an extra ordinary length of upto 2.4 cm/~1 inch.
-                                    </li>
-                                    <li>
-                                        Zeeba Basmati rice adheres to the highest food afety standards as your health is paramount to us.
-                                    </li>
-                                    <li>
-                                        Contains only the best and purest grade of basmati rice grain of Export quality.
-                                    </li>
-                                </ul> */}
+                               
                                 <p>
                                     <i className="fa fa-refresh" aria-hidden="true"></i>{this.state.description}
                                 </p>
@@ -242,15 +229,7 @@ class DetailProduct extends Component {
                     <div className="container" style={{ marginTop: '20px'}}>
                         <h3>Description</h3>
                         <p>
-                            Giới thiệu: Sách giáo khoa vật lý 12, bao gồm 8 chương:
-                            CHƯƠNG I – DAO ĐỘNG CƠ
-                            CHƯƠNG II – SÓNG CƠ VÀ SÓNG ÂM
-                            CHƯƠNG III – DÒNG ĐIỆN XOAY CHIỀU
-                            CHƯƠNG IV – DAO ĐỘNG VÀ SÓNG ĐIỆN TỪ
-                            CHƯƠNG V – SÓNG ÁNH SÁNG
-                            CHƯƠNG VI – LƯỢNG TỰ ÁNH SÁNG
-                            CHƯƠNG VII – HẠT NHÂN NGUYÊN TỬ
-                            CHƯƠNG VIII – TỪ VI MÔ ĐÊN VĨ MÔ
+                            {this.state.description}
                         </p>
                     </div>
                     <NavTab id={this.state.id} reviews={this.props.reviews}/>
