@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+// import { Link } from 'react-router-dom';
 import Category from './Category';
 import axios from 'axios';
 import SortBy from './SortBy';
 import * as Config from '../../../constants/Config';
 import '../../Pagination/style.css';
-import List from '../../Pagination/index';
+// import List from '../../Pagination/index';
+import BooksItem from './BooksItem';
+import { connect } from 'react-redux';
 
 class Books extends Component {
     constructor() {
@@ -12,7 +15,7 @@ class Books extends Component {
         this.state = {
             books: [],
             currentPage: 1,
-            PerPage: 5,
+            PerPage: 20,
             class: 'default'
         };
     }
@@ -26,13 +29,15 @@ class Books extends Component {
     }
 
     handleClick(id) {
-        if (id===1) {
+        if (id === 1) {
             this.setState({
                 currentPage: Number(id),
                 activeItem: id,
                 class: 'default'
             });
-        } else {
+        } 
+
+        if (id !== 1) {
             this.setState({
                 currentPage: Number(id),
                 activeItem: id,
@@ -42,8 +47,47 @@ class Books extends Component {
       
     }
 
+    showBooks(books) {
+        const {currentPage, PerPage } = this.state;
+        const indexOfLastTodo = currentPage * PerPage;
+        const indexOfFirstTodo = indexOfLastTodo - PerPage;
+        var result = null;
+        if(books.length > 0) {
+            const currentBooks = this.state.books.slice(indexOfFirstTodo, indexOfLastTodo);
+            
+            if (currentBooks.length > 0) {
+                result = currentBooks.map((book, index) => {
+                    return <BooksItem book={book} key={index} index={index} fetchAllUserBooks={this.props.fetchAllUserBooks} userId={this.props.account.id}  />
+                });
+            }
+        }
+            
+        return result;
+        // } else {
+        //     if (books.length > 0) {
+        //         const currentBooks = books.slice(indexOfFirstTodo, indexOfLastTodo);
+        //         if (currentBooks.length > 0) {
+        //             result = currentBooks.map((book, index) => {
+        //                 return <BooksItem book={book} key={index} index={index} />
+        //             });
+        //         }
+        
+        //         return result;
+        //     }
+        // }
+       
+    }
+
     render() {
-        console.log(this.state.books)
+        const books = this.state.books;
+        // const { PerPage, activeItem } = this.state;
+        // const pageNumbers = [];
+        // for (let i = 1; i <= Math.ceil(books.length / PerPage); i++) {
+        //   pageNumbers.push(i);
+        // }
+        // const renderPageNumbers = pageNumbers.map(number =>
+        //     <List handleClick={this.handleClick} id={number} key={number} isActive={activeItem === number} default={this.state.class} />
+        // );
         return (
             <div>
                 <div className="ads-grid">
@@ -60,353 +104,18 @@ class Books extends Component {
                         </div>
                         <div className="agileinfo-ads-display col-md-9">
                             <SortBy />
-                            <p><strong>16</strong> of <strong>35</strong> book found</p>
+                            <p><strong>{books.length}</strong> book found</p>
                             <div className="wrapper">
                                 <div className="product-sec1">
                                     <h3 className="heading-tittle">Books</h3>
                                     <hr />
-                                    <div className="col-md-4 product-men">
-                                        <div className="men-pro-item simpleCart_shelfItem">
-                                            <div className="men-thumb-item">
-                                                <img src="http://api-book.framgia.vn/image//2018/02/book/1-1-u5168d20170412t095219504123.png?p=thumbnail_web&s=1956c7ae8e7fbe860899f6ffca6b6b6c" alt="" />
-                                                <div className="men-cart-pro">
-                                                    <div className="inner-men-cart-pro">
-                                                        <a href="single.html" className="link-product-add-cart">Quick View</a>
-                                                    </div>
-                                                </div>
-                                                <span className="product-new-top">New</span>
-                                            </div>
-                                            <div className="item-info-product ">
-                                                <h4>
-                                                    <a href="single.html">Almonds, 100g</a>
-                                                </h4>
-                                                <div className="info-product-price">
-                                                    <span className="item_price">$149.00</span>
-                                                    <del>$280.00</del>
-                                                </div>
-                                                <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                    <form action="#" method="post">
-                                                        <fieldset>
-                                                            <input type="hidden" name="cmd" value="_cart" />
-                                                            <input type="hidden" name="add" value="1" />
-                                                            <input type="hidden" name="business" value=" " />
-                                                            <input type="hidden" name="item_name" value="Almonds, 100g" />
-                                                            <input type="hidden" name="amount" value="149.00" />
-                                                            <input type="hidden" name="discount_amount" value="1.00" />
-                                                            <input type="hidden" name="currency_code" value="USD" />
-                                                            <input type="hidden" name="return" value=" " />
-                                                            <input type="hidden" name="cancel_return" value=" " />
-                                                            <input type="submit" name="submit" value="Add to cart" className="button" />
-                                                        </fieldset>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 product-men">
-                                        <div className="men-pro-item simpleCart_shelfItem">
-                                            <div className="men-thumb-item">
-                                                <img src="http://api-book.framgia.vn/image//2018/02/book/1-1-u5168d20170412t095219504123.png?p=thumbnail_web&s=1956c7ae8e7fbe860899f6ffca6b6b6c" alt="" />
-                                                <div className="men-cart-pro">
-                                                    <div className="inner-men-cart-pro">
-                                                        <a href="single.html" className="link-product-add-cart">Quick View</a>
-                                                    </div>
-                                                </div>
-                                                <span className="product-new-top">New</span>
-                                            </div>
-                                            <div className="item-info-product ">
-                                                <h4>
-                                                    <a href="single.html">Almonds, 100g</a>
-                                                </h4>
-                                                <div className="info-product-price">
-                                                    <span className="item_price">$149.00</span>
-                                                    <del>$280.00</del>
-                                                </div>
-                                                <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                    <form action="#" method="post">
-                                                        <fieldset>
-                                                            <input type="hidden" name="cmd" value="_cart" />
-                                                            <input type="hidden" name="add" value="1" />
-                                                            <input type="hidden" name="business" value=" " />
-                                                            <input type="hidden" name="item_name" value="Almonds, 100g" />
-                                                            <input type="hidden" name="amount" value="149.00" />
-                                                            <input type="hidden" name="discount_amount" value="1.00" />
-                                                            <input type="hidden" name="currency_code" value="USD" />
-                                                            <input type="hidden" name="return" value=" " />
-                                                            <input type="hidden" name="cancel_return" value=" " />
-                                                            <input type="submit" name="submit" value="Add to cart" className="button" />
-                                                        </fieldset>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 product-men">
-                                        <div className="men-pro-item simpleCart_shelfItem">
-                                            <div className="men-thumb-item">
-                                                <img src="http://api-book.framgia.vn/image//2018/02/book/1-1-u5168d20170412t095219504123.png?p=thumbnail_web&s=1956c7ae8e7fbe860899f6ffca6b6b6c" alt="" />
-                                                <div className="men-cart-pro">
-                                                    <div className="inner-men-cart-pro">
-                                                        <a href="single.html" className="link-product-add-cart">Quick View</a>
-                                                    </div>
-                                                </div>
-                                                <span className="product-new-top">New</span>
-                                            </div>
-                                            <div className="item-info-product ">
-                                                <h4>
-                                                    <a href="single.html">Almonds, 100g</a>
-                                                </h4>
-                                                <div className="info-product-price">
-                                                    <span className="item_price">$149.00</span>
-                                                    <del>$280.00</del>
-                                                </div>
-                                                <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                    <form action="#" method="post">
-                                                        <fieldset>
-                                                            <input type="hidden" name="cmd" value="_cart" />
-                                                            <input type="hidden" name="add" value="1" />
-                                                            <input type="hidden" name="business" value=" " />
-                                                            <input type="hidden" name="item_name" value="Almonds, 100g" />
-                                                            <input type="hidden" name="amount" value="149.00" />
-                                                            <input type="hidden" name="discount_amount" value="1.00" />
-                                                            <input type="hidden" name="currency_code" value="USD" />
-                                                            <input type="hidden" name="return" value=" " />
-                                                            <input type="hidden" name="cancel_return" value=" " />
-                                                            <input type="submit" name="submit" value="Add to cart" className="button" />
-                                                        </fieldset>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 product-men">
-                                        <div className="men-pro-item simpleCart_shelfItem">
-                                            <div className="men-thumb-item">
-                                                <img src="http://api-book.framgia.vn/image//2018/02/book/1-1-u5168d20170412t095219504123.png?p=thumbnail_web&s=1956c7ae8e7fbe860899f6ffca6b6b6c" alt="" />
-                                                <div className="men-cart-pro">
-                                                    <div className="inner-men-cart-pro">
-                                                        <a href="single.html" className="link-product-add-cart">Quick View</a>
-                                                    </div>
-                                                </div>
-                                                <span className="product-new-top">New</span>
-                                            </div>
-                                            <div className="item-info-product ">
-                                                <h4>
-                                                    <a href="single.html">Almonds, 100g</a>
-                                                </h4>
-                                                <div className="info-product-price">
-                                                    <span className="item_price">$149.00</span>
-                                                    <del>$280.00</del>
-                                                </div>
-                                                <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                    <form action="#" method="post">
-                                                        <fieldset>
-                                                            <input type="hidden" name="cmd" value="_cart" />
-                                                            <input type="hidden" name="add" value="1" />
-                                                            <input type="hidden" name="business" value=" " />
-                                                            <input type="hidden" name="item_name" value="Almonds, 100g" />
-                                                            <input type="hidden" name="amount" value="149.00" />
-                                                            <input type="hidden" name="discount_amount" value="1.00" />
-                                                            <input type="hidden" name="currency_code" value="USD" />
-                                                            <input type="hidden" name="return" value=" " />
-                                                            <input type="hidden" name="cancel_return" value=" " />
-                                                            <input type="submit" name="submit" value="Add to cart" className="button" />
-                                                        </fieldset>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 product-men">
-                                        <div className="men-pro-item simpleCart_shelfItem">
-                                            <div className="men-thumb-item">
-                                                <img src="http://api-book.framgia.vn/image//2018/02/book/1-1-u5168d20170412t095219504123.png?p=thumbnail_web&s=1956c7ae8e7fbe860899f6ffca6b6b6c" alt="" />
-                                                <div className="men-cart-pro">
-                                                    <div className="inner-men-cart-pro">
-                                                        <a href="single.html" className="link-product-add-cart">Quick View</a>
-                                                    </div>
-                                                </div>
-                                                <span className="product-new-top">New</span>
-                                            </div>
-                                            <div className="item-info-product ">
-                                                <h4>
-                                                    <a href="single.html">Almonds, 100g</a>
-                                                </h4>
-                                                <div className="info-product-price">
-                                                    <span className="item_price">$149.00</span>
-                                                    <del>$280.00</del>
-                                                </div>
-                                                <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                    <form action="#" method="post">
-                                                        <fieldset>
-                                                            <input type="hidden" name="cmd" value="_cart" />
-                                                            <input type="hidden" name="add" value="1" />
-                                                            <input type="hidden" name="business" value=" " />
-                                                            <input type="hidden" name="item_name" value="Almonds, 100g" />
-                                                            <input type="hidden" name="amount" value="149.00" />
-                                                            <input type="hidden" name="discount_amount" value="1.00" />
-                                                            <input type="hidden" name="currency_code" value="USD" />
-                                                            <input type="hidden" name="return" value=" " />
-                                                            <input type="hidden" name="cancel_return" value=" " />
-                                                            <input type="submit" name="submit" value="Add to cart" className="button" />
-                                                        </fieldset>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 product-men">
-                                        <div className="men-pro-item simpleCart_shelfItem">
-                                            <div className="men-thumb-item">
-                                                <img src="http://api-book.framgia.vn/image//2018/02/book/1-1-u5168d20170412t095219504123.png?p=thumbnail_web&s=1956c7ae8e7fbe860899f6ffca6b6b6c" alt="" />
-                                                <div className="men-cart-pro">
-                                                    <div className="inner-men-cart-pro">
-                                                        <a href="single.html" className="link-product-add-cart">Quick View</a>
-                                                    </div>
-                                                </div>
-                                                <span className="product-new-top">New</span>
-                                            </div>
-                                            <div className="item-info-product ">
-                                                <h4>
-                                                    <a href="single.html">Almonds, 100g</a>
-                                                </h4>
-                                                <div className="info-product-price">
-                                                    <span className="item_price">$149.00</span>
-                                                    <del>$280.00</del>
-                                                </div>
-                                                <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                    <form action="#" method="post">
-                                                        <fieldset>
-                                                            <input type="hidden" name="cmd" value="_cart" />
-                                                            <input type="hidden" name="add" value="1" />
-                                                            <input type="hidden" name="business" value=" " />
-                                                            <input type="hidden" name="item_name" value="Almonds, 100g" />
-                                                            <input type="hidden" name="amount" value="149.00" />
-                                                            <input type="hidden" name="discount_amount" value="1.00" />
-                                                            <input type="hidden" name="currency_code" value="USD" />
-                                                            <input type="hidden" name="return" value=" " />
-                                                            <input type="hidden" name="cancel_return" value=" " />
-                                                            <input type="submit" name="submit" value="Add to cart" className="button" />
-                                                        </fieldset>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 product-men">
-                                        <div className="men-pro-item simpleCart_shelfItem">
-                                            <div className="men-thumb-item">
-                                                <img src="http://api-book.framgia.vn/image//2018/02/book/1-1-u5168d20170412t095219504123.png?p=thumbnail_web&s=1956c7ae8e7fbe860899f6ffca6b6b6c" alt="" />
-                                                <div className="men-cart-pro">
-                                                    <div className="inner-men-cart-pro">
-                                                        <a href="single.html" className="link-product-add-cart">Quick View</a>
-                                                    </div>
-                                                </div>
-                                                <span className="product-new-top">New</span>
-                                            </div>
-                                            <div className="item-info-product ">
-                                                <h4>
-                                                    <a href="single.html">Almonds, 100g</a>
-                                                </h4>
-                                                <div className="info-product-price">
-                                                    <span className="item_price">$149.00</span>
-                                                    <del>$280.00</del>
-                                                </div>
-                                                <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                    <form action="#" method="post">
-                                                        <fieldset>
-                                                            <input type="hidden" name="cmd" value="_cart" />
-                                                            <input type="hidden" name="add" value="1" />
-                                                            <input type="hidden" name="business" value=" " />
-                                                            <input type="hidden" name="item_name" value="Almonds, 100g" />
-                                                            <input type="hidden" name="amount" value="149.00" />
-                                                            <input type="hidden" name="discount_amount" value="1.00" />
-                                                            <input type="hidden" name="currency_code" value="USD" />
-                                                            <input type="hidden" name="return" value=" " />
-                                                            <input type="hidden" name="cancel_return" value=" " />
-                                                            <input type="submit" name="submit" value="Add to cart" className="button" />
-                                                        </fieldset>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 product-men">
-                                        <div className="men-pro-item simpleCart_shelfItem">
-                                            <div className="men-thumb-item">
-                                                <img src="http://api-book.framgia.vn/image//2018/02/book/1-1-u5168d20170412t095219504123.png?p=thumbnail_web&s=1956c7ae8e7fbe860899f6ffca6b6b6c" alt="" />
-                                                <div className="men-cart-pro">
-                                                    <div className="inner-men-cart-pro">
-                                                        <a href="single.html" className="link-product-add-cart">Quick View</a>
-                                                    </div>
-                                                </div>
-                                                <span className="product-new-top">New</span>
-                                            </div>
-                                            <div className="item-info-product ">
-                                                <h4>
-                                                    <a href="single.html">Almonds, 100g</a>
-                                                </h4>
-                                                <div className="info-product-price">
-                                                    <span className="item_price">$149.00</span>
-                                                    <del>$280.00</del>
-                                                </div>
-                                                <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                    <form action="#" method="post">
-                                                        <fieldset>
-                                                            <input type="hidden" name="cmd" value="_cart" />
-                                                            <input type="hidden" name="add" value="1" />
-                                                            <input type="hidden" name="business" value=" " />
-                                                            <input type="hidden" name="item_name" value="Almonds, 100g" />
-                                                            <input type="hidden" name="amount" value="149.00" />
-                                                            <input type="hidden" name="discount_amount" value="1.00" />
-                                                            <input type="hidden" name="currency_code" value="USD" />
-                                                            <input type="hidden" name="return" value=" " />
-                                                            <input type="hidden" name="cancel_return" value=" " />
-                                                            <input type="submit" name="submit" value="Add to cart" className="button" />
-                                                        </fieldset>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 product-men">
-                                        <div className="men-pro-item simpleCart_shelfItem">
-                                            <div className="men-thumb-item">
-                                                <img src="http://api-book.framgia.vn/image//2018/02/book/1-1-u5168d20170412t095219504123.png?p=thumbnail_web&s=1956c7ae8e7fbe860899f6ffca6b6b6c" alt="" />
-                                                <div className="men-cart-pro">
-                                                    <div className="inner-men-cart-pro">
-                                                        <a href="single.html" className="link-product-add-cart">Quick View</a>
-                                                    </div>
-                                                </div>
-                                                <span className="product-new-top">New</span>
-                                            </div>
-                                            <div className="item-info-product ">
-                                                <h4>
-                                                    <a href="single.html">Almonds, 100g</a>
-                                                </h4>
-                                                <div className="info-product-price">
-                                                    <span className="item_price">$149.00</span>
-                                                    <del>$280.00</del>
-                                                </div>
-                                                <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                    <form action="#" method="post">
-                                                        <fieldset>
-                                                            <input type="hidden" name="cmd" value="_cart" />
-                                                            <input type="hidden" name="add" value="1" />
-                                                            <input type="hidden" name="business" value=" " />
-                                                            <input type="hidden" name="item_name" value="Almonds, 100g" />
-                                                            <input type="hidden" name="amount" value="149.00" />
-                                                            <input type="hidden" name="discount_amount" value="1.00" />
-                                                            <input type="hidden" name="currency_code" value="USD" />
-                                                            <input type="hidden" name="return" value=" " />
-                                                            <input type="hidden" name="cancel_return" value=" " />
-                                                            <input type="submit" name="submit" value="Add to cart" className="button" />
-                                                        </fieldset>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {/* {listBooks} */}
+                                    {this.showBooks(books)}
+                                    {/* <div className="col-md-12">
+                                        <ul className="pagination">
+                                            {renderPageNumbers}
+                                        </ul>
+                                    </div> */}
                                     <div className="clearfix"></div>
                                 </div>
                             </div>
@@ -418,4 +127,17 @@ class Books extends Component {
     }
 };
 
-export default Books;
+const mapStateToProps = state => {
+    return {
+        account: state.account,
+    }
+}
+
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+      
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Books);
+

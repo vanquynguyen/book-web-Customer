@@ -20,7 +20,7 @@ class Category extends Component {
         const data = this.props.categories;
 
         const listCatgories = data.map((category, index) => 
-            <li key={index} ><a>{category.name}</a></li>
+            <li key={index} ><a className="filter-category">{category.name}</a></li>
         );
         return (
             <div>
@@ -29,7 +29,7 @@ class Category extends Component {
                     <ul className="box-content category-sidebar">
                         {listCatgories}
                     </ul>
-                    <a className="btn btn-primary btn-xs" id="btn-loadmore-category">See All</a>
+                    {/* <a className="btn btn-primary btn-xs" id="btn-loadmore-category">See All</a> */}
                 </div>
             </div>
         );

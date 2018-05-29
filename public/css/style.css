@@ -4897,6 +4897,10 @@ input[type="radio"], input[type="checkbox"] {
     width: 15%!important;
 }
 
+.filter-category {
+    cursor: pointer;
+}
+
 .UTT-cart-number {
     position: relative;
     border-radius: 4.4rem;

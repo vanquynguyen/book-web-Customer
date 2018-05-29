@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as Config from '../../../../../constants/Config';
+import * as Config from '../../../constants/Config';
 import axios from 'axios';
 import swal from 'sweetalert';
-import { actFetchCartsRequest } from '../../../../../actions/Carts';
+import { actFetchCartsRequest } from '../../../actions/Carts';
 
 class BooksItem extends Component {
 
@@ -125,14 +125,16 @@ class BooksItem extends Component {
                         </Link>
                         <div className="men-cart-pro">
                             <div className="inner-men-cart-pro">
-                                <Link to={`/book/${book.id}/detail`} className="link-product-add-cart scroller">Quick View</Link>
+                                <Link to={`/book/${book.id}/detail`} className="link-product-add-cart">
+                                    Quick View
+                                </Link>
                             </div>
                         </div>
                         <span className="product-new-top">New</span>
                     </div>
                     <div className="item-info-product ">
                         <h4 className="title-book">
-                        {book.title}
+                            <a>{book.title}</a>
                         </h4>
                         <div className="info-product-price">
                             <span className="item_price">${book.price}</span>
