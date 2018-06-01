@@ -8,19 +8,12 @@ import AddBook from './components/Products/AddBook/index';
 import MyProfile from './components/Profile/index';
 import UserProfile from './components/Profile/User';
 import Users from './components/Users/index';
-// import NotFound from './components/NotFound';
-// const auth = localStorage.getItem('userId');
 const routes = [
     {
         path: '/',
         exact: true,
         main: () => <Home />
     },
-    // {
-    //     path: '/product',
-    //     exact: false,
-    //     main: () => <DetailProduct />
-    // },
     {
         path: '/books',
         exact: false,
@@ -66,11 +59,6 @@ const routes = [
         exact: false,
         main: ({ match, history }) => <Payment match={match} history={history} />
     }
-    // {
-    //     path: '',
-    //     exact: false,
-    //     main: () => <NotFound />
-    // }
 ];
 
 export default routes;

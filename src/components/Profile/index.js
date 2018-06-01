@@ -137,9 +137,13 @@ class UserProfile extends Component {
                             <h1 className="text-white">I'm {this.state.full_name}</h1>
                         </div>
                         <div className="prheadline">
-                            <div className="pravatar"><a href="/users/my_profile" className="">
-                                <img className="img-circle pravatar-image img-responsive" src={Config.LOCAL_URL+ '/images/' + this.state.avatar} alt="Avatar" />
+                            <div className="pravatar">
+                                <a href="/users/my_profile" className="">
+                                    <img className="img-circle pravatar-image img-responsive" src={Config.LOCAL_URL+ '/images/' + this.state.avatar} alt="Avatar" />
                                 </a>
+                                <div className="text-center">
+                                    <h2><strong>{ this.state.full_name }</strong></h2>
+                                </div>
                             </div>
                             <div className="prheadlineinfo pull-right navbar-collapse">
                                 <ul className="nav nav-tabs" role="tablist">
@@ -161,12 +165,9 @@ class UserProfile extends Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col-sm-3">
+                        <div className="row" id="profile-content">
+                            <div className="col-sm-3" style={{ marginTop: '30px' }}>
                                 <div className="space-30"></div>
-                                <div className="text-center">
-                                    <h2><strong>{ this.state.full_name }</strong></h2>
-                                </div>
                                 <hr className="hr-profile"/>
                                 <div className="title-bar"></div>
                                 <div>

@@ -7,6 +7,7 @@ import { actGetUserRequest } from '../../actions/Users/';
 import { actCheckFollowRequest } from '../../actions/Follows';
 import * as Config from '../../constants/Config';
 import axios from 'axios';
+import { database } from  '../../constants/firebase';
 
 class UserProfile extends Component {
 
@@ -20,6 +21,9 @@ class UserProfile extends Component {
            address: '',
            gender: '',
            check: '',
+           openMessage: '',
+           message: '',
+           messageData: ''
         };
     }
 
@@ -43,6 +47,15 @@ class UserProfile extends Component {
                 })
             })
         }
+
+        const messagesRef = database.ref('messages')
+            .orderByKey()
+            .limitToLast(100);
+    
+        messagesRef.on('child_added', snapshot => {
+            const message = { data: snapshot.val(), id: snapshot.key };
+            this.setState({ messageData: message })
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -83,24 +96,57 @@ class UserProfile extends Component {
         });
     }
 
-    render() {
-        const checkFollow = this.state.check;
+    openMessage = () => {
+        this.setState({ openMessage: 'popup-box-on' })
+    }
 
+    closeMessage = () => {
+        this.setState({ openMessage: '' })
+    }
+
+    addMessage = (e) => {
+
+        database.ref('messages').push({
+            message: this.state.message,
+            sender_id: this.props.account.id,
+            received_id: this.props.match.params.id
+        });
+
+        this.refs.message.value=''
+    }
+
+    render() {
+        console.log(this.state.messageData)
+        const messageData = this.state.messageData;
+        const checkFollow = this.state.check;
+        const openMessage = this.state.openMessage;
         return (
             <div style={{ height: 'auto' }}>
                 <section className="relative fix m-bottom50 gray-bg" id="sc3">
-                    <div className="hide-categoryIds" data-category-ids="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35"></div>
-                    <div className="hide-userId" user-name="Nguyen Van Quy B" follow="unfollow" data-user-id="98"></div>
+                    <div className="hide-categoryIds"></div>
+                    <div className="hide-userId" user-name="Nguyen Van Quy B" ></div>
                     <div className="wrap_content">
                         <div className="prcover prgreen-bg">
                             <div className="space-25"></div>
                             <h1 className="text-white prhellofont" style={{ fontSize: '100px' }}>Hello there</h1>
                             <h1 className="text-white">I'm {this.state.full_name}</h1>
+                            <div style={{ float: 'right', marginTop: '-10px', marginRight: '10px' }}>
+                                {!checkFollow.id ? (
+                                    <button onClick={this.follow} className="btn" style={{backgroundColor: 'white', color: 'black', fontWeight: 'bold' }}><img src="/images/follow.png" width="24" alt="" />Follow</button>
+                                ) : (
+                                    <button onClick={this.unfollow} className="btn" style={{backgroundColor: 'white', color: 'black', fontWeight: 'bold' }}><img src="/images/tick.png" width="24" alt="" />Following</button>
+                                )}
+                                <button onClick={this.openMessage} className="btn" style={{backgroundColor: 'white', color: 'black', fontWeight: 'bold' }}><img src="/images/messenger.png" width="24" alt="" />Messenger</button>
+                            </div>
                         </div>
                         <div className="prheadline">
-                            <div className="pravatar"><a href="/users/my_profile" className="">
-                                <img className="img-circle pravatar-image img-responsive" src={Config.LOCAL_URL+ '/images/' + this.state.avatar} alt="Avatar" />
+                            <div className="pravatar">
+                                <a href="/users/my_profile" className="">
+                                    <img className="img-circle pravatar-image img-responsive" src={Config.LOCAL_URL+ '/images/' + this.state.avatar} alt="Avatar" />
                                 </a>
+                                <div className="text-center">
+                                    <h2><strong>{ this.state.full_name }</strong></h2>
+                                </div>
                             </div>
                             <div className="prheadlineinfo pull-right navbar-collapse">
                                 <ul className="nav nav-tabs" role="tablist">
@@ -136,18 +182,9 @@ class UserProfile extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col-sm-3">
+                        <div className="row" id="profile-content">
+                            <div className="col-sm-3" style={{ marginTop: '30px' }}>
                                 <div className="space-30"></div>
-                                <div className="text-center">
-                                    <h2><strong>{ this.state.full_name }</strong></h2>
-                                </div>
-                                {!checkFollow.id ? (
-                                    <button onClick={this.follow} className="btn" style={{ marginLeft: '188px', marginTop: '10px', backgroundColor: '#ffb13b', color: 'white', fontWeight: 'bold' }}>Follow</button>
-                                ) : (
-                                    <button onClick={this.unfollow} className="btn" style={{ marginLeft: '188px', marginTop: '10px', backgroundColor: '#ffb13b', color: 'white', fontWeight: 'bold' }}>UnFollow</button>
-                                )}
-                                
                                 <hr className="hr-profile"/>
                                 <div className="title-bar"></div>
                                 <div>
@@ -172,27 +209,67 @@ class UserProfile extends Component {
                                 <div className="title-bar"></div>
                             </div>
                             <div className="col-sm-9">
-                                {/* <div className="tab-content" style={{ marginTop: '60px' }}>
-                                    <div>
-                                        <h1>hihi</h1>
+                                <div className="popup-box chat-popup" id={openMessage}>
+                                    <div className="popup-head">
+                                        <div className="popup-head-left pull-left"><img src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" alt="iamgurdeeposahan" /> Gurdeep Osahan</div>
+                                        <div className="popup-head-right pull-right">
+                                            <div className="btn-group">
+                                                <button className="chat-header-button" data-toggle="dropdown" type="button" aria-expanded="false">
+                                                <i className="glyphicon glyphicon-cog"></i> </button>
+                                            </div>
+                                            <button onClick={this.closeMessage} id="removeclassName" className="chat-header-button pull-right" type="button"><i className="glyphicon glyphicon-off"></i></button>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h1>hihi</h1>
-                                    </div>
-                                    <div>
-                                        <h1>hihi</h1>
-                                    </div>
+                                    <div className="popup-messages">
+                                        <div className="direct-chat-messages">
+                                            <div className="chat-box-single-line">
+                                                <abbr className="timestamp">October 8th, 2015</abbr>
+                                            </div>
 
-                                     <div>
-                                        <h1>hihi</h1>
+                                            <div className="direct-chat-msg doted-border">
+                                                <div className="direct-chat-info clearfix">
+                                                    <span className="direct-chat-name pull-left">Osahan</span>
+                                                </div>
+
+                                                <img alt="" src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" className="direct-chat-img" />
+                                                <div className="direct-chat-text">
+                                                    Hey bro, how’s everything going ?
+                                                </div>
+                                                <div className="direct-chat-info clearfix">
+                                                    <span className="direct-chat-timestamp pull-right">3.36 PM</span>
+                                                </div>
+                                                <div className="direct-chat-info clearfix">
+                                                    <span className="direct-chat-img-reply-small pull-left">
+                                                    </span>
+                                                    <span className="direct-chat-reply-name">Singh</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h1>hihi</h1>
+                                    <div className="popup-messages-footer">
+                                        <textarea 
+                                            onChange={event => {this.setState({message: event.target.value})}}
+                                            onKeyPress={event => {
+                                                if (event.key === 'Enter') {
+                                                    this.addMessage()
+                                                }
+                                            }}
+                                            ref="message"
+                                            id="status_message" 
+                                            placeholder="Type a message..." 
+                                            rows="10" 
+                                            cols="40" 
+                                            name="message"
+                                        >
+                                        </textarea>
+                                        <div className="btn-footer">
+                                            <button className="bg_none"><i className="glyphicon glyphicon-film"></i> </button>
+                                            <button className="bg_none"><i className="glyphicon glyphicon-camera"></i> </button>
+                                            <button className="bg_none"><i className="glyphicon glyphicon-paperclip"></i> </button>
+                                            <button className="bg_none pull-right"><i className="glyphicon glyphicon-thumbs-up"></i> </button>
+                                        </div>
                                     </div>
-                                     <div>
-                                        <h1>hihi</h1>
-                                    </div>
-                                </div> */}
+                                </div>
                             </div>
                         </div>
                     </div>

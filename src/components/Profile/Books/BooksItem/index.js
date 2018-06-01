@@ -108,7 +108,7 @@ class BooksList extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         this.form.validateAll();
-
+        console.log(this.state)
         if ( this.checkBtn.context._errors.length === 0 ) {
             var {title, image, author, category_id, description, price, amount } = this.state;
             var id = this.props.book.id;
@@ -123,7 +123,8 @@ class BooksList extends Component {
             book.append("amount", amount);
             
             axios.put(Config.API_URL + `/books/${id}` , book).then(res => {
-                swal("Good job!", "You clicked the button!", "success");
+                 swal("Good job!", "You clicked the button!", "success");
+                 this.setState({ open: false });
             });
         }
     }

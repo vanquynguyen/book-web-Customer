@@ -43,7 +43,6 @@ class BooksItem extends Component {
                         'price' : price
                     }
                     axios.get(Config.API_URL+ `/books/${bookId}`).then(response => {
-                        // console.log(response)
                         const amountBook = response.data.amount;
                         const userId = this.props.account.id;
                         if (addedAmount <= amountBook) {
