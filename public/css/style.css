@@ -4,6 +4,56 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
+label.file-upload{position:relative;overflow:hidden; width: 16%}label.file-upload input[type=file]{position:absolute;top:0;right:0;min-width:100%;min-height:100%;font-size:100px;text-align:right;filter:alpha(opacity=0);opacity:0;outline:0;background:#fff;cursor:inherit;display:block}
+.file-upload {margin-top: -5px; }
+#status_message {
+    resize: none;
+}
+.icon-gif {
+    background-image: url(https://scontent.fhan5-1.fna.fbcdn.net/v/t39.1997-6/p200x200/10333101_56922…mSvlnfgtSA_UtyZQK_1haXqfwA&oh=d797681…&oe=5BB4A481); 
+    background-size: 152px 152px; 
+    cursor: pointer; 
+    height: 64px; 
+    width: 64px; 
+    background-position: -6px -6px; 
+    image-rendering: -webkit-optimize-contrast;
+}
+.caret-up {
+    /* Safari */
+    -webkit-transform: rotate(-180deg);
+    
+    /* Firefox */
+    -moz-transform: rotate(-180deg);
+    
+    /* IE */
+    -ms-transform: rotate(-180deg);
+    
+    /* Opera */
+    -o-transform: rotate(-180deg);
+    
+    /* Internet Explorer */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=6);
+
+}
+
+.icon-chat {
+    cursor: pointer;
+}
+
+.drop-up {
+    width: 100%;
+    padding-left: 7px;
+    top: auto;
+    z-index: 9999!important;
+    position: absolute;
+    bottom: 100% !important;
+}
+.image-send {
+    width: 100px;
+    height: 130px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+}
 html, body{
 	margin:0;
 	font-size: 100%;
@@ -5038,6 +5088,7 @@ body
     position: fixed;
     right: 10px;
     width: 300px;
+    z-index: 1030;
     font-family: 'Open Sans', sans-serif;
 }
 .round.hollow {
@@ -5066,9 +5117,9 @@ body
     display: block !important;
 }
 .popup-box .popup-head {
-    background-color: #fff;
+    background-color: #f2f2f2;
     clear: both;
-    color: #7b7b7b;
+    color: black;
     display: inline-table;
     font-size: 21px;
     padding: 7px 10px;
@@ -5116,6 +5167,7 @@ body
     width: 95% !important;
 }
 .popup-messages-footer {
+    border-top: 1px solid #b2b2b2 !important;
     background: #fff none repeat scroll 0 0;
     bottom: 0;
     position: absolute;
@@ -5140,7 +5192,7 @@ body
 
 
 .popup-box .popup-messages {
-    background: #3f9684 none repeat scroll 0 0;
+    background: white none repeat scroll 0 0;
     height: 275px;
     overflow: auto;
 }
@@ -5330,3 +5382,25 @@ body
     position: relative;
 }
 
+.sender-message {
+    background-color: #4080ff;
+    border-radius: 10px;
+    width: 70%;
+    margin-left: 80px;
+}
+
+.sender-message p {
+    color: white;
+    padding: 5px 8px 6px;
+}
+
+.receive-message {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    width: 70%;
+}
+
+.receive-message p {
+    color: black;
+    padding: 5px 8px 6px;
+}

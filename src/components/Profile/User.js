@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 
 // import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import swal from 'sweetalert';
+import swal from 'sweetalert';
 import { actGetUserRequest } from '../../actions/Users/';
 import { actCheckFollowRequest } from '../../actions/Follows';
 import * as Config from '../../constants/Config';
 import axios from 'axios';
-import { database } from  '../../constants/firebase';
+import { database, storageRef } from  '../../constants/firebase';
 
 class UserProfile extends Component {
 
@@ -23,7 +23,8 @@ class UserProfile extends Component {
            check: '',
            openMessage: '',
            message: '',
-           messageData: ''
+           messageData: {},
+           imageTotals: [],
         };
     }
 
@@ -49,12 +50,26 @@ class UserProfile extends Component {
         }
 
         const messagesRef = database.ref('messages')
-            .orderByKey()
-            .limitToLast(100);
     
-        messagesRef.on('child_added', snapshot => {
-            const message = { data: snapshot.val(), id: snapshot.key };
-            this.setState({ messageData: message })
+        messagesRef.on('value', snapshot => {
+            const items = snapshot.val();
+            const newState = [];
+            for (let item in items) {
+                newState.push({
+                    id: item,
+                    sender_id: items[item].sender_id,
+                    received_id: items[item].received_id,
+                    message: items[item].message,
+                    like: items[item].like,
+                    image: items[item].image,
+                    icon: items[item].icon,
+                    gif: items[item].gif,
+                    time: items[item].time
+                });
+            }
+            this.setState({
+                messageData: newState
+            });
         });
     }
 
@@ -105,21 +120,200 @@ class UserProfile extends Component {
     }
 
     addMessage = (e) => {
+        const imageTotals = this.state.imageTotals;
+        console.log(imageTotals)
+        const message = this.state.message;
+        const time = new Date().toLocaleDateString();
+        const result = database.ref('messages').push({
+            message: message,
+            image: imageTotals,
+            sender_id: localStorage.getItem('userId'),
+            received_id: this.props.match.params.id,
+            time: time
+        });
+        if (result) {
+            this.setState({ 
+                imageTotals: [],
+                message: '',
+            })
+            this.refs.message.value='';
+        }
+    }
 
+    like = () => {
+        const time = new Date().toLocaleDateString();
         database.ref('messages').push({
-            message: this.state.message,
-            sender_id: this.props.account.id,
-            received_id: this.props.match.params.id
+            like: '/images/like.png',
+            sender_id: localStorage.getItem('userId'),
+            received_id: this.props.match.params.id,
+            time: time
         });
 
-        this.refs.message.value=''
+    }
+
+    imageChange = (e) => {
+        e.preventDefault();
+        let files = e.target.files;
+        const uploadImages = [];
+        for (let i = 0; i < files.length; i++) {
+            let uploadFirebase = storageRef.child(`images/${files[i].name}`).put(files[i]);
+            uploadImages.push(uploadFirebase);
+        }
+     
+        const imageTotals = this.state.imageTotals;
+        for (let i = 0; i < uploadImages.length; i++) {
+            uploadImages[i].then(snapshot => {
+                let image =  uploadImages[i].snapshot.downloadURL
+                imageTotals.push(image);
+            })
+        }
+
+        swal({
+            title: 'Are you sure?',
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willUpload) => {
+            if (willUpload) {
+                this.addMessage();
+                swal("Success", {
+                    icon: "success",
+                });
+            } else {
+                swal("Cancel");
+            }
+        });
+    }
+
+    getIcon(e) {
+        const time = new Date().toLocaleDateString();
+        database.ref('messages').push({
+            icon: e,
+            sender_id: localStorage.getItem('userId'),
+            received_id: this.props.match.params.id,
+            time: time
+        });
+    }
+
+    getGif(e) {
+        const time = new Date().toLocaleDateString();
+        database.ref('messages').push({
+            gif: e,
+            sender_id: localStorage.getItem('userId'),
+            received_id: this.props.match.params.id,
+            time: time
+        });
     }
 
     render() {
-        console.log(this.state.messageData)
-        const messageData = this.state.messageData;
         const checkFollow = this.state.check;
         const openMessage = this.state.openMessage;
+        const messageData = this.state.messageData;
+        const receiveId = this.props.match.params.id;
+        const senderId = localStorage.getItem('userId');
+
+        let listMessages;
+        if (messageData.length > 0) {
+            listMessages = messageData.map((message, index) =>
+                <div key={index}>
+                    {(message.received_id === receiveId && message.sender_id === senderId) || (message.received_id === senderId && message.sender_id === receiveId) ? (
+                        (message.received_id === receiveId) ? (
+                            <div style={{ marginBottom: '5px' }}>
+                                {(typeof message.message !== 'undefined' && message.message !== '' && message.message !== '\n') ? (
+                                    <div className="sender-message">
+                                        <p>{message.message}</p>
+                                    </div>
+                                ) : (
+                                    <div></div>
+                                )}
+
+                                {(typeof message.like !== 'undefined' && message.like !== '') ? (
+                                    <img style={{ marginLeft: '208px' }} src={message.like} alt="" />
+                                ) : (
+                                    <div></div>
+                                )}
+
+                                {(typeof message.icon !== 'undefined' && message.icon !== '') ? (
+                                    <img style={{ marginLeft: '208px' }} src={message.icon} alt="" />
+                                ) : (
+                                    <div></div>
+                                )}
+                        
+                                {(typeof message.gif !== 'undefined' && message.gif !== '') ? (
+                                    <img style={{ marginLeft: '100px', borderRadius: '10px' }} src={message.gif} width="150" height="120" alt="" />
+                                ) : (
+                                    <div></div>
+                                )}
+
+                                <div class="_5r8h" role="presentation">
+                                    <div 
+                                        aria-label="Nhãn dán Mugsy Dog laughing" 
+                                        class="icon-gif" 
+                                        role="img" 
+                                        tabindex="0" 
+                                    ></div>
+                                </div>
+
+                                {(typeof message.image !== 'undefined' && message.image.length > 0) ? (
+                                    message.image.map((img, index) => {
+                                        return <div key={index}><img style={{ marginLeft: '150px' }} className="image-send" src={img} alt="" /></div>
+                                    })
+                                ) : (
+                                    <div></div>
+                                )}
+
+                                {/* <div className="chat-box-single-line">
+                                    <abbr className="timestamp">{message.time}</abbr>
+                                </div> */}
+                            </div>
+                        ) : (
+                            <div style={{ marginBottom: '5px' }}>
+                                {(typeof message.message !== 'undefined' && message.message !== '' && message.message !== '\n') ? (
+                                    <div className="receive-message">
+                                        <p>{message.message}</p>
+                                    </div>
+                                ) : (
+                                    <div></div>
+                                )}
+                                
+                                {(typeof message.like !== 'undefined' && message.like !== '') ? (
+                                    <img src={message.like} alt="" />
+                                ) : (
+                                    <div></div>
+                                )}
+
+                                 {(typeof message.icon !== 'undefined' && message.icon !== '') ? (
+                                    <img src={message.icon} alt="" />
+                                ) : (
+                                    <div></div>
+                                )}
+
+                                {(typeof message.gif !== 'undefined' && message.gif !== '') ? (
+                                    <img style={{ marginLeft: '10px', borderRadius: '10px' }} src={message.gif} width="150" height="120" alt="" />
+                                ) : (
+                                    <div></div>
+                                )}
+         
+                                {(typeof message.image !== 'undefined' && message.image.length > 0) ? (
+                                    message.image.map((img, index) => {
+                                        return <div key={index}><img style={{ marginLeft: '10px' }} className="image-send" src={img} alt="" /> </div>
+                                    })
+                                ) : (
+                                    <div></div>
+                                )}
+
+                                {/* <div className="chat-box-single-line">
+                                    <abbr className="timestamp">{message.time}</abbr>
+                                </div> */}
+                            </div>
+                        )
+                       
+                    ) : (
+                        <div></div>
+                    )}
+                </div>
+            );
+        }
         return (
             <div style={{ height: 'auto' }}>
                 <section className="relative fix m-bottom50 gray-bg" id="sc3">
@@ -211,7 +405,9 @@ class UserProfile extends Component {
                             <div className="col-sm-9">
                                 <div className="popup-box chat-popup" id={openMessage}>
                                     <div className="popup-head">
-                                        <div className="popup-head-left pull-left"><img src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" alt="iamgurdeeposahan" /> Gurdeep Osahan</div>
+                                        <div className="popup-head-left pull-left">
+                                            <img src={Config.LOCAL_URL + '/images/' + this.state.avatar} alt="iamgurdeeposahan" /> {this.state.full_name}
+                                        </div>
                                         <div className="popup-head-right pull-right">
                                             <div className="btn-group">
                                                 <button className="chat-header-button" data-toggle="dropdown" type="button" aria-expanded="false">
@@ -222,16 +418,12 @@ class UserProfile extends Component {
                                     </div>
                                     <div className="popup-messages">
                                         <div className="direct-chat-messages">
-                                            <div className="chat-box-single-line">
-                                                <abbr className="timestamp">October 8th, 2015</abbr>
-                                            </div>
-
                                             <div className="direct-chat-msg doted-border">
                                                 <div className="direct-chat-info clearfix">
-                                                    <span className="direct-chat-name pull-left">Osahan</span>
+                                                    <span className="direct-chat-name pull-left"></span>
                                                 </div>
-
-                                                <img alt="" src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" className="direct-chat-img" />
+                                                { listMessages }
+                                                {/* <img alt="" src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" className="direct-chat-img" />
                                                 <div className="direct-chat-text">
                                                     Hey bro, how’s everything going ?
                                                 </div>
@@ -242,7 +434,7 @@ class UserProfile extends Component {
                                                     <span className="direct-chat-img-reply-small pull-left">
                                                     </span>
                                                     <span className="direct-chat-reply-name">Singh</span>
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
                                     </div>
@@ -260,13 +452,48 @@ class UserProfile extends Component {
                                             rows="10" 
                                             cols="40" 
                                             name="message"
+                                            required
                                         >
                                         </textarea>
                                         <div className="btn-footer">
-                                            <button className="bg_none"><i className="glyphicon glyphicon-film"></i> </button>
-                                            <button className="bg_none"><i className="glyphicon glyphicon-camera"></i> </button>
-                                            <button className="bg_none"><i className="glyphicon glyphicon-paperclip"></i> </button>
-                                            <button className="bg_none pull-right"><i className="glyphicon glyphicon-thumbs-up"></i> </button>
+                                            <label className="bg_none file-upload btn btn-upload">
+                                                <i className="glyphicon glyphicon-picture"></i>
+                                                <input 
+                                                    type="file" 
+                                                    ref="imageFile"
+                                                    onChange={(e)=>this.imageChange(e)}
+                                                    multiple 
+                                                />
+                                            </label>
+                                            <span>
+                                                <div className="dropdown-menu drop-up" >
+                                                    <img onClick={e => this.getIcon('/images/smile1.png')} src="/images/smile1.png" className="icon-chat" width="35" alt="" />
+                                                    <img onClick={e => this.getIcon('/images/smile2.png')} src="/images/smile2.png" className="icon-chat" width="35" alt="" />
+                                                    <img onClick={e => this.getIcon('/images/smile3.png')} src="/images/smile3.png" className="icon-chat" width="35" alt="" />
+                                                    <img onClick={e => this.getIcon('/images/smile4.png')} src="/images/smile4.png" className="icon-chat" width="35" alt="" />
+                                                    <img onClick={e => this.getIcon('/images/smile5.png')} src="/images/smile5.png" className="icon-chat" width="35" alt="" />
+                                                    <img onClick={e => this.getIcon('/images/smile6.png')} src="/images/smile6.png" className="icon-chat" width="35" alt="" />
+                                                    <img onClick={e => this.getIcon('/images/smile7.png')} src="/images/smile7.png" className="icon-chat" width="35" alt="" />
+                                                    <img onClick={e => this.getIcon('/images/smile8.png')} src="/images/smile8.png" className="icon-chat" width="35" alt="" />
+                                                </div>
+                                            
+                                                <label className="bg_none file-upload btn btn-upload"  data-toggle="dropdown"><i className="fas fa-smile"></i> </label>
+                                            </span>
+                                            <span>
+                                                <div className="dropdown-menu drop-up" style={{ textAlign: 'center', height: '275px', overflow: 'auto' }}>
+                                                    <div>
+                                                        <img onClick={e => this.getGif('https://media.tenor.co/images/c4a58d539badcfb605df02eb60a8d312/tenor.gif')} autoPlay loop muted style={{ marginLeft: '5px', marginBottom: '5px', borderRadius: '10px' }} src="https://media.tenor.co/images/c4a58d539badcfb605df02eb60a8d312/tenor.gif" width="150" height="120" alt="" />
+                                                    </div>
+                                                    <div>
+                                                        <img onClick={e => this.getGif('https://media.tenor.co/images/1e0b5e9e6bb5853b6809e71f09faf2e5/tenor.gif')} autoPlay loop muted style={{ marginLeft: '5px', marginBottom: '5px', borderRadius: '10px' }} src="https://media.tenor.co/images/1e0b5e9e6bb5853b6809e71f09faf2e5/tenor.gif" width="150" height="120" alt="" />
+                                                    </div>
+                                                    <div>
+                                                    <img onClick={e => this.getGif('https://lumiere-a.akamaihd.net/v1/images/monstersinc_zzzz_sassy_2e0938ab.gif')} autoPlay loop muted style={{ marginLeft: '5px', marginBottom: '5px', borderRadius: '10px' }} src="https://lumiere-a.akamaihd.net/v1/images/monstersinc_zzzz_sassy_2e0938ab.gif" width="150" height="120" alt="" />
+                                                    </div>
+                                                </div>
+                                                <label className="bg_none file-upload btn btn-upload"  data-toggle="dropdown"><i className="fas fa-paperclip"></i> </label>
+                                            </span>
+                                            <button onClick={this.like} className="bg_none pull-right"><i className="glyphicon glyphicon-thumbs-up"></i> </button>
                                         </div>
                                     </div>
                                 </div>

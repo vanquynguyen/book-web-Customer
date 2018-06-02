@@ -17,7 +17,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className="col-xs-4 w3l-rightmk">
-                        <img src="images/tab3.png" alt=" " />
+                        <img src="/images/tab3.png" alt=" " />
                     </div>
                     <div className="clearfix"></div>
                 </div>
@@ -25,7 +25,7 @@ const Footer = () => {
             <footer>
                 <div className="container">
                     <p className="footer-main">
-                        <span>"Grocery Shoppy"</span> Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
+                        <span>"UTT Book"</span> Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
                         magni dolores eos qui ratione voluptatem sequi nesciunt.Sed ut perspiciatis unde omnis iste natus error sit voluptatem
                         accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
                         beatae vitae dicta sunt explicabo.
@@ -188,7 +188,7 @@ const Footer = () => {
                     </div>
                     <div className="agile-sometext">
                         <div className="sub-some">
-                            <h5>Online Grocery Shopping</h5>
+                            <h5>Online UTT Book</h5>
                             <p>Order online. All your favourite products from the low price online supermarket for grocery home delivery in Delhi,
                                 Gurgaon, Bengaluru, Mumbai and other cities in India. Lowest prices guaranteed on Patanjali, Aashirvaad, Pampers, Maggi,
                                 Saffola, Huggies, Fortune, Nestle, Amul, MamyPoko Pants, Surf Excel, Ariel, Vim, Haldiram's and others.
