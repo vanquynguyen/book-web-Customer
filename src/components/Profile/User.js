@@ -267,7 +267,7 @@ class UserProfile extends Component {
                                 </div> */}
                             </div>
                         ) : (
-                            <div style={{ marginBottom: '5px' }}>
+                            <div style={{ marginBottom: '20px' }}>
                                 {(typeof message.message !== 'undefined' && message.message !== '' && message.message !== '\n') ? (
                                     <div className="receive-message">
                                         <p>{message.message}</p>
