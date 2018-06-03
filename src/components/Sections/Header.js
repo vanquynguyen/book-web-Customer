@@ -44,6 +44,7 @@ class Header extends Component {
                     id: item,
                     full_name: items[item].full_name,
                     avatar: items[item].avatar,
+                    approved: items[item].approved,
                     sender_id: items[item].sender_id,
                     received_id: items[item].received_id,
                     time: items[item].time
@@ -116,6 +117,10 @@ class Header extends Component {
         }
     }
 
+    onRemoveNoti = (id) => {
+        database.ref('notifications').child(id).remove()
+    }
+
     render() {
         const display = this.state.display
         const check = this.state.search
@@ -153,20 +158,32 @@ class Header extends Component {
 
         const notiData = this.state.notifications;
         const receiveId = localStorage.getItem('userId');
-       
         let listNoti;
         let count = 0;
+    
         if (notiData.length > 0) {
             listNoti = notiData.map((noti, key) => {
-                return <div key={{key}}>
-                            {(noti.received_id === receiveId) ? ( 
+                return  <div key={key}>
+                            {(noti.received_id === receiveId || noti.received_id === `"${receiveId}"`) ? ( 
                                 <div>
                                     {((typeof noti.avatar !== 'undefined' && noti.avatar !== '') || (typeof noti.full_name !== 'undefined' && noti.full_name !== '')) ? (
-                                        <div className="row">
+                                        <div className="row" style={{ marginBottom: '5px', width: '100%' }}>
                                             <img className="img-circle pravatar-image img-responsive col-sm-3" style={{ width: '32px', height: '32px', padding: '0' }} src={Config.LOCAL_URL+ '/images/' + noti.avatar} alt="" />
                                             <div className="col-sm-9" style={{ marginTop: '7px' }}>
-                                                <Link to={`/user/${noti.sender_id}`} style={{ color: 'black' }} >
+                                                <Link to={`/user/${noti.sender_id}`} style={{ color: 'black' }} onClick={() => this.onRemoveNoti(noti.id)}>
                                                     You have a message from {noti.full_name}
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div></div>
+                                    )}
+                                    {(typeof noti.approved !== 'undefined' && noti.approved !=='') ? (
+                                        <div className="row" style={{ marginBottom: '5px', width: '100%' }}>
+                                            <img className="img-circle pravatar-image img-responsive col-sm-3" style={{ width: '32px', height: '32px', padding: '0' }} src={Config.LOCAL_URL+ '/images/' + this.props.account.avatar} alt="" />
+                                            <div className="col-sm-9" style={{ marginTop: '7px' }}>
+                                                <Link to='user/profile' style={{ color: 'black' }}  onClick={() => this.onRemoveNoti(noti.id)}>
+                                                    Your book have approved
                                                 </Link>
                                             </div>
                                         </div>
@@ -284,7 +301,7 @@ class Header extends Component {
                                         <a className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i className="fa fa-cart-arrow-down" aria-hidden="true" style={{ fontSize: '40px', color: 'white' }}></i>
                                         </a>
-                                        <ul className="dropdown-menu dropdown-carts" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px', width:'326px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important' }}>
+                                        <ul className="dropdown-menu dropdown-carts" aria-labelledby="dropdownMenuLink" style={{ height: '400px', overflow: 'auto', paddingLeft: '12px', width:'326px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important' }}>
                                             {carts.length > 0 && auth.id ? ( 
                                                 <div>
                                                     <span> {listCarts}</span>

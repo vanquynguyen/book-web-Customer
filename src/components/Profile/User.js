@@ -458,10 +458,14 @@ class UserProfile extends Component {
                                         </div>
                                         <div className="popup-head-right pull-right">
                                             <div className="btn-group">
-                                                <button className="chat-header-button" data-toggle="dropdown" type="button" aria-expanded="false">
-                                                <i className="glyphicon glyphicon-cog"></i> </button>
+                                            <div className="dropdown">
+                                                <i className="glyphicon glyphicon-cog"  data-toggle="dropdown"></i>
+                                                    <ul className="dropdown-menu" style={{ float: 'left!important', marginLeft: '-108px' }}>
+                                                        <li><a style={{ cursor: 'pointer' }} onClick={() => this.onRemoveMessage()}>Delete the chat</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                            <button onClick={this.closeMessage} id="removeclassName" className="chat-header-button pull-right" type="button"><i className="glyphicon glyphicon-off"></i></button>
+                                           <i onClick={this.closeMessage} className="glyphicon glyphicon-off"></i>
                                         </div>
                                     </div>
                                     <div className="popup-messages">
@@ -471,18 +475,6 @@ class UserProfile extends Component {
                                                     <span className="direct-chat-name pull-left"></span>
                                                 </div>
                                                 { listMessages }
-                                                {/* <img alt="" src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" className="direct-chat-img" />
-                                                <div className="direct-chat-text">
-                                                    Hey bro, how’s everything going ?
-                                                </div>
-                                                <div className="direct-chat-info clearfix">
-                                                    <span className="direct-chat-timestamp pull-right">3.36 PM</span>
-                                                </div>
-                                                <div className="direct-chat-info clearfix">
-                                                    <span className="direct-chat-img-reply-small pull-left">
-                                                    </span>
-                                                    <span className="direct-chat-reply-name">Singh</span>
-                                                </div> */}
                                             </div>
                                         </div>
                                     </div>
