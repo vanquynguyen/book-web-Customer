@@ -4,6 +4,7 @@ import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import { isEmail, isEmpty } from 'validator';
 import * as jquery from 'jquery';
+import { database } from '../../constants/firebase';
 
 // import { actAddUserRequest } from '../../actions/Users';
 // import { connect } from 'react-redux';
@@ -66,6 +67,12 @@ class Register extends Component {
                         emailExist: 403
                     });
                 } else {
+                    const time = new Date().toLocaleDateString();
+                    database.ref('notifications').push({
+                        content: 'register',
+                        received_id: 'admin',
+                        time: time
+                    });
                     jquery('.close').click();
                     jquery('#myModal1').click();
                     swal("Register Success!", "You clicked the button!", "success");

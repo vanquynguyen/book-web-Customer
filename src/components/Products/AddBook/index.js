@@ -11,6 +11,7 @@ import swal from 'sweetalert';
 import axios from 'axios';
 import * as Config from '../../../constants/Config';
 import { actFetchCategoriesRequest } from '../../../actions/Categories';
+import { database } from '../../../constants/firebase';
 
 const required = (defaultValue) => {
     if (isEmpty(defaultValue)) {
@@ -91,6 +92,13 @@ class AddBook extends Component {
             book.append("amount", amount);
 
             axios.post(Config.API_URL + '/books', book).then(res => {
+                const time = new Date().toLocaleDateString();
+                database.ref('notifications').push({
+                    full_name: this.props.account.full_name,
+                    content: 'request_book',
+                    received_id: 'admin',
+                    time: time
+                });
                 swal("Good job!", "You clicked the button!", "success");
                 this.props.history.push(`/user/profile`);
             });
