@@ -10,6 +10,7 @@ import * as Config from '../../constants/Config';
 import { connect } from 'react-redux';
 import { actFetchCartsRequest, actDeleteCartRequest } from '../../actions/Carts';
 import { actFetchUserRequest } from '../../actions/Users';
+import { database } from '../../constants/firebase';
 
 class Header extends Component {
 
@@ -21,6 +22,8 @@ class Header extends Component {
             books: [],
             display: 'show-search',
             search: '',
+            notifications: {},
+            sender: [],
         };
     }
 
@@ -28,6 +31,28 @@ class Header extends Component {
        // Gọi trước khi component đc render lần đầu tiên
         const userId = localStorage.getItem('userId');
         this.props.fetchAllCarts(userId);
+    }
+
+    componentWillMount() {
+        const notifications = database.ref('notifications')
+    
+        notifications.on('value', snapshot => {
+            const items = snapshot.val();
+            const newState = [];
+            for (let item in items) {
+                newState.push({
+                    id: item,
+                    full_name: items[item].full_name,
+                    avatar: items[item].avatar,
+                    sender_id: items[item].sender_id,
+                    received_id: items[item].received_id,
+                    time: items[item].time
+                });
+            }
+            this.setState({
+                notifications: newState
+            });
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -98,8 +123,8 @@ class Header extends Component {
         const auth = this.state.auth;
         const carts = this.props.carts;
 
-        const listCarts = carts.map((cart, index) => {
-            return  <div className="cart-item" key={index}>
+        const listCarts = carts.map((cart, i) => {
+            return  <div className="cart-item" key={i}>
                         <img style={{ float: 'left'}} src={Config.LOCAL_URL + '/images/books/' + cart.image} alt="" width="32"/>
                         <p className="dropdown-cart-title">{cart.title}</p>
                         <i className="fa fa-times" style={{ float: 'right', marginTop: '13px' }} onClick={() => this.onDelete(cart.id)}></i>
@@ -115,7 +140,7 @@ class Header extends Component {
         });
 
         const listBooks = books.map((book, index) => {
-            return <div className="search-result" id={check === '' ? display: ''} style={{backgroundColor: 'white', height: '100%', width: '90%', zIndex: '1030'}} key={index}>
+            return <div className="search-result" id={check === '' ? display: ''} style={{backgroundColor: 'white', width: '90%', zIndex: '1030'}} key={index}>
                     <li className="row" style={{ paddingLeft: '30px', paddingTop: '10px' }}>
                         <Link to={`/book/${book.id}/detail`} class="scroller">
                             <img style={{ float: 'left', marginRight: '15px'}} src={Config.LOCAL_URL + '/images/books/' + book.image} alt="" width="50"/>
@@ -126,6 +151,37 @@ class Header extends Component {
                 </div>
         });
 
+        const notiData = this.state.notifications;
+        const receiveId = localStorage.getItem('userId');
+       
+        let listNoti;
+        let count = 0;
+        if (notiData.length > 0) {
+            listNoti = notiData.map((noti, key) => {
+                return <div key={{key}}>
+                            {(noti.received_id === receiveId) ? ( 
+                                <div>
+                                    {((typeof noti.avatar !== 'undefined' && noti.avatar !== '') || (typeof noti.full_name !== 'undefined' && noti.full_name !== '')) ? (
+                                        <div className="row">
+                                            <img className="img-circle pravatar-image img-responsive col-sm-3" style={{ width: '32px', height: '32px', padding: '0' }} src={Config.LOCAL_URL+ '/images/' + noti.avatar} alt="" />
+                                            <div className="col-sm-9" style={{ marginTop: '7px' }}>
+                                                <Link to={`/user/${noti.sender_id}`} style={{ color: 'black' }} >
+                                                    You have a message from {noti.full_name}
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div></div>
+                                    )}
+                                    <div style={{ display: 'none' }}>{count++}</div>
+                                </div>
+                            ) : (
+                                <div></div>
+                            )}
+                        </div>
+            })
+        }
+        
         return (
             <div>
                 <div className="header-bot">
@@ -149,9 +205,31 @@ class Header extends Component {
                                     <a  data-toggle="modal" data-target="#myModal1">
                                     <span className="fa fa-truck" aria-hidden="true"></span>Track Order</a>
                                 </li>
-                                <li>
-                                    <span className="fa fa-phone" aria-hidden="true"></span> 001 234 5678
-                                </li>
+                                {auth.id ? (
+                                    <li style={{ height: '17px' }}>
+                                        <div style={{ width: '170px' }}>
+                                            <div className="UTT-noti-number">
+                                                <span style={{ marginRight: '0', fontSize: '13px' }}>{count}</span>
+                                            </div>  
+                                            <div className="dropdown">
+                                                <a className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i className="fa fa-bell-o" aria-hidden="true" style={{ fontSize: '20px', color: 'white' }}></i>
+                                                </a>
+                                                <ul className="dropdown-menu dropdown-carts" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px', width:'400px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important', marginLeft: '300px' }}>
+                                                    <div style={{ color: 'black' }}>
+                                                        {count > 0 ? (
+                                                            <div>{ listNoti }</div>
+                                                        ) : (
+                                                            <div>No notifications</div>
+                                                        )}
+                                                    </div>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                ) : (
+                                    <span></span>
+                                )}
                                 {auth.id ? (
                                     <li>
                                         <div className="dropdown">
@@ -187,14 +265,21 @@ class Header extends Component {
                             <div className="agileits_search">
                                 <form action="" method="post">
                                     <input name="Search" type="search" onChange={this.onSearch} placeholder="How can we help you today?" required="" />
-                                    <button type="button" className="btn btn-default" aria-label="Left Align">
+                                    {/* <button type="button" className="btn btn-default" aria-label="Left Align">
                                     <span className="fa fa-search" aria-hidden="true"> </span>
-                                    </button>
+                                    </button> */}
                                 </form>
                                 {listBooks}
                             </div>
                             <div className="top_nav_right">
-                                <div className="wthreecartaits wthreecartaits2 cart cart box_1" >
+                                <div className="wthreecartaits wthreecartaits2 cart cart box_1" style={{ width: '160px' }}>
+                                    {carts.length > 0 && auth.id ? (
+                                        <div className="UTT-cart-number">
+                                            <span>{carts.length}</span>
+                                        </div>
+                                    ) : (
+                                        <span></span>
+                                    )}
                                     <div className="dropdown">
                                         <a className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i className="fa fa-cart-arrow-down" aria-hidden="true" style={{ fontSize: '40px', color: 'white' }}></i>
@@ -211,13 +296,6 @@ class Header extends Component {
                                             )}
                                         </ul>
                                     </div>
-                                    {carts.length > 0 && auth.id ? (
-                                        <div className="UTT-cart-number">
-                                            <span>{carts.length}</span>
-                                        </div>
-                                    ) : (
-                                        <span></span>
-                                    )}
                                 </div>
                             </div>
                             <div className="clearfix"></div>

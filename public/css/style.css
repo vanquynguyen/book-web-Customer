@@ -4968,18 +4968,38 @@ input[type="radio"], input[type="checkbox"] {
     border-radius: 4.4rem;
     min-width: 1.1rem;
     line-height: 1.2em;
-    padding: 0 .5rem;
+    padding-left: 4px;
+    padding-right: 4px;
     text-align: center;
-    height: 32px;
     border: .2rem solid #f74d18;
     color: #ff5722;
     background-color: #fff;
-    left: -1.8rem;
-    top: -.8rem;
-    padding-top: 4px!important;
-    margin-right: 25px;
-    top: -51px;
-    width: 19%;
+    left: -3.3rem;
+    /* padding-top: 4px!important; */
+    margin-right: 17px;
+    top: -4px;
+    /* width: 19%; */
+    float: right;
+    font-weight: bold;
+}
+
+.UTT-noti-number {
+    position: relative;
+    border-radius: 4.4rem;
+    min-width: 1.1rem;
+    line-height: 1.0em;
+    /* padding: 0 0.3rem; */
+    text-align: center;
+    /* height: 22px; */
+    border: .2rem solid #f74d18;
+    color: #ff5722;
+    background-color: #fff;
+    left: -4.7rem;
+    /* top: -.8rem; */
+    /* padding-top: 2px!important; */
+    margin-right: 0px;
+    top: -1px;
+    /* width: 14%; */
     float: right;
     font-weight: bold;
 }

@@ -64,6 +64,7 @@ class UserProfile extends Component {
                     image: items[item].image,
                     icon: items[item].icon,
                     gif: items[item].gif,
+                    gifIcon: items[item].gifIcon,
                     time: items[item].time
                 });
             }
@@ -121,7 +122,6 @@ class UserProfile extends Component {
 
     addMessage = (e) => {
         const imageTotals = this.state.imageTotals;
-        console.log(imageTotals)
         const message = this.state.message;
         const time = new Date().toLocaleDateString();
         const result = database.ref('messages').push({
@@ -132,6 +132,13 @@ class UserProfile extends Component {
             time: time
         });
         if (result) {
+            database.ref('notifications').push({
+                full_name: this.props.account.full_name,
+                avatar: this.props.account.avatar,
+                sender_id: localStorage.getItem('userId'),
+                received_id: this.props.match.params.id,
+                time: time
+            });
             this.setState({ 
                 imageTotals: [],
                 message: '',
@@ -144,6 +151,13 @@ class UserProfile extends Component {
         const time = new Date().toLocaleDateString();
         database.ref('messages').push({
             like: '/images/like.png',
+            sender_id: localStorage.getItem('userId'),
+            received_id: this.props.match.params.id,
+            time: time
+        });
+        database.ref('notifications').push({
+            full_name: this.props.account.full_name,
+            avatar: this.props.account.avatar,
             sender_id: localStorage.getItem('userId'),
             received_id: this.props.match.params.id,
             time: time
@@ -193,12 +207,43 @@ class UserProfile extends Component {
             received_id: this.props.match.params.id,
             time: time
         });
+        database.ref('notifications').push({
+            full_name: this.props.account.full_name,
+            avatar: this.props.account.avatar,
+            sender_id: localStorage.getItem('userId'),
+            received_id: this.props.match.params.id,
+            time: time
+        });
     }
 
     getGif(e) {
         const time = new Date().toLocaleDateString();
         database.ref('messages').push({
             gif: e,
+            sender_id: localStorage.getItem('userId'),
+            received_id: this.props.match.params.id,
+            time: time
+        });
+        database.ref('notifications').push({
+            full_name: this.props.account.full_name,
+            avatar: this.props.account.avatar,
+            sender_id: localStorage.getItem('userId'),
+            received_id: this.props.match.params.id,
+            time: time
+        });
+    }
+
+    getGifIcon(e) {
+        const time = new Date().toLocaleDateString();
+        database.ref('messages').push({
+            gifIcon: e,
+            sender_id: localStorage.getItem('userId'),
+            received_id: this.props.match.params.id,
+            time: time
+        });
+        database.ref('notifications').push({
+            full_name: this.props.account.full_name,
+            avatar: this.props.account.avatar,
             sender_id: localStorage.getItem('userId'),
             received_id: this.props.match.params.id,
             time: time
@@ -218,7 +263,7 @@ class UserProfile extends Component {
                 <div key={index}>
                     {(message.received_id === receiveId && message.sender_id === senderId) || (message.received_id === senderId && message.sender_id === receiveId) ? (
                         (message.received_id === receiveId) ? (
-                            <div style={{ marginBottom: '5px' }}>
+                            <div style={{ marginBottom: '30px' }}>
                                 {(typeof message.message !== 'undefined' && message.message !== '' && message.message !== '\n') ? (
                                     <div className="sender-message">
                                         <p>{message.message}</p>
@@ -245,14 +290,11 @@ class UserProfile extends Component {
                                     <div></div>
                                 )}
 
-                                <div class="_5r8h" role="presentation">
-                                    <div 
-                                        aria-label="Nhãn dán Mugsy Dog laughing" 
-                                        class="icon-gif" 
-                                        role="img" 
-                                        tabindex="0" 
-                                    ></div>
-                                </div>
+                                {(typeof message.gifIcon !== 'undefined' && message.gifIcon !== '') ? (
+                                    <img style={{ marginLeft: '150px', borderRadius: '10px' }} src={message.gifIcon} width="80" height="80" alt="" />
+                                ) : (
+                                    <div></div>
+                                )}
 
                                 {(typeof message.image !== 'undefined' && message.image.length > 0) ? (
                                     message.image.map((img, index) => {
@@ -267,7 +309,7 @@ class UserProfile extends Component {
                                 </div> */}
                             </div>
                         ) : (
-                            <div style={{ marginBottom: '20px' }}>
+                            <div style={{ marginBottom: '30px' }}>
                                 {(typeof message.message !== 'undefined' && message.message !== '' && message.message !== '\n') ? (
                                     <div className="receive-message">
                                         <p>{message.message}</p>
@@ -290,6 +332,12 @@ class UserProfile extends Component {
 
                                 {(typeof message.gif !== 'undefined' && message.gif !== '') ? (
                                     <img style={{ marginLeft: '10px', borderRadius: '10px' }} src={message.gif} width="150" height="120" alt="" />
+                                ) : (
+                                    <div></div>
+                                )}
+
+                                {(typeof message.gifIcon !== 'undefined' && message.gifIcon !== '') ? (
+                                    <img style={{ marginLeft: '10px', borderRadius: '10px' }} src={message.gifIcon} width="80" height="80" alt="" />
                                 ) : (
                                     <div></div>
                                 )}
@@ -457,7 +505,7 @@ class UserProfile extends Component {
                                         </textarea>
                                         <div className="btn-footer">
                                             <label className="bg_none file-upload btn btn-upload">
-                                                <i className="glyphicon glyphicon-picture"></i>
+                                                <i className="glyphicon glyphicon-camera"></i>
                                                 <input 
                                                     type="file" 
                                                     ref="imageFile"
@@ -465,6 +513,28 @@ class UserProfile extends Component {
                                                     multiple 
                                                 />
                                             </label>
+                                            <span>
+                                                <div className="dropdown-menu drop-up" style={{ paddingLeft: '20px' }}>
+                                                    <img onClick={e => this.getGifIcon('https://i.imgur.com/HhvtIqC.gif')} src="https://i.imgur.com/HhvtIqC.gif" width="50" height="50" className="icon-chat" alt="" />
+                                                    <img onClick={e => this.getGifIcon('https://i.imgur.com/ODfrSnv.gif')} src="https://i.imgur.com/ODfrSnv.gif" className="icon-chat" width="50" height="50" alt="" />
+                                                    <img onClick={e => this.getGifIcon('https://i.imgur.com/FAw737s.gif')} src="https://i.imgur.com/FAw737s.gif" className="icon-chat" width="50" height="50" alt="" />
+                                                    <img onClick={e => this.getGifIcon('https://i.imgur.com/Ps8yhAY.png')} src="https://i.imgur.com/Ps8yhAY.png" className="icon-chat" width="50" height="50" alt="" />
+                                                    <img onClick={e => this.getGifIcon('https://i.imgur.com/8zcWNEr.png')} src="https://i.imgur.com/8zcWNEr.png" className="icon-chat" width="50" height="50" alt="" />
+                                                    <img onClick={e => this.getGifIcon('https://i.imgur.com/NN8rpyH.gif')} src="https://i.imgur.com/NN8rpyH.gif" className="icon-chat" width="50" height="50" alt="" />
+                                                    <img onClick={e => this.getGifIcon('https://i.imgur.com/pzxHaeK.gif')} src="https://i.imgur.com/pzxHaeK.gif" className="icon-chat" width="50" height="50" alt="" />
+                                                    <img onClick={e => this.getGifIcon('https://i.imgur.com/05mgh31.gif')} src="https://i.imgur.com/05mgh31.gif" className="icon-chat" width="50" height="50" alt="" />
+
+                                                    <img onClick={e => this.getGifIcon('https://i.imgur.com/sdnJpYo.jpg')} src="https://i.imgur.com/sdnJpYo.jpg" className="icon-chat" width="50" height="50" alt="" />
+                                                    <img onClick={e => this.getGifIcon('https://i.imgur.com/DO5IzE5.png')} src="https://i.imgur.com/DO5IzE5.png" className="icon-chat" width="50" height="50" alt="" />
+                                                    <img onClick={e => this.getGifIcon('https://i.imgur.com/S2vbBhn.jpg?1')} src="https://i.imgur.com/S2vbBhn.jpg?1" className="icon-chat" width="50" height="50" alt="" />
+                                                    <img onClick={e => this.getGifIcon('https://i.imgur.com/xcvt5EL.gif')} src="https://i.imgur.com/xcvt5EL.gif" className="icon-chat" width="50" height="50" alt="" />
+                                                    <img onClick={e => this.getGifIcon('https://i.imgur.com/zrPiMzT.gif')} src="https://i.imgur.com/zrPiMzT.gif" className="icon-chat" width="50" height="50" alt="" />
+                                                    <img onClick={e => this.getGifIcon('https://i.imgur.com/ktHWTDo.gif')} src="https://i.imgur.com/ktHWTDo.gif" className="icon-chat" width="50" height="50" alt="" />
+                                                    <img onClick={e => this.getGifIcon('https://i.imgur.com/c5CAN2F.gif')} src="https://i.imgur.com/c5CAN2F.gif" className="icon-chat" width="50" height="50" alt="" />
+                                                </div>
+                                            
+                                                <label className="bg_none file-upload btn btn-upload"  data-toggle="dropdown"><i className="glyphicon glyphicon-picture"></i> </label>
+                                            </span>
                                             <span>
                                                 <div className="dropdown-menu drop-up" >
                                                     <img onClick={e => this.getIcon('/images/smile1.png')} src="/images/smile1.png" className="icon-chat" width="35" alt="" />
@@ -477,7 +547,7 @@ class UserProfile extends Component {
                                                     <img onClick={e => this.getIcon('/images/smile8.png')} src="/images/smile8.png" className="icon-chat" width="35" alt="" />
                                                 </div>
                                             
-                                                <label className="bg_none file-upload btn btn-upload"  data-toggle="dropdown"><i className="fas fa-smile"></i> </label>
+                                                <label className="bg_none file-upload btn btn-upload"  data-toggle="dropdown"><i className="fa fa-smile-o"></i> </label>
                                             </span>
                                             <span>
                                                 <div className="dropdown-menu drop-up" style={{ textAlign: 'center', height: '275px', overflow: 'auto' }}>
@@ -488,10 +558,22 @@ class UserProfile extends Component {
                                                         <img onClick={e => this.getGif('https://media.tenor.co/images/1e0b5e9e6bb5853b6809e71f09faf2e5/tenor.gif')} autoPlay loop muted style={{ marginLeft: '5px', marginBottom: '5px', borderRadius: '10px' }} src="https://media.tenor.co/images/1e0b5e9e6bb5853b6809e71f09faf2e5/tenor.gif" width="150" height="120" alt="" />
                                                     </div>
                                                     <div>
-                                                    <img onClick={e => this.getGif('https://lumiere-a.akamaihd.net/v1/images/monstersinc_zzzz_sassy_2e0938ab.gif')} autoPlay loop muted style={{ marginLeft: '5px', marginBottom: '5px', borderRadius: '10px' }} src="https://lumiere-a.akamaihd.net/v1/images/monstersinc_zzzz_sassy_2e0938ab.gif" width="150" height="120" alt="" />
+                                                        <img onClick={e => this.getGif('https://lumiere-a.akamaihd.net/v1/images/monstersinc_zzzz_sassy_2e0938ab.gif')} autoPlay loop muted style={{ marginLeft: '5px', marginBottom: '5px', borderRadius: '10px' }} src="https://lumiere-a.akamaihd.net/v1/images/monstersinc_zzzz_sassy_2e0938ab.gif" width="150" height="120" alt="" />
+                                                    </div>
+                                                    <div>
+                                                        <img onClick={e => this.getGif('https://lumiere-a.akamaihd.net/v1/images/dipper-celebrate-pig_08e0880a.gif')} autoPlay loop muted style={{ marginLeft: '5px', marginBottom: '5px', borderRadius: '10px' }} src="https://lumiere-a.akamaihd.net/v1/images/dipper-celebrate-pig_08e0880a.gif" width="150" height="120" alt="" />
+                                                    </div>
+                                                    <div>
+                                                        <img onClick={e => this.getGif('https://lumiere-a.akamaihd.net/v1/images/toystory-whoa_ad8c0e8d.gif')} autoPlay loop muted style={{ marginLeft: '5px', marginBottom: '5px', borderRadius: '10px' }} src="https://lumiere-a.akamaihd.net/v1/images/toystory-whoa_ad8c0e8d.gif" width="150" height="120" alt="" />
+                                                    </div>
+                                                    <div>
+                                                        <img onClick={e => this.getGif('https://lumiere-a.akamaihd.net/v1/images/cinderella-magic_b78d76ed.gif')} autoPlay loop muted style={{ marginLeft: '5px', marginBottom: '5px', borderRadius: '10px' }} src="https://lumiere-a.akamaihd.net/v1/images/cinderella-magic_b78d76ed.gif" width="150" height="120" alt="" />
+                                                    </div>
+                                                    <div>
+                                                        <img onClick={e => this.getGif('https://media.tenor.co/images/40564c6ae1b3f87c5b0ce2d7b5af682c/tenor.gif')} autoPlay loop muted style={{ marginLeft: '5px', marginBottom: '5px', borderRadius: '10px' }} src="https://media.tenor.co/images/40564c6ae1b3f87c5b0ce2d7b5af682c/tenor.gif" width="150" height="120" alt="" />
                                                     </div>
                                                 </div>
-                                                <label className="bg_none file-upload btn btn-upload"  data-toggle="dropdown"><i className="fas fa-paperclip"></i> </label>
+                                                <label className="bg_none file-upload btn btn-upload"  data-toggle="dropdown"><i className="glyphicon glyphicon-paperclip"></i> </label>
                                             </span>
                                             <button onClick={this.like} className="bg_none pull-right"><i className="glyphicon glyphicon-thumbs-up"></i> </button>
                                         </div>
