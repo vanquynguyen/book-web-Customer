@@ -8,6 +8,10 @@
     background-color: white;
 }
 
+.hot-authors {
+    height: 300px; 
+}
+
 .user-item {
     /* margin-left: 10px; */
     margin-right: 10px;
@@ -18,4 +22,24 @@
 .author-name {
     font-weight: bold;
     margin-bottom: 5px;
+}
+
+.user-online-content {
+    height: 100%;
+    overflow: auto;
+}
+
+.user-status {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    position: absolute;
+}
+
+.user-online {
+    background: #4caf50;
+}
+
+.user-offline {
+    background: #f2f2f2;
 }

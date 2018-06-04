@@ -1,201 +1,145 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './author.css';
+import { connect } from 'react-redux';
+import { FetchUserRequest, searchUserRequest } from '../../actions/Users';
+import * as Config from '../../constants/Config';
+import { database } from '../../constants/firebase';
 
-const Author = () => {
-    return (
-        <div className="hot-authors">
-            <div className="section-title-line">
-                <h3 className="heading-tittle">Hot authors</h3>
+class Author extends Component {
+    
+    constructor() {
+        super();
+        this.state = {
+            users: [],
+            onlines: []
+        };
+    }
+
+    componentDidMount() {
+        // Gọi trước khi component đc render lần đầu tiên
+        this.props.fetchAllUsers();
+    }
+
+    componentWillMount() {
+        const onlines = database.ref('onlines')
+    
+        onlines.on('value', snapshot => {
+            const items = snapshot.val();
+            const newState = [];
+            for (let item in items) {
+                newState.push({
+                    id: item,
+                    userId: items[item].userId,
+                    time: items[item].time
+                });
+            }
+            this.setState({
+                onlines: newState
+            });
+        });
+    }
+
+    onSearch = (event) => {
+        this.props.onSearchUser(event.target.value);
+    }
+
+    render() {
+        const onlines = this.state.onlines;
+        let onlineArray = [];
+        for(let key in onlines) {
+            onlineArray.push(onlines[key].userId)
+        }
+        function isInArray(value, array) {
+            for (var i = 0; i < array.length; i++) {
+                if (array[i] === value) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        const users = this.props.users;
+        let listUsers;
+        let count = 0;
+        users.length && (listUsers = users.map((user, key) => (
+            <div key={key}>
+                {(isInArray(user.id + '', onlineArray))? (
+                    <div className="row" style={{ marginBottom: '10px', width: '100%' }}>
+                        <div className="col-md-4">
+                        <img 
+                            className="img-circle pravatar-image img-responsive col-sm-3" 
+                            style={{ width: '40px', height: '40px', padding: '0' }} 
+                            src={Config.LOCAL_URL+ '/images/' + user.avatar} 
+                            alt="" 
+                        />
+                        </div>
+                        <div className="col-md-6" style={{ marginTop: '5px' }}>
+                            {user.full_name}
+                        </div>
+                        <div className="col-md-2" style={{ marginTop: '12px' }}>
+                            <div className="user-status user-online"></div>
+                        </div>
+                        <div style={{ display: 'none' }}>{count++}</div>
+                    </div>
+                ) : (
+                    <div className="row" style={{ marginBottom: '10px', width: '100%' }}>
+                        <div className="col-md-4">
+                        <img 
+                            className="img-circle pravatar-image img-responsive col-sm-3" 
+                            style={{ width: '40px', height: '40px', padding: '0' }} 
+                            src={Config.LOCAL_URL+ '/images/' + user.avatar} 
+                            alt="" 
+                        />
+                        </div>
+                        <div className="col-md-6" style={{ marginTop: '5px' }}>
+                            {user.full_name}
+                        </div>
+                        {/* <div className="col-md-2" style={{ marginTop: '12px' }}>
+                            <div className="user-status user-offline"></div>
+                        </div> */}
+                    </div>
+                )}
+            </div>)
+        ))
+        return (
+            <div>
+                <div className="section-title-line">
+                    <h3>Online <span>({count})</span></h3>
+                </div>
                 <hr className="filler-line" />
-            </div>
-            <div className="author-content">
-                <div className="user-item">
-                    <div className="image">
-                        <img className="img-circle" src="https://images.viblo.asia/avatar/398ff412-f7d3-4e32-85b3-50efae907d6b.png" alt="Images" />
-                    </div>
-                    <div className="content">
-                        <h4 className="author-name">Quy Nguyen</h4>
-                        <div className="rating-wrapper">
-                            <div className="rating-item">
-                                <span style={{cursor: 'default'}}>
-                                    <div className="rating-symbol" style={{display: 'inline-block', position: 'relative'}}>
-                                        <div className="rating-symbol-background fa fa-star-o" style={{visibility: 'hidden'}}></div>
-                                        <div className="rating-symbol-foreground" style={{display: 'inline-block', position: 'absolute', overflow: 'hidden', left: '0px', right: '0px', width: 'auto'}}><span className="fa fa-star rating-rated"></span></div>
-                                    </div>
-                                    <div className="rating-symbol" style={{display: 'inline-block', position: 'relative'}}>
-                                        <div className="rating-symbol-background fa fa-star-o" style={{visibility: 'hidden'}}></div>
-                                        <div className="rating-symbol-foreground" style={{display: 'inline-block', position: 'absolute', overflow: 'hidden', left: '0px', right: '0px', width: 'auto'}}><span className="fa fa-star rating-rated"></span></div>
-                                    </div>
-                                    <div className="rating-symbol" style={{display: 'inline-block', position: 'relative'}}>
-                                        <div className="rating-symbol-background fa fa-star-o" style={{visibility: 'hidden'}}></div>
-                                        <div className="rating-symbol-foreground" style={{display: 'inline-block', position: 'absolute', overflow: 'hidden', left: '0px', right: '0px', width: 'auto'}}><span className="fa fa-star rating-rated"></span></div>
-                                    </div>
-                                    <div className="rating-symbol" style={{display: 'inline-block', position: 'relative'}}>
-                                        <div className="rating-symbol-background fa fa-star-o" style={{visibility: 'visible'}}></div>
-                                        <div className="rating-symbol-foreground" style={{display: 'inline-block', position: 'absolute', overflow: 'hidden', left: '0px', right: '0px', width: 'auto'}}><span className="fa fa-star rating-rated"></span></div>
-                                    </div>
-                                    <div className="rating-symbol" style={{display: 'inline-block', position: 'relative'}}>
-                                        <div className="rating-symbol-background fa fa-star-o" style={{visibility: 'visible'}}></div>
-                                        <div className="rating-symbol-foreground" style={{display: 'inline-block', position: 'absolute', overflow: 'hidden', left: '0px', right: '0px', width: 'auto'}}><span></span></div>
-                                    </div>
-                                </span>
-                                <input type="hidden" className="rating" data-filled="fa fa-star rating-rated" data-empty="fa fa-star-o" data-fractions="2" data-readonly="" value="3.5" />
-                            </div>
-                        </div>
-                        <span className="labeling"><i className="fa fa-map-marker"></i> Bangkok, Thailand</span>
-                    </div>
-                    {/* <div className="user-meta">
-                        <ul className="clearfix">
-                            <li>
-                                <div className="meta">
-                                    <span className="number">53</span>
-                                    Tours
-                                </div>
-                            </li>
-                            <li>
-                                <div className="meta">
-                                    <span className="number">443</span>
-                                    Reviews
-                                </div>
-                            </li>
-                            <li>
-                                <div className="meta">
-                                    <span className="number">17</span>
-                                    Awards 
-                                </div>
-                            </li>
-                            <li>
-                                <div className="meta">
-                                    <span className="number">76</span>
-                                    Happiers 
-                                </div>
-                            </li>
-                        </ul>
-                    </div> */}
-                    <div className="ph-20">
-                        <a style={{ width: '90%', background: '#47abda', borderColor: '#FE8800' }} className="btn btn-primary btn-block">View Profile</a>
+                <div className="hot-authors">
+                    <div className="user-online-content">
+                        { listUsers }
                     </div>
                 </div>
-            </div>
-            <div className="author-content">
-                <div className="user-item">
-                    <div className="image">
-                        <img className="img-circle" src="https://images.viblo.asia/avatar/398ff412-f7d3-4e32-85b3-50efae907d6b.png" alt="Images" />
-                    </div>
-                    <div className="content">
-                        <h4 className="author-name">Phuc Luong</h4>
-                        <div className="rating-wrapper">
-                            <div className="rating-item">
-                                <span style={{cursor: 'default'}}>
-                                    <div className="rating-symbol" style={{display: 'inline-block', position: 'relative'}}>
-                                        <div className="rating-symbol-background fa fa-star-o" style={{visibility: 'hidden'}}></div>
-                                        <div className="rating-symbol-foreground" style={{display: 'inline-block', position: 'absolute', overflow: 'hidden', left: '0px', right: '0px', width: 'auto'}}><span className="fa fa-star rating-rated"></span></div>
-                                    </div>
-                                    <div className="rating-symbol" style={{display: 'inline-block', position: 'relative'}}>
-                                        <div className="rating-symbol-background fa fa-star-o" style={{visibility: 'hidden'}}></div>
-                                        <div className="rating-symbol-foreground" style={{display: 'inline-block', position: 'absolute', overflow: 'hidden', left: '0px', right: '0px', width: 'auto'}}><span className="fa fa-star rating-rated"></span></div>
-                                    </div>
-                                    <div className="rating-symbol" style={{display: 'inline-block', position: 'relative'}}>
-                                        <div className="rating-symbol-background fa fa-star-o" style={{visibility: 'hidden'}}></div>
-                                        <div className="rating-symbol-foreground" style={{display: 'inline-block', position: 'absolute', overflow: 'hidden', left: '0px', right: '0px', width: 'auto'}}><span className="fa fa-star rating-rated"></span></div>
-                                    </div>
-                                    <div className="rating-symbol" style={{display: 'inline-block', position: 'relative'}}>
-                                        <div className="rating-symbol-background fa fa-star-o" style={{visibility: 'visible'}}></div>
-                                        <div className="rating-symbol-foreground" style={{display: 'inline-block', position: 'absolute', overflow: 'hidden', left: '0px', right: '0px', width: 'auto'}}><span className="fa fa-star rating-rated"></span></div>
-                                    </div>
-                                    <div className="rating-symbol" style={{display: 'inline-block', position: 'relative'}}>
-                                        <div className="rating-symbol-background fa fa-star-o" style={{visibility: 'visible'}}></div>
-                                        <div className="rating-symbol-foreground" style={{display: 'inline-block', position: 'absolute', overflow: 'hidden', left: '0px', right: '0px', width: 'auto'}}><span></span></div>
-                                    </div>
-                                </span>
-                                <input type="hidden" className="rating" data-filled="fa fa-star rating-rated" data-empty="fa fa-star-o" data-fractions="2" data-readonly="" value="3.5" />
-                            </div>
-                        </div>
-                        <span className="labeling"><i className="fa fa-map-marker"></i> Bangkok, Thailand</span>
-                    </div>
-                    {/* <div className="user-meta">
-                        <ul className="clearfix">
-                            <li>
-                                <div className="meta">
-                                    <span className="number">53</span>
-                                    Tours
-                                </div>
-                            </li>
-                            <li>
-                                <div className="meta">
-                                    <span className="number">443</span>
-                                    Reviews
-                                </div>
-                            </li>
-                            <li>
-                                <div className="meta">
-                                    <span className="number">17</span>
-                                    Awards 
-                                </div>
-                            </li>
-                            <li>
-                                <div className="meta">
-                                    <span className="number">76</span>
-                                    Happiers 
-                                </div>
-                            </li>
-                        </ul>
-                    </div> */}
-                    <div className="ph-20">
-                        <a style={{ width: '90%',   background: '#47abda', borderColor: '#FE8800' }} className="btn btn-primary btn-block">View Profile</a>
-                    </div>
+                <hr />
+                <div className="sidebar-box-links">
+                    <Link to="/users" className="accented-link scroller">
+                        <i aria-hidden="true" className="fa fa-tags mr-05"></i> All authors
+                    </Link>
                 </div>
             </div>
-            <div className="author-content">
-                <div className="user-item">
-                    <div className="image">
-                        <img className="img-circle" src="https://images.viblo.asia/avatar/398ff412-f7d3-4e32-85b3-50efae907d6b.png" alt="Images" />
-                    </div>
-                    <div className="content">
-                        <h4 className="author-name">Tran Khanh</h4>
-                        <div className="rating-wrapper">
-                            <div className="rating-item">
-                                <span style={{cursor: 'default'}}>
-                                    <div className="rating-symbol" style={{display: 'inline-block', position: 'relative'}}>
-                                        <div className="rating-symbol-background fa fa-star-o" style={{visibility: 'hidden'}}></div>
-                                        <div className="rating-symbol-foreground" style={{display: 'inline-block', position: 'absolute', overflow: 'hidden', left: '0px', right: '0px', width: 'auto'}}><span className="fa fa-star rating-rated"></span></div>
-                                    </div>
-                                    <div className="rating-symbol" style={{display: 'inline-block', position: 'relative'}}>
-                                        <div className="rating-symbol-background fa fa-star-o" style={{visibility: 'hidden'}}></div>
-                                        <div className="rating-symbol-foreground" style={{display: 'inline-block', position: 'absolute', overflow: 'hidden', left: '0px', right: '0px', width: 'auto'}}><span className="fa fa-star rating-rated"></span></div>
-                                    </div>
-                                    <div className="rating-symbol" style={{display: 'inline-block', position: 'relative'}}>
-                                        <div className="rating-symbol-background fa fa-star-o" style={{visibility: 'hidden'}}></div>
-                                        <div className="rating-symbol-foreground" style={{display: 'inline-block', position: 'absolute', overflow: 'hidden', left: '0px', right: '0px', width: 'auto'}}><span className="fa fa-star rating-rated"></span></div>
-                                    </div>
-                                    <div className="rating-symbol" style={{display: 'inline-block', position: 'relative'}}>
-                                        <div className="rating-symbol-background fa fa-star-o" style={{visibility: 'visible'}}></div>
-                                        <div className="rating-symbol-foreground" style={{display: 'inline-block', position: 'absolute', overflow: 'hidden', left: '0px', right: '0px', width: 'auto'}}><span className="fa fa-star rating-rated"></span></div>
-                                    </div>
-                                    <div className="rating-symbol" style={{display: 'inline-block', position: 'relative'}}>
-                                        <div className="rating-symbol-background fa fa-star-o" style={{visibility: 'visible'}}></div>
-                                        <div className="rating-symbol-foreground" style={{display: 'inline-block', position: 'absolute', overflow: 'hidden', left: '0px', right: '0px', width: 'auto'}}><span></span></div>
-                                    </div>
-                                </span>
-                                <input type="hidden" className="rating" data-filled="fa fa-star rating-rated" data-empty="fa fa-star-o" data-fractions="2" data-readonly="" value="3.5" />
-                            </div>
-                        </div>
-                        <span className="labeling"><i className="fa fa-map-marker"></i> Bangkok, Thailand</span>
-                    </div>
-                    <div className="ph-20">
-                        <a style={{ width: '90%', background: '#47abda', borderColor: '#FE8800' }} className="btn btn-primary btn-block">View Profile</a>
-                    </div>
-                </div>
-            </div>
-            <hr />
-            <div className="sidebar-box-links">
-                <Link to="/users" className="accented-link scroller">
-                    <i aria-hidden="true" className="fa fa-tags mr-05"></i> All authors
-                </Link>
-            </div>
-        </div>
-    );
+        );
+    }
 };
 
-export default Author;
+const mapStateToProps = state => {
+    return {
+        users: state.users
+    }
+}
+
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        fetchAllUsers: () => {
+            dispatch(FetchUserRequest());
+        },
+        
+        onSearchUser: (keywork) => {
+            dispatch(searchUserRequest(keywork))
+        },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Author);

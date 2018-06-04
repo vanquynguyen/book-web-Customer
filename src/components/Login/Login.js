@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { actFetchUserRequest } from '../../actions/Users';
 import { actFetchCartsRequest } from '../../actions/Carts';
 import jquery from 'jquery';
+import { database } from '../../constants/firebase';
 
 const required = (value) => {
     if (isEmpty(value)) {
@@ -79,6 +80,16 @@ class Login extends Component {
                     const userId = response.data.user.id;
                     localStorage.setItem('userId', userId);
                     this.props.fetchAllCarts(userId);
+                    const time = new Date().toLocaleDateString();
+                    const onlineId = database.ref('onlines').push({
+                        userId: userId + '',
+                        full_name: response.data.user.full_name + '',
+                        avatar: response.data.user.avatar + '',
+                        time: time
+                    });
+                    const key = onlineId.key;
+                    localStorage.setItem('onlineId', key)
+            
                     if (token) {
                         this.props.onFetchUser(token);
                     }
@@ -155,7 +166,8 @@ class Login extends Component {
 
 const mapStateToProps = state => {
     return {
-        users : state.users
+        users : state.users,
+        account: state.account,
     }
 }
 

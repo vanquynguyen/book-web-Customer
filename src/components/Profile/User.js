@@ -150,7 +150,7 @@ class UserProfile extends Component {
     like = () => {
         const time = new Date().toLocaleDateString();
         database.ref('messages').push({
-            like: '/images/like.png',
+            like: '/images/like.PNG',
             sender_id: localStorage.getItem('userId'),
             received_id: this.props.match.params.id,
             time: time
@@ -529,14 +529,14 @@ class UserProfile extends Component {
                                             </span>
                                             <span>
                                                 <div className="dropdown-menu drop-up" >
-                                                    <img onClick={e => this.getIcon('/images/smile1.png')} src="/images/smile1.png" className="icon-chat" width="35" alt="" />
-                                                    <img onClick={e => this.getIcon('/images/smile2.png')} src="/images/smile2.png" className="icon-chat" width="35" alt="" />
-                                                    <img onClick={e => this.getIcon('/images/smile3.png')} src="/images/smile3.png" className="icon-chat" width="35" alt="" />
-                                                    <img onClick={e => this.getIcon('/images/smile4.png')} src="/images/smile4.png" className="icon-chat" width="35" alt="" />
-                                                    <img onClick={e => this.getIcon('/images/smile5.png')} src="/images/smile5.png" className="icon-chat" width="35" alt="" />
-                                                    <img onClick={e => this.getIcon('/images/smile6.png')} src="/images/smile6.png" className="icon-chat" width="35" alt="" />
-                                                    <img onClick={e => this.getIcon('/images/smile7.png')} src="/images/smile7.png" className="icon-chat" width="35" alt="" />
-                                                    <img onClick={e => this.getIcon('/images/smile8.png')} src="/images/smile8.png" className="icon-chat" width="35" alt="" />
+                                                    <img onClick={e => this.getIcon('/images/smile1.PNG')} src="/images/smile1.PNG" className="icon-chat" width="35" alt="" />
+                                                    <img onClick={e => this.getIcon('/images/smile2.PNG')} src="/images/smile2.PNG" className="icon-chat" width="35" alt="" />
+                                                    <img onClick={e => this.getIcon('/images/smile3.PNG')} src="/images/smile3.PNG" className="icon-chat" width="35" alt="" />
+                                                    <img onClick={e => this.getIcon('/images/smile4.PNG')} src="/images/smile4.PNG" className="icon-chat" width="35" alt="" />
+                                                    <img onClick={e => this.getIcon('/images/smile5.PNG')} src="/images/smile5.PNG" className="icon-chat" width="35" alt="" />
+                                                    <img onClick={e => this.getIcon('/images/smile6.PNG')} src="/images/smile6.PNG" className="icon-chat" width="35" alt="" />
+                                                    <img onClick={e => this.getIcon('/images/smile7.PNG')} src="/images/smile7.PNG" className="icon-chat" width="35" alt="" />
+                                                    <img onClick={e => this.getIcon('/images/smile8.PNG')} src="/images/smile8.PNG" className="icon-chat" width="35" alt="" />
                                                 </div>
                                             
                                                 <label className="bg_none file-upload btn btn-upload"  data-toggle="dropdown"><i className="fa fa-smile-o"></i> </label>

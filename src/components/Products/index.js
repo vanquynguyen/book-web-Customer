@@ -25,9 +25,6 @@ class List extends Component {
                             <i></i>
                             </span>
                         </h3>
-                        <div className="side-bar col-md-3">
-                        <Author />              
-                        </div>
                         <div className="agileinfo-ads-display col-md-9">
                             <div className="wrapper">
                                 <NewBooks />
@@ -46,6 +43,9 @@ class List extends Component {
                                 <TopBookings />
                                 <TopReviews />
                             </div>
+                        </div>
+                        <div className="side-bar col-md-3">
+                            <Author />              
                         </div>
                     </div>
                 </div>

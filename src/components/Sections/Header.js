@@ -47,6 +47,7 @@ class Header extends Component {
                     approved: items[item].approved,
                     sender_id: items[item].sender_id,
                     received_id: items[item].received_id,
+                    reviewer: items[item].reviewer,
                     content: items[item].content,
                     book_id: items[item].book_id,
                     time: items[item].time
@@ -96,8 +97,11 @@ class Header extends Component {
             params: {token: token},
         })
         .then(response=> {
+            const onlineId = localStorage.getItem('onlineId')
+            database.ref('onlines').child(onlineId).remove()
             localStorage.setItem('token', '');
             localStorage.setItem('userId', '');
+            localStorage.setItem('onlineId', '');
             this.setState({
                 auth: {}
             })
@@ -184,20 +188,20 @@ class Header extends Component {
                                         <div className="row" style={{ marginBottom: '5px', width: '100%' }}>
                                             <img className="img-circle pravatar-image img-responsive col-sm-3" style={{ width: '32px', height: '32px', padding: '0' }} src={Config.LOCAL_URL+ '/images/' + this.props.account.avatar} alt="" />
                                             <div className="col-sm-9" style={{ marginTop: '7px' }}>
-                                                <Link to='user/profile' style={{ color: 'black' }}  onClick={() => this.onRemoveNoti(noti.id)}>
-                                                    Your book have a reviews from {noti.full_name}
+                                                <Link to={`book/${noti.book_id}/detail`} style={{ color: 'black' }}  onClick={() => this.onRemoveNoti(noti.id)}>
+                                                    Your book have approved
                                                 </Link>
                                             </div>
                                         </div>
                                     ) : (
                                         <div></div>
                                     )}
-                                    {(typeof noti.content !== 'undefined' && noti.content ==='review_book') ? (
+                                    {((typeof noti.content !== 'undefined' && noti.content ==='review_book') || (typeof noti.reviewer !== 'undefined' && noti.reviewer !== '')) ? (
                                         <div className="row" style={{ marginBottom: '5px', width: '100%' }}>
                                             <img className="img-circle pravatar-image img-responsive col-sm-3" style={{ width: '32px', height: '32px', padding: '0' }} src={Config.LOCAL_URL+ '/images/' + this.props.account.avatar} alt="" />
                                             <div className="col-sm-9" style={{ marginTop: '7px' }}>
                                                 <Link to={`book/${noti.book_id}/detail`} style={{ color: 'black' }}  onClick={() => this.onRemoveNoti(noti.id)}>
-                                                    Your book have approved
+                                                    Your book have a reviews from {noti.full_name}
                                                 </Link>
                                             </div>
                                         </div>
@@ -226,18 +230,33 @@ class Header extends Component {
                                 </Link>
                             </h1>
                         </div>
-                        <div className="col-md-8 header">
+                        <div className="col-md-4">
+                            <div className="agileits_search">
+                                <form action="" method="post">
+                                    <input name="Search" type="search" onChange={this.onSearch} placeholder="How can we help you today?" required="" />
+                                </form>
+                                {listBooks}
+                            </div>
+                        </div>
+                        <div className="col-md-4 header">
                             <ul>
-                                <li>
+                                {/* <li>
                                     <a className="play-icon popup-with-zoom-anim" href="#small-dialog1">
                                     <span className="fa fa-map-marker" aria-hidden="true"></span> Shop Locator</a>
                                 </li>
                                 <li>
                                     <a  data-toggle="modal" data-target="#myModal1">
                                     <span className="fa fa-truck" aria-hidden="true"></span>Track Order</a>
-                                </li>
+                                </li> */}
+                             
+                                    
+                               
+                                {/* <li>
+                                    <a  data-toggle="modal" data-target="#myModal1">
+                                    <span className="fa fa-truck" aria-hidden="true"></span>Track Order</a>
+                                </li> */}
                                 {auth.id ? (
-                                    <li style={{ height: '17px' }}>
+                                    <li style={{ height: '17px', marginLeft: '-40px' }}>
                                         <div style={{ width: '170px' }}>
                                             <div className="UTT-noti-number">
                                                 <span style={{ marginRight: '0', fontSize: '13px' }}>{count}</span>
@@ -262,7 +281,7 @@ class Header extends Component {
                                     <span></span>
                                 )}
                                 {auth.id ? (
-                                    <li>
+                                    <li style={{ marginRight: '50px' }}>
                                         <div className="dropdown">
                                             <a style={{color: 'white'}} className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <img width="20" src="https://images.viblo.asia/avatar/398ff412-f7d3-4e32-85b3-50efae907d6b.png" alt=""/> {auth.email}
@@ -292,18 +311,37 @@ class Header extends Component {
                                         </li>
                                     </span>
                                 )}
+                                <li style={{ marginTop: '-32px' }}>
+                                    <div className="wthreecartaits wthreecartaits2 cart cart box_1" style={{ width: '160px' }}>
+                                        {carts.length > 0 && auth.id ? (
+                                            <div className="UTT-cart-number">
+                                                <span style={{ marginRight: '5px' }}>{carts.length}</span>
+                                            </div>
+                                        ) : (
+                                            <span></span>
+                                        )}
+                                        <div className="dropdown">
+                                            <a className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i className="fa fa-cart-arrow-down" aria-hidden="true" style={{ fontSize: '40px', color: 'white' }}></i>
+                                            </a>
+                                            <ul className="dropdown-menu dropdown-carts" aria-labelledby="dropdownMenuLink" style={{ height: '400px', overflow: 'auto', paddingLeft: '12px', width:'326px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important' }}>
+                                                {carts.length > 0 && auth.id ? ( 
+                                                    <div>
+                                                        <span> {listCarts}</span>
+                                                        <hr />
+                                                        <Link to='/checkout' className="scroller" id="checkout" style={{marginLeft: '55px'}}> <button className="minicartk-submit">Check out & Payment</button> </Link>
+                                                    </div>
+                                                ) : (
+                                                    <span>Your shopping cart is empty</span>
+                                                )}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
                             </ul>
-                            <div className="agileits_search">
-                                <form action="" method="post">
-                                    <input name="Search" type="search" onChange={this.onSearch} placeholder="How can we help you today?" required="" />
-                                    {/* <button type="button" className="btn btn-default" aria-label="Left Align">
-                                    <span className="fa fa-search" aria-hidden="true"> </span>
-                                    </button> */}
-                                </form>
-                                {listBooks}
-                            </div>
+                           
                             <div className="top_nav_right">
-                                <div className="wthreecartaits wthreecartaits2 cart cart box_1" style={{ width: '160px' }}>
+                                {/* <div className="wthreecartaits wthreecartaits2 cart cart box_1" style={{ width: '160px' }}>
                                     {carts.length > 0 && auth.id ? (
                                         <div className="UTT-cart-number">
                                             <span>{carts.length}</span>
@@ -327,7 +365,7 @@ class Header extends Component {
                                             )}
                                         </ul>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="clearfix"></div>
                         </div>

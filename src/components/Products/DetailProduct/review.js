@@ -38,11 +38,12 @@ class review extends Component {
                 swal("Only once review!", "You clicked the button!", "warning");
             } else {
                 const time = new Date().toLocaleDateString();
+                const userId = this.props.userId;
                 database.ref('notifications').push({
-                    full_name: this.props.account.full_name,
+                    reviewer: this.props.account.full_name,
                     content: 'review_book',
                     book_id: this.props.id,
-                    received_id: this.props.userId,
+                    received_id: userId + '',
                     time: time
                 });
                 swal("Good job!", "You clicked the button!", "success");

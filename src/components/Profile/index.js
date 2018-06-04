@@ -8,9 +8,11 @@ import BooksList from './Books/BookListsPage';
 import HistoryOrder from './Order/HistoryOrder';
 import { actGetUserRequest } from '../../actions/Users/';
 import { actCheckFollowRequest } from '../../actions/Follows';
-// import axios from 'axios';
+import axios from 'axios';
 import * as Config from '../../constants/Config';
 import { actFollowersRequest, actFollowingsRequest } from '../../actions/Follows';
+import jquery from 'jquery';
+// import toastr from 'toastr';
 
 class UserProfile extends Component {
 
@@ -28,6 +30,8 @@ class UserProfile extends Component {
            Followings: '',
            Followers: '',
            check: '',
+           image: '',
+           imagePreview: '',
         };
     }
 
@@ -70,6 +74,63 @@ class UserProfile extends Component {
         }
     }
 
+    _handleImageChange = (e) => {
+        e.preventDefault();
+
+        let reader = new FileReader();
+        let file = e.target.files[0];
+
+        reader.onloadend = () => {
+            this.setState({
+                image: file,
+                imagePreview: reader.result
+            });
+        }
+
+        reader.readAsDataURL(file)
+    }
+
+    changeAvatar = (e) => {
+        e.preventDefault();
+        const { image, id } = this.state;
+        var user = new FormData()
+        user.append('avatar', image)
+        axios.post(Config.API_URL + `/user/${id}/avatar`, user).then(res => {
+            this.setState({ 
+                avatar: res.data.avatar,
+                imagePreview: ''
+            })
+            this.refs.avatar.value="";
+            jquery('.close-avatar').click();
+        })
+    }
+
+    onChangeHandler = (e) => {
+        e.preventDefault();
+        this.setState({
+            [e.target.name]: e.target.value,
+            gender: this.refs.gender.value,
+        })
+    }
+
+    changeProfile = (e) => {
+        e.preventDefault();
+
+        var { id, full_name, email, address, gender } = this.state;
+        var user = new FormData()
+        user.append('full_name', full_name);
+        user.append('email', email);
+        user.append('address', address);
+        user.append('gender', gender);
+        if (this.refs.gender.value !== '') {
+            axios.post(Config.API_URL + `/user/${id}/edit`, user).then(res => {
+                jquery('.close-edit').click();
+            })
+        } else {
+ 
+        }
+    }
+
     onOpenModalFollower = () => {
         this.setState({ openFollower: true });
     };
@@ -89,7 +150,7 @@ class UserProfile extends Component {
     };
 
     render() {
-      
+
         const openFollower = this.state.openFollower;
         const openFollowing = this.state.openFollowing;
         const Followings = this.state.Followings;
@@ -138,9 +199,39 @@ class UserProfile extends Component {
                         </div>
                         <div className="prheadline">
                             <div className="pravatar">
-                                <a href="/users/my_profile" className="">
-                                    <img className="img-circle pravatar-image img-responsive" src={Config.LOCAL_URL+ '/images/' + this.state.avatar} alt="Avatar" />
+                                <a data-toggle="modal" data-target="#change-avatar">
+                                    <div className="user-avatar">
+                                        <img className="img-circle pravatar-image img-responsive avatar-image" src={Config.LOCAL_URL+ '/images/' + this.state.avatar} alt="Avatar" />
+                                        <div className="middle">
+                                            <div className="text">Change Avatar</div>
+                                        </div>
+                                    </div>
                                 </a>
+                                <div id="change-avatar" className="modal fade" role="dialog">
+                                    <div className="modal-dialog">
+                                        <form onSubmit={e => this.changeAvatar(e)} ref={c => { this.form = c }}>
+                                            <div className="modal-content">
+                                                <div className="modal-header">
+                                                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                                    <h4 className="modal-title">Change Avatar</h4>
+                                                </div>
+                                                <div className="modal-body">
+                                                    <input 
+                                                        type="file" 
+                                                        ref="avatar"
+                                                        name="image" 
+                                                        onChange={(e)=>this._handleImageChange(e)} 
+                                                    />
+                                                    <img src={this.state.imagePreview} alt="" height="320" width="240" style={{ marginLeft: '146px'}} />
+                                                </div>
+                                                <div className="modal-footer">
+                                                    <button type="submit" className="btn btn-primary">Save</button>
+                                                    <button type="button" className="btn btn-default close-avatar" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                                 <div className="text-center">
                                     <h2><strong>{ this.state.full_name }</strong></h2>
                                 </div>
@@ -172,15 +263,80 @@ class UserProfile extends Component {
                                 <div className="title-bar"></div>
                                 <div>
                                     <div className="book-content book-content-profile">
-                                        <div className="book-details-item">
+                                        <div className="row" style={{ float: 'right' }}>
+                                            <button className="btn btn-default" data-toggle="modal" data-target="#edit-profile">Edit Profile</button>
+                                        </div>
+                                        <div id="edit-profile" className="modal fade" role="dialog">
+                                            <div className="modal-dialog">
+                                                <form onSubmit={e => this.changeProfile(e)} ref={c => { this.form = c }}>
+                                                    <div className="modal-content">
+                                                        <div className="modal-header">
+                                                            <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                                            <h4 className="modal-title">Edit Profile</h4>
+                                                        </div>
+                                                        <div className="modal-body">
+                                                            <div className="row">
+                                                                <div className="form-group row col-sm-12">
+                                                                    <label className="col-sm-3">Full Name:</label>
+                                                                    <input
+                                                                        type="text"
+                                                                        name="full_name"
+                                                                        value={this.state.full_name && this.state.full_name !== '' ? this.state.full_name: ''}
+                                                                        className="form-control col-sm-9 edit-profile-input"
+                                                                        onChange={this.onChangeHandler}
+                                                                    />
+                                                                </div>
+                                                                <div className="form-group row col-sm-12">
+                                                                    <label className="col-sm-3">Email:</label>
+                                                                    <input
+                                                                        type="text"
+                                                                        name="email"
+                                                                        value={this.state.email && this.state.email !== '' ? this.state.email: ''}
+                                                                        className="form-control col-sm-9 edit-profile-input"
+                                                                        onChange={this.onChangeHandler}
+                                                                    />
+                                                                </div>
+                                                                <div className="form-group row col-sm-12">
+                                                                    <label className="col-sm-3">Address:</label>
+                                                                    <input
+                                                                        type="text"
+                                                                        name="address"
+                                                                        // value={this.state.address}
+                                                                        value={this.state.address && this.state.address !== '' ? this.state.address : ''}
+                                                                        className="form-control col-sm-9 edit-profile-input"
+                                                                        onChange={this.onChangeHandler}
+                                                                    />
+                                                                </div>
+                                                                <div className="form-group row col-sm-12">
+                                                                    <label className="col-sm-3">Gender:</label>
+                                                                    <select 
+                                                                        className="form-control edit-profile-input"
+                                                                        ref="gender"
+                                                                        onChange={this.onChangeHandler}
+                                                                    >
+                                                                        <option value=''>--Select gender--</option>
+                                                                        <option value="1">male</option>
+                                                                        <option value="0">female</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="modal-footer">
+                                                            <button type="submit" className="btn btn-primary">Save</button>
+                                                            <button type="button" className="btn btn-default close-edit" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div className="book-details-item row">
                                             <h4 className="tip-left">Email: </h4>
                                             <p className="">{ this.state.email }</p>
-                                            <h4 className="tip-left">Phone: </h4>
-                                            <p className=""></p>
-                                            <h4 className="tip-left">Code: </h4>
-                                            <p className=""></p>
                                             <h4 className="tip-left">Address: </h4>
                                             <p className="">{this.state.address}</p>
+                                            <h4 className="tip-left">Gender: </h4>
+                                            <p className="">{ this.state.gender !== '' && this.state.gender === 1 ? 'male' : 'female' }</p>
                                             <h4 className="tip-left">Follower: </h4>
                                             <p className=""><a onClick={this.onOpenModalFollower}>{Followers.length} people</a></p>
                                             <h4 className="tip-left">Following: </h4>
