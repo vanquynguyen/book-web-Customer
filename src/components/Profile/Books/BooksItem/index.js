@@ -10,6 +10,7 @@ import swal from 'sweetalert';
 import axios from 'axios'; 
 import { connect } from 'react-redux';
 import { actFetchCategoriesRequest } from '../../../../actions/Categories';
+import { actFetchUserBooksRequest } from '../../../../actions/Books';
 
 // const required = (value) => {
 //     if (isEmpty(value)) {
@@ -66,6 +67,17 @@ class BooksList extends Component {
                 category: res.data
             })
         });
+
+        this.setState({
+            category_id: this.props.book.category_id,
+            user_id: this.props.book.user_id,
+            title: this.props.book.title,
+            author: this.props.book.author,
+            amount: this.props.book.amount,
+            image: this.props.book.image,
+            description: this.props.book.description,
+            price: this.props.book.price
+        })
     }
 
     _handleImageChange = (e) => {
@@ -108,7 +120,7 @@ class BooksList extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         this.form.validateAll();
-        console.log(this.state)
+
         if ( this.checkBtn.context._errors.length === 0 ) {
             var {title, image, author, category_id, description, price, amount } = this.state;
             var id = this.props.book.id;
@@ -122,9 +134,11 @@ class BooksList extends Component {
             book.append("price", price);
             book.append("amount", amount);
             
-            axios.put(Config.API_URL + `/books/${id}` , book).then(res => {
-                 swal("Good job!", "You clicked the button!", "success");
-                 this.setState({ open: false });
+            axios.post(Config.API_URL + `/book/${id}/edit` , book).then(res => {
+                swal("Good job!", "You clicked the button!", "success");
+                const userId = localStorage.getItem('userId');
+                this.props.fetchAllUserBooks(userId);
+                this.setState({ open: false });
             });
         }
     }
@@ -156,6 +170,7 @@ class BooksList extends Component {
 
     render() {
         const book = this.props.book;
+        console.log(book)
         const { open } = this.state;
         const category = this.state.category;
         const categories = this.props.categories;
@@ -278,6 +293,9 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         fetchAllCategories: () => {
             dispatch(actFetchCategoriesRequest());
+        },
+        fetchAllUserBooks: (userId) => {
+            dispatch(actFetchUserBooksRequest(userId));
         },
     }
 }
