@@ -30,8 +30,9 @@ class Header extends Component {
     componentDidMount() {
        // Gọi trước khi component đc render lần đầu tiên
         const userId = localStorage.getItem('userId');
-        this.props.fetchAllCarts(userId);
-        this.props.onGetUser(userId);
+        if (userId !== '') {
+            this.props.fetchAllCarts(userId);
+        }
     }
 
     componentWillMount() {
@@ -58,23 +59,18 @@ class Header extends Component {
                 notifications: newState
             });
         });
-        // const id = localStorage.getItem('userId');
-        // this.props.onGetUser(id);
-        // this.setState({
-        //     auth: this.props.account
-        // })
+        const id = localStorage.getItem('userId');
+        this.props.onGetUser(id);
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     // if(nextProps && nextProps.account){
-    //         // var { account } = nextProps;
-    //         const id = localStorage.getItem('userId');
-    //         this.props.onGetUser(id);
-    //         this.setState({
-    //             auth: this.props.usersEditing
-    //         })
-    //     }
-    // }
+    componentWillReceiveProps(nextProps) {
+        if(nextProps && nextProps.usersEditing){
+            var { usersEditing } = nextProps;
+            this.setState({
+                auth: usersEditing
+            })
+        }
+    }
 
     onDelete = (id) => {
         swal({
@@ -136,11 +132,10 @@ class Header extends Component {
     }
 
     render() {
-        console.log(this.props.usersEditing)
         const display = this.state.display
         const check = this.state.search
         const books = this.state.books
-        const auth = this.props.usersEditing;
+        const auth = this.state.auth;
         const carts = this.props.carts;
 
         const listCarts = carts.map((cart, i) => {
@@ -160,7 +155,7 @@ class Header extends Component {
         });
 
         const listBooks = books.map((book, index) => {
-            return <div className="search-result" id={check === '' ? display: ''} style={{backgroundColor: 'white', width: '100%', zIndex: '1030'}} key={index}>
+            return <div className="search-result" id={check === '' ? display: ''} style={{backgroundColor: '#f2f2f2', width: '100%', zIndex: '1030'}} key={index}>
                     <li className="row" style={{ paddingLeft: '30px', paddingTop: '10px' }}>
                         <Link to={`/book/${book.id}/detail`} className="scroller">
                             <img style={{ float: 'left', marginRight: '15px'}} src={Config.LOCAL_URL + '/images/books/' + book.image} alt="" width="50"/>
@@ -185,7 +180,7 @@ class Header extends Component {
                                         <div className="row" style={{ marginBottom: '5px', width: '100%' }}>
                                             <img className="img-circle pravatar-image img-responsive col-sm-3" style={{ width: '32px', height: '32px', padding: '0' }} src={Config.LOCAL_URL+ '/images/' + noti.avatar} alt="" />
                                             <div className="col-sm-9" style={{ marginTop: '7px' }}>
-                                                <Link to={`/user/${noti.sender_id}`} style={{ color: 'black' }} onClick={() => this.onRemoveNoti(noti.id)}>
+                                                <Link to={`/user/${noti.sender_id}`} style={{ color: 'black', fontSize: '13px' }} onClick={() => this.onRemoveNoti(noti.id)}>
                                                     You have a message from {noti.full_name}
                                                 </Link>
                                             </div>
@@ -257,75 +252,76 @@ class Header extends Component {
                         </div>
                         <div className="col-md-4 header">
                             {auth.id ? (
-                                <ul style={{ marginTop: '-23px' }}>
-                                <li style={{ height: '17px', marginLeft: '-13px' }}>
-                                    <div style={{ width: '170px' }}>
-                                        {count > 0 ? (
-                                        <div className="UTT-noti-number header-item">
-                                            <span style={{ marginRight: '0', fontSize: '13px' }}>{count}</span>
-                                        </div>  
-                                        ) : (
-                                            <span></span>
-                                        )}
-                                        <div className="dropdown header-item">
-                                            <a className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i className="fa fa-bell-o header-item" aria-hidden="true"></i>
-                                            </a>
-                                            <ul className="dropdown-menu dropdown-carts" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px', width:'400px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important'}}>
-                                                <div style={{ color: 'black' }}>
-                                                    {count > 0 ? (
-                                                        <div>{ listNoti }</div>
-                                                    ) : (
-                                                        <div>No notifications</div>
-                                                    )}
-                                                </div>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li style={{ paddingLeft: '50px' }}>
-                                    <div className="dropdown">
-                                        <a style={{color: 'white'}} className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img style={{ width: '40px', height: '40px' }} className="img-circle img-respo" src={Config.LOCAL_URL + '/images/' + auth.avatar} alt=""/>
-                                        </a>
-                                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px', marginLeft: '-106px' }}>
-                                            <Link to={`/user/profile`} className="dropdown-item scroller" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}}>
-                                                <i className="fa fa-user"></i> Profile
-                                            </Link>
-                                            <br />
-                                            <Link to="/user/add-book" className="dropdown-item scroller" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}}><i className="fa fa-check"></i> Request books</Link>
-                                            <br />
-                                            <a className="dropdown-item scroller" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}} onClick={this.Logout}><i className="fa fa-sign-out"></i> Logout</a>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li style={{ }}>
-                                    <div className="wthreecartaits wthreecartaits2 cart cart box_1" style={{ width: '160px' }}>
-                                        {carts.length > 0 && auth.id ? (
-                                            <div className="UTT-cart-number">
-                                                <span style={{ marginRight: '0', fontSize: '13px' }}>{carts.length}</span>
-                                            </div>
-                                        ) : (
-                                            <span></span>
-                                        )}
-                                        <div className="dropdown header-item">
-                                            <a className="btn btn-secondary dropdown-toggle header-item" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i className="fa fa-cart-arrow-down header-item" aria-hidden="true" style={{ fontSize: '23px', color: '#9b9b9b' }}></i>
-                                            </a>
-                                            <ul className="dropdown-menu dropdown-carts" aria-labelledby="dropdownMenuLink" style={{ height: '400px', overflow: 'auto', paddingLeft: '12px', width:'326px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important' }}>
-                                                {carts.length > 0 && auth.id ? ( 
-                                                    <div>
-                                                        <span> {listCarts}</span>
-                                                        <hr />
-                                                        <Link to='/checkout' className="scroller" id="checkout" style={{marginLeft: '55px'}}> <button className="minicartk-submit">Check out & Payment</button> </Link>
+                                <ul style={{ marginTop: '-5px' }}>
+                                    <li style={{ height: '17px', marginLeft: '-13px' }}>
+                                        <div style={{ width: '170px' }}>
+                                            {count > 0 ? (
+                                                <div className="UTT-noti-number header-item">
+                                                    <span style={{ marginRight: '0', fontSize: '13px' }}>{count}</span>
+                                                </div>  
+                                            ) : (
+                                                <span style={{ display: 'none' }}></span>
+                                            )}
+                                           
+                                            <div className="dropdown header-item">
+                                                <a className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i className="fa fa-bell-o header-item" aria-hidden="true"></i>
+                                                </a>
+                                                <ul className="dropdown-menu dropdown-carts" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px', width:'400px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important'}}>
+                                                    <div style={{ color: 'black' }}>
+                                                        {count > 0 ? (
+                                                            <div>{ listNoti }</div>
+                                                        ) : (
+                                                            <div>No notifications</div>
+                                                        )}
                                                     </div>
-                                                ) : (
-                                                    <span>Your shopping cart is empty</span>
-                                                )}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li style={{ paddingLeft: '50px' }}>
+                                        <div className="dropdown">
+                                            <a style={{color: 'white'}} className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <img style={{ width: '40px', height: '40px' }} className="img-circle img-respo" src={Config.LOCAL_URL + '/images/' + auth.avatar} alt=""/>
+                                            </a>
+                                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px', marginLeft: '-106px' }}>
+                                                <Link to={`/user/profile`} className="dropdown-item scroller" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}}>
+                                                    <i className="fa fa-user"></i> Profile
+                                                </Link>
+                                                <br />
+                                                <Link to="/user/add-book" className="dropdown-item scroller" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}}><i className="fa fa-check"></i> Request books</Link>
+                                                <br />
+                                                <a className="dropdown-item scroller" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}} onClick={this.Logout}><i className="fa fa-sign-out"></i> Logout</a>
                                             </ul>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                    <li style={{ }}>
+                                        <div className="wthreecartaits wthreecartaits2 cart cart box_1" style={{ width: '160px' }}>
+                                            {carts.length > 0 && auth.id ? (
+                                                <div className="UTT-cart-number">
+                                                    <span style={{ marginRight: '0', fontSize: '13px' }}>{carts.length}</span>
+                                                </div>
+                                            ) : (
+                                                <span></span>
+                                            )}
+                                            <div className="dropdown header-item">
+                                                <a className="btn btn-secondary dropdown-toggle header-item" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i className="fa fa-cart-arrow-down header-item" aria-hidden="true" style={{ fontSize: '23px', color: '#9b9b9b' }}></i>
+                                                </a>
+                                                <ul className="dropdown-menu dropdown-carts" aria-labelledby="dropdownMenuLink" style={{ height: '400px', overflow: 'auto', paddingLeft: '12px', width:'326px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important' }}>
+                                                    {carts.length > 0 && auth.id ? ( 
+                                                        <div>
+                                                            <span> {listCarts}</span>
+                                                            <hr />
+                                                            <Link to='/checkout' className="scroller" id="checkout" style={{marginLeft: '55px'}}> <button className="minicartk-submit">Check out & Payment</button> </Link>
+                                                        </div>
+                                                    ) : (
+                                                        <span>Your shopping cart is empty</span>
+                                                    )}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
                                 </ul>
                             ) : (
                                 <div>

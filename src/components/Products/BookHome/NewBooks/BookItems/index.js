@@ -53,8 +53,9 @@ class BooksItem extends Component {
                                     text: "You clicked the button!",
                                     icon: "success",
                                 });
-    
-                                this.props.fetchAllCarts(userId);
+                                if (userId !== '') {
+                                    this.props.fetchAllCarts(userId);
+                                }
                             });
                         } else {
                             swal({

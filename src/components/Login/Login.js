@@ -7,7 +7,7 @@ import { withRouter } from 'react-router';
 import axios from 'axios';
 import * as Config from '../../constants/Config';
 import { connect } from 'react-redux';
-import { actFetchUserRequest } from '../../actions/Users';
+import { actFetchUserRequest, actGetUserRequest } from '../../actions/Users';
 import { actFetchCartsRequest } from '../../actions/Carts';
 import jquery from 'jquery';
 import { database } from '../../constants/firebase';
@@ -89,7 +89,7 @@ class Login extends Component {
                     });
                     const key = onlineId.key;
                     localStorage.setItem('onlineId', key)
-            
+                    this.props.onGetUser(userId);
                     if (token) {
                         this.props.onFetchUser(token);
                     }
@@ -166,6 +166,7 @@ class Login extends Component {
 
 const mapStateToProps = state => {
     return {
+        usersEditing : state.usersEditing,
         users : state.users,
         account: state.account,
     }
@@ -178,6 +179,9 @@ const mapDispatchToProps = (dispatch, props) => {
         },
         fetchAllCarts: (userId) => {
             dispatch(actFetchCartsRequest(userId));
+        },
+        onGetUser: (id) => {
+            dispatch(actGetUserRequest(id));
         },
     }
 }

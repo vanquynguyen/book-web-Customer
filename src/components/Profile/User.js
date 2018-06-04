@@ -33,7 +33,19 @@ class UserProfile extends Component {
         if (match) { // update
             var id = match.params.id;
             const following_id = localStorage.getItem('userId');
-            this.props.onGetUser(id)
+            axios.get(Config.API_URL + `/users/${id}`).then(res => {
+                const usersEditing = res.data;
+                this.setState({
+                    id: usersEditing.id,
+                    full_name: usersEditing.full_name,
+                    avatar: usersEditing.avatar,
+                    email: usersEditing.email,
+                    address: usersEditing.address,
+                    gender: usersEditing.gender,
+                    // check: check
+                })
+            })
+            // this.props.onGetUser(id)
             const data = {
                 follower_id: id,
                 following_id: following_id
@@ -75,15 +87,15 @@ class UserProfile extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps && nextProps.usersEditing && nextProps.check){
-            var {usersEditing, check} = nextProps;
+        if(nextProps && nextProps.check){
+            var {check} = nextProps;
             this.setState({
-                id: usersEditing.id,
-                full_name: usersEditing.full_name,
-                avatar: usersEditing.avatar,
-                email: usersEditing.email,
-                address: usersEditing.address,
-                gender: usersEditing.gender,
+                // id: usersEditing.id,
+                // full_name: usersEditing.full_name,
+                // avatar: usersEditing.avatar,
+                // email: usersEditing.email,
+                // address: usersEditing.address,
+                // gender: usersEditing.gender,
                 check: check
             })
         }

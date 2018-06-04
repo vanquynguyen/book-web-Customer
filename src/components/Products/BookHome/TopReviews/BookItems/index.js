@@ -19,7 +19,9 @@ class BooksItem extends Component {
     componentDidMount() {
         // Gọi trước khi component đc render lần đầu tiên
         const userId = localStorage.getItem('userId');
-        this.props.fetchAllCarts(userId); 
+        if (userId !== '') {
+            this.props.fetchAllCarts(userId);
+        }
     }
 
     // componentWillMount () {
@@ -67,7 +69,9 @@ class BooksItem extends Component {
                                     icon: "success",
                                 });
     
-                                this.props.fetchAllCarts(userId);
+                                if (userId !== '') {
+                                    this.props.fetchAllCarts(userId);
+                                }
                             });
                         } else {
                             swal({
@@ -91,7 +95,9 @@ class BooksItem extends Component {
                             icon: "success",
                         });
     
-                        this.props.fetchAllCarts(userId);
+                        if (userId !== '') {
+                            this.props.fetchAllCarts(userId);
+                        }
                     });
                 }
     

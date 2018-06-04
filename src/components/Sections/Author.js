@@ -64,42 +64,44 @@ class Author extends Component {
         let count = 0;
         users.length && (listUsers = users.map((user, key) => (
             <div key={key}>
-                {(isInArray(user.id + '', onlineArray))? (
-                    <div className="row" style={{ marginBottom: '10px', width: '100%' }}>
-                        <div className="col-md-4">
-                        <img 
-                            className="img-circle pravatar-image img-responsive col-sm-3" 
-                            style={{ width: '40px', height: '40px', padding: '0' }} 
-                            src={Config.LOCAL_URL+ '/images/' + user.avatar} 
-                            alt="" 
-                        />
+                <Link to={`/user/${user.id}`} className="scroller">
+                    {(isInArray(user.id + '', onlineArray))? (
+                        <div className="row" style={{ marginBottom: '10px', width: '100%' }}>
+                            <div className="col-md-4">
+                            <img 
+                                className="img-circle pravatar-image img-responsive col-sm-3" 
+                                style={{ width: '40px', height: '40px', padding: '0' }} 
+                                src={Config.LOCAL_URL+ '/images/' + user.avatar} 
+                                alt="" 
+                            />
+                            </div>
+                            <div className="col-md-6" style={{ marginTop: '5px' }}>
+                                {user.full_name}
+                            </div>
+                            <div className="col-md-2" style={{ marginTop: '12px' }}>
+                                <div className="user-status user-online"></div>
+                            </div>
+                            <div style={{ display: 'none' }}>{count++}</div>
                         </div>
-                        <div className="col-md-6" style={{ marginTop: '5px' }}>
-                            {user.full_name}
+                    ) : (
+                        <div className="row" style={{ marginBottom: '10px', width: '100%' }}>
+                            <div className="col-md-4">
+                            <img 
+                                className="img-circle pravatar-image img-responsive col-sm-3" 
+                                style={{ width: '40px', height: '40px', padding: '0' }} 
+                                src={Config.LOCAL_URL+ '/images/' + user.avatar} 
+                                alt="" 
+                            />
+                            </div>
+                            <div className="col-md-6" style={{ marginTop: '5px' }}>
+                                {user.full_name}
+                            </div>
+                            {/* <div className="col-md-2" style={{ marginTop: '12px' }}>
+                                <div className="user-status user-offline"></div>
+                            </div> */}
                         </div>
-                        <div className="col-md-2" style={{ marginTop: '12px' }}>
-                            <div className="user-status user-online"></div>
-                        </div>
-                        <div style={{ display: 'none' }}>{count++}</div>
-                    </div>
-                ) : (
-                    <div className="row" style={{ marginBottom: '10px', width: '100%' }}>
-                        <div className="col-md-4">
-                        <img 
-                            className="img-circle pravatar-image img-responsive col-sm-3" 
-                            style={{ width: '40px', height: '40px', padding: '0' }} 
-                            src={Config.LOCAL_URL+ '/images/' + user.avatar} 
-                            alt="" 
-                        />
-                        </div>
-                        <div className="col-md-6" style={{ marginTop: '5px' }}>
-                            {user.full_name}
-                        </div>
-                        {/* <div className="col-md-2" style={{ marginTop: '12px' }}>
-                            <div className="user-status user-offline"></div>
-                        </div> */}
-                    </div>
-                )}
+                    )}
+                </Link>
             </div>)
         ))
         return (
@@ -112,6 +114,12 @@ class Author extends Component {
                     <div className="user-online-content">
                         { listUsers }
                     </div>
+                    <input 
+                        type="text" 
+                        className="form-control search-form" 
+                        placeholder="search user"
+                        onChange={this.onSearch}
+                    />
                 </div>
                 <hr />
                 <div className="sidebar-box-links">

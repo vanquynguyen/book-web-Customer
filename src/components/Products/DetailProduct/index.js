@@ -98,7 +98,9 @@ class DetailProduct extends Component {
                                     icon: "success",
                                 });
     
-                                this.props.fetchAllCarts(userId);
+                                if (userId !== '') {
+                                    this.props.fetchAllCarts(userId);
+                                }
                             });
                         } else {
                             swal({
@@ -122,7 +124,9 @@ class DetailProduct extends Component {
                             icon: "success",
                         });
     
-                        this.props.fetchAllCarts(userId);
+                        if (userId !== '') {
+                            this.props.fetchAllCarts(userId);
+                        }
                     });
                 }
     
