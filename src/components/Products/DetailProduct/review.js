@@ -7,6 +7,7 @@ import axios from 'axios';
 import * as Config from '../../../constants/Config';
 import { actFetchReviewsRequest } from '../../../actions/Reviews';
 import * as jquery from 'jquery';
+import { database } from '../../../constants/firebase';
 
 class review extends Component {
     constructor() {
@@ -36,6 +37,14 @@ class review extends Component {
             if (res.data === false) {
                 swal("Only once review!", "You clicked the button!", "warning");
             } else {
+                const time = new Date().toLocaleDateString();
+                database.ref('notifications').push({
+                    full_name: this.props.account.full_name,
+                    content: 'review_book',
+                    book_id: this.props.id,
+                    received_id: this.props.userId,
+                    time: time
+                });
                 swal("Good job!", "You clicked the button!", "success");
                 this.props.fetchAllReviews(book_id);
                 this.refs.content.value = '';
@@ -46,7 +55,6 @@ class review extends Component {
 
     render () {
         const { rate } = this.state;
-
         return (
             <div>
                 <div className="modal fade" id="review-rate" tabIndex="-1" role="dialog" style={{ display: 'none' }}>

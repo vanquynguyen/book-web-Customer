@@ -180,7 +180,7 @@ class DetailProduct extends Component {
                                         <label>1</label>
                                     </span>
                                 </a>
-                                <Review id={this.state.id}/>
+                                <Review id={this.state.id} userId={this.state.user_id}/>
                             </div>
                             <h4 style={{marginTop: '10px'}}>
                                 Poster: 

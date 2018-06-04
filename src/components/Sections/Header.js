@@ -47,6 +47,8 @@ class Header extends Component {
                     approved: items[item].approved,
                     sender_id: items[item].sender_id,
                     received_id: items[item].received_id,
+                    content: items[item].content,
+                    book_id: items[item].book_id,
                     time: items[item].time
                 });
             }
@@ -183,6 +185,18 @@ class Header extends Component {
                                             <img className="img-circle pravatar-image img-responsive col-sm-3" style={{ width: '32px', height: '32px', padding: '0' }} src={Config.LOCAL_URL+ '/images/' + this.props.account.avatar} alt="" />
                                             <div className="col-sm-9" style={{ marginTop: '7px' }}>
                                                 <Link to='user/profile' style={{ color: 'black' }}  onClick={() => this.onRemoveNoti(noti.id)}>
+                                                    Your book have a reviews from {noti.full_name}
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div></div>
+                                    )}
+                                    {(typeof noti.content !== 'undefined' && noti.content ==='review_book') ? (
+                                        <div className="row" style={{ marginBottom: '5px', width: '100%' }}>
+                                            <img className="img-circle pravatar-image img-responsive col-sm-3" style={{ width: '32px', height: '32px', padding: '0' }} src={Config.LOCAL_URL+ '/images/' + this.props.account.avatar} alt="" />
+                                            <div className="col-sm-9" style={{ marginTop: '7px' }}>
+                                                <Link to={`book/${noti.book_id}/detail`} style={{ color: 'black' }}  onClick={() => this.onRemoveNoti(noti.id)}>
                                                     Your book have approved
                                                 </Link>
                                             </div>
