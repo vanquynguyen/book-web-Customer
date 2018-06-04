@@ -15,7 +15,7 @@ class List extends Component {
 
     render () {
         return (
-            <div>
+            <div className="container">
                 <div className="ads-grid">
                     <div className="container">
                         <h3 className="tittle-w3l">Our Top Books

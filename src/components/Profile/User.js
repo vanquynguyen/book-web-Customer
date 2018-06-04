@@ -515,7 +515,6 @@ class UserProfile extends Component {
                                                     <img onClick={e => this.getGifIcon('https://i.imgur.com/NN8rpyH.gif')} src="https://i.imgur.com/NN8rpyH.gif" className="icon-chat" width="50" height="50" alt="" />
                                                     <img onClick={e => this.getGifIcon('https://i.imgur.com/pzxHaeK.gif')} src="https://i.imgur.com/pzxHaeK.gif" className="icon-chat" width="50" height="50" alt="" />
                                                     <img onClick={e => this.getGifIcon('https://i.imgur.com/05mgh31.gif')} src="https://i.imgur.com/05mgh31.gif" className="icon-chat" width="50" height="50" alt="" />
-
                                                     <img onClick={e => this.getGifIcon('https://i.imgur.com/sdnJpYo.jpg')} src="https://i.imgur.com/sdnJpYo.jpg" className="icon-chat" width="50" height="50" alt="" />
                                                     <img onClick={e => this.getGifIcon('https://i.imgur.com/DO5IzE5.png')} src="https://i.imgur.com/DO5IzE5.png" className="icon-chat" width="50" height="50" alt="" />
                                                     <img onClick={e => this.getGifIcon('https://i.imgur.com/S2vbBhn.jpg?1')} src="https://i.imgur.com/S2vbBhn.jpg?1" className="icon-chat" width="50" height="50" alt="" />
@@ -524,7 +523,6 @@ class UserProfile extends Component {
                                                     <img onClick={e => this.getGifIcon('https://i.imgur.com/ktHWTDo.gif')} src="https://i.imgur.com/ktHWTDo.gif" className="icon-chat" width="50" height="50" alt="" />
                                                     <img onClick={e => this.getGifIcon('https://i.imgur.com/c5CAN2F.gif')} src="https://i.imgur.com/c5CAN2F.gif" className="icon-chat" width="50" height="50" alt="" />
                                                 </div>
-                                            
                                                 <label className="bg_none file-upload btn btn-upload"  data-toggle="dropdown"><i className="glyphicon glyphicon-picture"></i> </label>
                                             </span>
                                             <span>
@@ -538,7 +536,6 @@ class UserProfile extends Component {
                                                     <img onClick={e => this.getIcon('/images/smile7.PNG')} src="/images/smile7.PNG" className="icon-chat" width="35" alt="" />
                                                     <img onClick={e => this.getIcon('/images/smile8.PNG')} src="/images/smile8.PNG" className="icon-chat" width="35" alt="" />
                                                 </div>
-                                            
                                                 <label className="bg_none file-upload btn btn-upload"  data-toggle="dropdown"><i className="fa fa-smile-o"></i> </label>
                                             </span>
                                             <span>

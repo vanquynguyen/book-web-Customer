@@ -100,6 +100,8 @@ class UserProfile extends Component {
                 avatar: res.data.avatar,
                 imagePreview: ''
             })
+            const id = localStorage.getItem('userId');
+            this.props.onGetUser(id);
             this.refs.avatar.value="";
             jquery('.close-avatar').click();
         })
@@ -125,6 +127,8 @@ class UserProfile extends Component {
         if (this.refs.gender.value !== '') {
             axios.post(Config.API_URL + `/user/${id}/edit`, user).then(res => {
                 jquery('.close-edit').click();
+                const id = localStorage.getItem('userId');
+                this.props.onGetUser(id);
             })
         } else {
  
@@ -376,7 +380,7 @@ class UserProfile extends Component {
                                     <div className="tab-content">
                                         <div role="tabpanel" className="tab-pane active" id="manage-book">
                                             <div className="ads-grid">
-                                                <div className="container">
+                                                <div>
                                                     <div className="agileinfo-ads-display">
                                                         <div className="wrapper">
                                                             <div className="product-sec1">
@@ -395,7 +399,7 @@ class UserProfile extends Component {
                                         </div> */}
                                         <div role="tabpanel" className="tab-pane" id="history-order">
                                             <div className="ads-grid">
-                                                <div className="container">
+                                                <div>
                                                     <div className="agileinfo-ads-display">
                                                         <div className="wrapper">
                                                             <div className="product-sec1">

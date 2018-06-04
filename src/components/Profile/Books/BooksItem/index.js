@@ -170,7 +170,6 @@ class BooksList extends Component {
 
     render() {
         const book = this.props.book;
-        console.log(book)
         const { open } = this.state;
         const category = this.state.category;
         const categories = this.props.categories;

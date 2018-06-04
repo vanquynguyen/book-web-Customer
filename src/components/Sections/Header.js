@@ -9,7 +9,7 @@ import * as Config from '../../constants/Config';
 
 import { connect } from 'react-redux';
 import { actFetchCartsRequest, actDeleteCartRequest } from '../../actions/Carts';
-import { actFetchUserRequest } from '../../actions/Users';
+import {  actGetUserRequest } from '../../actions/Users';
 import { database } from '../../constants/firebase';
 
 class Header extends Component {
@@ -31,6 +31,7 @@ class Header extends Component {
        // Gọi trước khi component đc render lần đầu tiên
         const userId = localStorage.getItem('userId');
         this.props.fetchAllCarts(userId);
+        this.props.onGetUser(userId);
     }
 
     componentWillMount() {
@@ -57,16 +58,23 @@ class Header extends Component {
                 notifications: newState
             });
         });
+        // const id = localStorage.getItem('userId');
+        // this.props.onGetUser(id);
+        // this.setState({
+        //     auth: this.props.account
+        // })
     }
 
-    componentWillReceiveProps(nextProps) {
-        if(nextProps && nextProps.account){
-            var { account } = nextProps;
-            this.setState({
-                auth: account
-            })
-        }
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     // if(nextProps && nextProps.account){
+    //         // var { account } = nextProps;
+    //         const id = localStorage.getItem('userId');
+    //         this.props.onGetUser(id);
+    //         this.setState({
+    //             auth: this.props.usersEditing
+    //         })
+    //     }
+    // }
 
     onDelete = (id) => {
         swal({
@@ -128,10 +136,11 @@ class Header extends Component {
     }
 
     render() {
+        console.log(this.props.usersEditing)
         const display = this.state.display
         const check = this.state.search
         const books = this.state.books
-        const auth = this.state.auth;
+        const auth = this.props.usersEditing;
         const carts = this.props.carts;
 
         const listCarts = carts.map((cart, i) => {
@@ -151,9 +160,9 @@ class Header extends Component {
         });
 
         const listBooks = books.map((book, index) => {
-            return <div className="search-result" id={check === '' ? display: ''} style={{backgroundColor: 'white', width: '90%', zIndex: '1030'}} key={index}>
+            return <div className="search-result" id={check === '' ? display: ''} style={{backgroundColor: 'white', width: '100%', zIndex: '1030'}} key={index}>
                     <li className="row" style={{ paddingLeft: '30px', paddingTop: '10px' }}>
-                        <Link to={`/book/${book.id}/detail`} class="scroller">
+                        <Link to={`/book/${book.id}/detail`} className="scroller">
                             <img style={{ float: 'left', marginRight: '15px'}} src={Config.LOCAL_URL + '/images/books/' + book.image} alt="" width="50"/>
                             <p>{book.title}</p>
                         </Link>
@@ -220,109 +229,88 @@ class Header extends Component {
         return (
             <div>
                 <div className="header-bot">
-                    <div className="header-bot_inner_wthreeinfo_header_mid">
-                        <div className="col-md-4 logo_agile">
+                    <div className="header-bot_inner_wthreeinfo_header_mid container">
+                        <div className="col-md-4 logo_agile row">
                             <h1>
-                                <Link to="/" className="scroller">
-                                    <span>UTT</span>
-                                    <span>BOOK</span>
-                                    <img src="/images/logo2.png" alt="" />
-                                </Link>
+                                <div className="col-md-6">
+                                    <Link to="/" className="scroller">
+                                        <span style={{ color: '#5488c7', fontSize: '22px' }}>UTT</span>
+                                        <span style={{ book: '#9b9b9b', fontSize: '22px' }}>BOOK</span>
+                                        <img src="/images/logo2.png" width="40" alt="" />
+                                    </Link>
+                                </div>
+                                <div className="col-md-6 list-features">
+                                    <span style={{ fontSize: '11px', marginRight: '25px' }} className="play-icon popup-with-zoom-anim" >
+                                    <span className="fa fa-map-marker" aria-hidden="true"></span> Shop Locator</span>
+                                    <span style={{ fontSize: '11px' }} >
+                                    <span className="fa fa-truck" aria-hidden="true"></span>Track Order</span>
+                                </div>
                             </h1>
                         </div>
                         <div className="col-md-4">
                             <div className="agileits_search">
                                 <form action="" method="post">
-                                    <input name="Search" type="search" onChange={this.onSearch} placeholder="How can we help you today?" required="" />
+                                    <input name="Search" className="search-headeragileits_search" type="search" onChange={this.onSearch} placeholder="How can we help you today?" required="" />
                                 </form>
                                 {listBooks}
                             </div>
                         </div>
                         <div className="col-md-4 header">
-                            <ul>
-                                {/* <li>
-                                    <a className="play-icon popup-with-zoom-anim" href="#small-dialog1">
-                                    <span className="fa fa-map-marker" aria-hidden="true"></span> Shop Locator</a>
-                                </li>
-                                <li>
-                                    <a  data-toggle="modal" data-target="#myModal1">
-                                    <span className="fa fa-truck" aria-hidden="true"></span>Track Order</a>
-                                </li> */}
-                             
-                                    
-                               
-                                {/* <li>
-                                    <a  data-toggle="modal" data-target="#myModal1">
-                                    <span className="fa fa-truck" aria-hidden="true"></span>Track Order</a>
-                                </li> */}
-                                {auth.id ? (
-                                    <li style={{ height: '17px', marginLeft: '-40px' }}>
-                                        <div style={{ width: '170px' }}>
-                                            <div className="UTT-noti-number">
-                                                <span style={{ marginRight: '0', fontSize: '13px' }}>{count}</span>
-                                            </div>  
-                                            <div className="dropdown">
-                                                <a className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i className="fa fa-bell-o" aria-hidden="true" style={{ fontSize: '20px', color: 'white' }}></i>
-                                                </a>
-                                                <ul className="dropdown-menu dropdown-carts" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px', width:'400px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important', marginLeft: '300px' }}>
-                                                    <div style={{ color: 'black' }}>
-                                                        {count > 0 ? (
-                                                            <div>{ listNoti }</div>
-                                                        ) : (
-                                                            <div>No notifications</div>
-                                                        )}
-                                                    </div>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                ) : (
-                                    <span></span>
-                                )}
-                                {auth.id ? (
-                                    <li style={{ marginRight: '50px' }}>
-                                        <div className="dropdown">
-                                            <a style={{color: 'white'}} className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img width="20" src="https://images.viblo.asia/avatar/398ff412-f7d3-4e32-85b3-50efae907d6b.png" alt=""/> {auth.email}
+                            {auth.id ? (
+                                <ul style={{ marginTop: '-23px' }}>
+                                <li style={{ height: '17px', marginLeft: '-13px' }}>
+                                    <div style={{ width: '170px' }}>
+                                        {count > 0 ? (
+                                        <div className="UTT-noti-number header-item">
+                                            <span style={{ marginRight: '0', fontSize: '13px' }}>{count}</span>
+                                        </div>  
+                                        ) : (
+                                            <span></span>
+                                        )}
+                                        <div className="dropdown header-item">
+                                            <a className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i className="fa fa-bell-o header-item" aria-hidden="true"></i>
                                             </a>
-                                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px' }}>
-                                                <Link to={`/user/profile`} className="dropdown-item scroller" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}}>
-                                                    <i className="fa fa-user"></i> Profile
-                                                </Link>
-                                                <br />
-                                                <Link to="/user/add-book" className="dropdown-item scroller" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}}><i className="fa fa-check"></i> Request books</Link>
-                                                <br />
-                                                <a className="dropdown-item scroller" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}} onClick={this.Logout}><i className="fa fa-sign-out"></i> Logout</a>
+                                            <ul className="dropdown-menu dropdown-carts" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px', width:'400px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important'}}>
+                                                <div style={{ color: 'black' }}>
+                                                    {count > 0 ? (
+                                                        <div>{ listNoti }</div>
+                                                    ) : (
+                                                        <div>No notifications</div>
+                                                    )}
+                                                </div>
                                             </ul>
                                         </div>
-                                    </li>
-                                ) : (
-                                    <span>
-                                        <li>
-                                            <a data-toggle="modal" data-target="#myModal1">
-                                                <span className="fa fa-unlock-alt" aria-hidden="true"></span> Sign In 
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="modal" data-target="#myModal2">
-                                                <span className="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up 
-                                            </a>
-                                        </li>
-                                    </span>
-                                )}
-                                <li style={{ marginTop: '-32px' }}>
+                                    </div>
+                                </li>
+                                <li style={{ paddingLeft: '50px' }}>
+                                    <div className="dropdown">
+                                        <a style={{color: 'white'}} className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img style={{ width: '40px', height: '40px' }} className="img-circle img-respo" src={Config.LOCAL_URL + '/images/' + auth.avatar} alt=""/>
+                                        </a>
+                                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px', marginLeft: '-106px' }}>
+                                            <Link to={`/user/profile`} className="dropdown-item scroller" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}}>
+                                                <i className="fa fa-user"></i> Profile
+                                            </Link>
+                                            <br />
+                                            <Link to="/user/add-book" className="dropdown-item scroller" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}}><i className="fa fa-check"></i> Request books</Link>
+                                            <br />
+                                            <a className="dropdown-item scroller" style={{color: 'black', cursor: 'pointer', fontSize: '15px'}} onClick={this.Logout}><i className="fa fa-sign-out"></i> Logout</a>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li style={{ }}>
                                     <div className="wthreecartaits wthreecartaits2 cart cart box_1" style={{ width: '160px' }}>
                                         {carts.length > 0 && auth.id ? (
                                             <div className="UTT-cart-number">
-                                                <span style={{ marginRight: '5px' }}>{carts.length}</span>
+                                                <span style={{ marginRight: '0', fontSize: '13px' }}>{carts.length}</span>
                                             </div>
                                         ) : (
                                             <span></span>
                                         )}
-                                        <div className="dropdown">
-                                            <a className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i className="fa fa-cart-arrow-down" aria-hidden="true" style={{ fontSize: '40px', color: 'white' }}></i>
+                                        <div className="dropdown header-item">
+                                            <a className="btn btn-secondary dropdown-toggle header-item" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i className="fa fa-cart-arrow-down header-item" aria-hidden="true" style={{ fontSize: '23px', color: '#9b9b9b' }}></i>
                                             </a>
                                             <ul className="dropdown-menu dropdown-carts" aria-labelledby="dropdownMenuLink" style={{ height: '400px', overflow: 'auto', paddingLeft: '12px', width:'326px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important' }}>
                                                 {carts.length > 0 && auth.id ? ( 
@@ -338,35 +326,23 @@ class Header extends Component {
                                         </div>
                                     </div>
                                 </li>
-                            </ul>
-                           
-                            <div className="top_nav_right">
-                                {/* <div className="wthreecartaits wthreecartaits2 cart cart box_1" style={{ width: '160px' }}>
-                                    {carts.length > 0 && auth.id ? (
-                                        <div className="UTT-cart-number">
-                                            <span>{carts.length}</span>
-                                        </div>
-                                    ) : (
-                                        <span></span>
-                                    )}
-                                    <div className="dropdown">
-                                        <a className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i className="fa fa-cart-arrow-down" aria-hidden="true" style={{ fontSize: '40px', color: 'white' }}></i>
-                                        </a>
-                                        <ul className="dropdown-menu dropdown-carts" aria-labelledby="dropdownMenuLink" style={{ height: '400px', overflow: 'auto', paddingLeft: '12px', width:'326px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important' }}>
-                                            {carts.length > 0 && auth.id ? ( 
-                                                <div>
-                                                    <span> {listCarts}</span>
-                                                    <hr />
-                                                    <Link to='/checkout' className="scroller" id="checkout" style={{marginLeft: '55px'}}> <button className="minicartk-submit">Check out & Payment</button> </Link>
-                                                </div>
-                                            ) : (
-                                                <span>Your shopping cart is empty</span>
-                                            )}
-                                        </ul>
-                                    </div>
-                                </div> */}
-                            </div>
+                                </ul>
+                            ) : (
+                                <div>
+                                    <ul style={{ marginTop: '15px' }}>
+                                        <li style={{ marginRight: '10px' }}>
+                                            <a data-toggle="modal" data-target="#myModal1" className="header-item" style={{ fontSize: '13px' }}>
+                                                <span className="fa fa-unlock-alt header-item" aria-hidden="true"></span> Sign In 
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="modal" data-target="#myModal2" className="header-item" style={{ fontSize: '13px' }}>
+                                                <span className="fa fa-pencil-square-o header-item" aria-hidden="true"></span> Sign Up 
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            )}
                             <div className="clearfix"></div>
                         </div>
                         <div className="clearfix"></div>
@@ -381,6 +357,7 @@ class Header extends Component {
 
 const mapStateToProps = state => {
     return {
+        usersEditing : state.usersEditing,
         account: state.account,
         carts: state.carts
     }
@@ -394,9 +371,12 @@ const mapDispatchToProps = (dispatch, props) => {
         onDeleteCart: (id) => {
             dispatch(actDeleteCartRequest(id))
         },
-        onFetchUser: (token) => {
-            dispatch(actFetchUserRequest(token));
-        }
+        // onFetchUser: (token) => {
+        //     dispatch(actFetchUserRequest(token));
+        // },
+        onGetUser: (id) => {
+            dispatch(actGetUserRequest(id));
+        },
     }
 }
 
