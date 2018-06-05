@@ -107,16 +107,20 @@ class Header extends Component {
             params: {token: token},
         })
         .then(response=> {
-            const onlineId = localStorage.getItem('onlineId')
-            database.ref('onlines').child(onlineId).remove()
-            localStorage.setItem('token', '');
-            localStorage.setItem('userId', '');
-            localStorage.setItem('onlineId', '');
-            this.setState({
-                auth: {}
-            })
-            window.location.href = '/';
+           //
         })
+        const onlineId = localStorage.getItem('onlineId')
+        if (onlineId && typeof onlineId !== 'undefined') {
+            database.ref('onlines').child(onlineId).remove()
+        }
+
+        localStorage.setItem('token', '');
+        localStorage.setItem('userId', '');
+        localStorage.setItem('onlineId', '');
+        this.setState({
+            auth: {}
+        })
+        // window.location.href = '/';
        
     }
 

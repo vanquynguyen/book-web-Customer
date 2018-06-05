@@ -5,6 +5,8 @@ import CheckButton from 'react-validation/build/button';
 import { isEmail, isEmpty } from 'validator';
 import * as jquery from 'jquery';
 import { database } from '../../constants/firebase';
+import { connect } from 'react-redux';
+import { FetchUserRequest } from '../../actions/Users';
 
 // import { actAddUserRequest } from '../../actions/Users';
 // import { connect } from 'react-redux';
@@ -73,8 +75,10 @@ class Register extends Component {
                         received_id: 'admin',
                         time: time
                     });
+                    this.props.fetchAllUsers();
                     jquery('.close').click();
                     jquery('#myModal1').click();
+                    
                     swal("Register Success!", "You clicked the button!", "success");
                 }
                
@@ -169,5 +173,18 @@ class Register extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        users: state.users
+    }
+}
 
-export default Register;
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        fetchAllUsers: () => {
+            dispatch(FetchUserRequest());
+        },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

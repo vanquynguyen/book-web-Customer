@@ -37,9 +37,27 @@
 }
 
 .user-online {
-    background: #4caf50;
+    background: rgb(66, 183, 42);
+    border-radius: 50%;
+    display: inline-block;
+    height: 11px;
+    margin-left: 4px;
+    width: 11px;
 }
 
-.user-offline {
-    background: #f2f2f2;
+.section-title-line h3 {
+    font-weight: bold
+}
+
+.label-online {
+    color: #fff;
+    font-weight: 700;
+}
+
+.user-name-online {
+    font-size: 13px;
+    white-space: nowrap;
+    width: 100px!important;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

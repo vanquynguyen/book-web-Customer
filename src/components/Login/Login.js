@@ -59,7 +59,10 @@ class Login extends Component {
     onSubmit(e){
         e.preventDefault();
         this.form.validateAll();
-
+        const onlineId = localStorage.getItem('onlineId')
+        if (onlineId && typeof onlineId !== 'undefined') {
+            database.ref('onlines').child(onlineId).remove()
+        }
         if ( this.checkBtn.context._errors.length === 0 ) {
             const {email , password} = this.state ;
           

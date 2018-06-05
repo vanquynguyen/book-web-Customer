@@ -66,7 +66,7 @@ class Author extends Component {
             <div key={key}>
                 <Link to={`/user/${user.id}`} className="scroller">
                     {(isInArray(user.id + '', onlineArray))? (
-                        <div className="row" style={{ marginBottom: '10px', width: '100%' }}>
+                        <div className="row" style={{ marginBottom: '10px', width: '100%'}}>
                             <div className="col-md-4">
                             <img 
                                 className="img-circle pravatar-image img-responsive col-sm-3" 
@@ -75,11 +75,11 @@ class Author extends Component {
                                 alt="" 
                             />
                             </div>
-                            <div className="col-md-6" style={{ marginTop: '5px' }}>
+                            <div className="col-md-6 user-name-online" style={{ marginTop: '5px' }}>
                                 {user.full_name}
                             </div>
-                            <div className="col-md-2" style={{ marginTop: '12px' }}>
-                                <div className="user-status user-online"></div>
+                            <div className="col-md-2" style={{ marginTop: '8px' }}>
+                                <span className="pull-right label label-success label-online">Online</span>
                             </div>
                             <div style={{ display: 'none' }}>{count++}</div>
                         </div>
@@ -93,21 +93,22 @@ class Author extends Component {
                                 alt="" 
                             />
                             </div>
-                            <div className="col-md-6" style={{ marginTop: '5px' }}>
+                            <div className="col-md-6 user-name-online" style={{ marginTop: '5px' }}>
                                 {user.full_name}
                             </div>
-                            {/* <div className="col-md-2" style={{ marginTop: '12px' }}>
-                                <div className="user-status user-offline"></div>
-                            </div> */}
+                            <div className="col-md-2" style={{ marginTop: '8px' }}>
+                                <span className="pull-right label label-default">Offline</span>
+                            </div>
                         </div>
                     )}
                 </Link>
+                <hr />
             </div>)
         ))
         return (
             <div>
                 <div className="section-title-line">
-                    <h3>Online <span>({count})</span></h3>
+                    <h3><div className="user-online"></div> Online <span>({count})</span></h3>
                 </div>
                 <hr className="filler-line" />
                 <div className="hot-authors">

@@ -39,7 +39,8 @@ class BooksList extends Component {
             category_id: '',
             image: '',
             description: '',
-            price: ''
+            price: '',
+            sale: ''
         }
         this.onDelete = this.onDelete.bind(this);
     }
@@ -76,7 +77,8 @@ class BooksList extends Component {
             amount: this.props.book.amount,
             image: this.props.book.image,
             description: this.props.book.description,
-            price: this.props.book.price
+            price: this.props.book.price,
+            sale: this.props.book.sale,
         })
     }
 
@@ -88,7 +90,6 @@ class BooksList extends Component {
     
         reader.onloadend = () => {
             this.setState({
-
                 image: file,
                 imagePreview: reader.result
             });
@@ -123,7 +124,7 @@ class BooksList extends Component {
         this.form.validateAll();
 
         if ( this.checkBtn.context._errors.length === 0 ) {
-            var {title, image, author, category_id, description, price, amount } = this.state;
+            var {title, image, author, category_id, description, price, amount, sale } = this.state;
             var id = this.props.book.id;
             var book = new FormData()
             book.append("user_id", this.props.account.id);
@@ -133,6 +134,7 @@ class BooksList extends Component {
             book.append("category_id", category_id);
             book.append("description", description);
             book.append("price", price);
+            book.append("sale", sale);
             book.append("amount", amount);
             
             axios.post(Config.API_URL + `/book/${id}/edit` , book).then(res => {
@@ -217,6 +219,7 @@ class BooksList extends Component {
                                     />
                                 </div>
                                 <div className="col-md-6">
+                                    <label>Title</label>
                                     <Input 
                                         type="text" 
                                         name="title"
@@ -225,6 +228,7 @@ class BooksList extends Component {
                                         onChange={this.onChangeHandler}
                                         // validations={[required, minLength]}
                                     />
+                                    <label>Author</label>
                                     <Input 
                                         type="text" 
                                         name="author"
@@ -232,6 +236,7 @@ class BooksList extends Component {
                                         placehoder="author" 
                                         onChange={this.onChangeHandler}
                                     />
+                                    <label>Category</label>
                                      <select 
                                         name="category_id"
                                         className="form-control bg-danger b-r-0" 
@@ -240,6 +245,7 @@ class BooksList extends Component {
                                         <option value={category.id}>{category.name}</option>
                                         {listCategories}
                                     </select>
+                                    <label>Price</label>
                                     <Input 
                                         type="text" 
                                         name="price"
@@ -248,6 +254,19 @@ class BooksList extends Component {
                                         onChange={this.onChangeHandler}
                                         // validations={[required]}
                                     />
+                                    <label>Sale(%)</label>
+                                    <Input 
+                                        type="number" 
+                                        name="sale"
+                                        min="0"
+                                        max="100"
+                                        className="form-control"
+                                        value={book.sale} 
+                                        placehoder="price" 
+                                        onChange={this.onChangeHandler}
+                                        // validations={[required]}
+                                    />
+                                    <label>Amount</label>
                                     <Input 
                                         type="text" 
                                         name="amount"
@@ -256,6 +275,7 @@ class BooksList extends Component {
                                         onChange={this.onChangeHandler}
                                         // validations={[required]}
                                     />
+                                    <label>Description</label>
                                     <Textarea 
                                         name="description"
                                         className="form-control" 
