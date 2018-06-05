@@ -9,7 +9,7 @@ import * as Config from '../../constants/Config';
 
 import { connect } from 'react-redux';
 import { actFetchCartsRequest, actDeleteCartRequest } from '../../actions/Carts';
-import {  actGetUserRequest } from '../../actions/Users';
+import {  actGetUserRequest, actFetchUserRequest } from '../../actions/Users';
 import { database } from '../../constants/firebase';
 
 class Header extends Component {
@@ -30,8 +30,13 @@ class Header extends Component {
     componentDidMount() {
        // Gọi trước khi component đc render lần đầu tiên
         const userId = localStorage.getItem('userId');
-        if (userId !== '') {
-            this.props.fetchAllCarts(userId);
+        this.props.fetchAllCarts(userId);
+        const token = localStorage.getItem('token');
+        if (token) {
+            this.props.onFetchUser(token);
+        }
+        if (userId && typeof userId !== 'undefined') {
+            this.props.onGetUser(userId);
         }
     }
 
@@ -59,8 +64,7 @@ class Header extends Component {
                 notifications: newState
             });
         });
-        const id = localStorage.getItem('userId');
-        this.props.onGetUser(id);
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -70,6 +74,8 @@ class Header extends Component {
                 auth: usersEditing
             })
         }
+
+        // console.log(usersEditing)
     }
 
     onDelete = (id) => {
@@ -109,6 +115,7 @@ class Header extends Component {
             this.setState({
                 auth: {}
             })
+            window.location.href = '/';
         })
        
     }
@@ -186,7 +193,7 @@ class Header extends Component {
                                             </div>
                                         </div>
                                     ) : (
-                                        <div></div>
+                                        <span style={{ display: 'none' }}></span>
                                     )}
                                     {(typeof noti.approved !== 'undefined' && noti.approved !=='') ? (
                                         <div className="row" style={{ marginBottom: '5px', width: '100%' }}>
@@ -198,7 +205,7 @@ class Header extends Component {
                                             </div>
                                         </div>
                                     ) : (
-                                        <div></div>
+                                        <span style={{ display: 'none' }}></span>
                                     )}
                                     {((typeof noti.content !== 'undefined' && noti.content ==='review_book') || (typeof noti.reviewer !== 'undefined' && noti.reviewer !== '')) ? (
                                         <div className="row" style={{ marginBottom: '5px', width: '100%' }}>
@@ -227,19 +234,11 @@ class Header extends Component {
                     <div className="header-bot_inner_wthreeinfo_header_mid container">
                         <div className="col-md-4 logo_agile row">
                             <h1>
-                                <div className="col-md-6">
-                                    <Link to="/" className="scroller">
-                                        <span style={{ color: '#5488c7', fontSize: '22px' }}>UTT</span>
-                                        <span style={{ book: '#9b9b9b', fontSize: '22px' }}>BOOK</span>
-                                        <img src="/images/logo2.png" width="40" alt="" />
-                                    </Link>
-                                </div>
-                                <div className="col-md-6 list-features">
-                                    <span style={{ fontSize: '11px', marginRight: '25px' }} className="play-icon popup-with-zoom-anim" >
-                                    <span className="fa fa-map-marker" aria-hidden="true"></span> Shop Locator</span>
-                                    <span style={{ fontSize: '11px' }} >
-                                    <span className="fa fa-truck" aria-hidden="true"></span>Track Order</span>
-                                </div>
+                                <Link to="/" className="scroller">
+                                    <span style={{ color: '#5488c7', fontSize: '22px' }}>UTT</span>
+                                    <span style={{ book: '#9b9b9b', fontSize: '22px' }}>BOOK</span>
+                                    <img src="/images/logo2.png" width="40" alt="" />
+                                </Link>
                             </h1>
                         </div>
                         <div className="col-md-4">
@@ -302,7 +301,7 @@ class Header extends Component {
                                                     <span style={{ marginRight: '0', fontSize: '13px' }}>{carts.length}</span>
                                                 </div>
                                             ) : (
-                                                <span></span>
+                                                <span style={{ display: 'none' }}></span>
                                             )}
                                             <div className="dropdown header-item">
                                                 <a className="btn btn-secondary dropdown-toggle header-item" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -367,9 +366,9 @@ const mapDispatchToProps = (dispatch, props) => {
         onDeleteCart: (id) => {
             dispatch(actDeleteCartRequest(id))
         },
-        // onFetchUser: (token) => {
-        //     dispatch(actFetchUserRequest(token));
-        // },
+        onFetchUser: (token) => {
+            dispatch(actFetchUserRequest(token));
+        },
         onGetUser: (id) => {
             dispatch(actGetUserRequest(id));
         },

@@ -281,31 +281,31 @@ class UserProfile extends Component {
                                         <p>{message.message}</p>
                                     </div>
                                 ) : (
-                                    <div></div>
+                                    <span style={{ display: 'none' }}></span>
                                 )}
 
                                 {(typeof message.like !== 'undefined' && message.like !== '') ? (
                                     <img style={{ marginLeft: '208px' }} src={message.like} alt="" />
                                 ) : (
-                                    <div></div>
+                                    <span style={{ display: 'none' }}></span>
                                 )}
 
                                 {(typeof message.icon !== 'undefined' && message.icon !== '') ? (
                                     <img style={{ marginLeft: '208px' }} src={message.icon} alt="" />
                                 ) : (
-                                    <div></div>
+                                    <span style={{ display: 'none' }}></span>
                                 )}
                         
                                 {(typeof message.gif !== 'undefined' && message.gif !== '') ? (
                                     <img style={{ marginLeft: '100px', borderRadius: '10px' }} src={message.gif} width="150" height="120" alt="" />
                                 ) : (
-                                    <div></div>
+                                    <span style={{ display: 'none' }}></span>
                                 )}
 
                                 {(typeof message.gifIcon !== 'undefined' && message.gifIcon !== '') ? (
                                     <img style={{ marginLeft: '150px', borderRadius: '10px' }} src={message.gifIcon} width="80" height="80" alt="" />
                                 ) : (
-                                    <div></div>
+                                    <span style={{ display: 'none' }}></span>
                                 )}
 
                                 {(typeof message.image !== 'undefined' && message.image.length > 0) ? (
@@ -313,7 +313,7 @@ class UserProfile extends Component {
                                         return <div key={index}><img style={{ marginLeft: '150px' }} className="image-send" src={img} alt="" /></div>
                                     })
                                 ) : (
-                                    <div></div>
+                                    <span style={{ display: 'none' }}></span>
                                 )}
 
                                 {/* <div className="chat-box-single-line">
@@ -327,31 +327,31 @@ class UserProfile extends Component {
                                         <p>{message.message}</p>
                                     </div>
                                 ) : (
-                                    <div></div>
+                                    <span style={{ display: 'none' }}></span>
                                 )}
                                 
                                 {(typeof message.like !== 'undefined' && message.like !== '') ? (
                                     <img src={message.like} alt="" />
                                 ) : (
-                                    <div></div>
+                                    <span style={{ display: 'none' }}></span>
                                 )}
 
                                  {(typeof message.icon !== 'undefined' && message.icon !== '') ? (
                                     <img src={message.icon} alt="" />
                                 ) : (
-                                    <div></div>
+                                    <span style={{ display: 'none' }}></span>
                                 )}
 
                                 {(typeof message.gif !== 'undefined' && message.gif !== '') ? (
                                     <img style={{ marginLeft: '10px', borderRadius: '10px' }} src={message.gif} width="150" height="120" alt="" />
                                 ) : (
-                                    <div></div>
+                                    <span style={{ display: 'none' }}></span>
                                 )}
 
                                 {(typeof message.gifIcon !== 'undefined' && message.gifIcon !== '') ? (
                                     <img style={{ marginLeft: '10px', borderRadius: '10px' }} src={message.gifIcon} width="80" height="80" alt="" />
                                 ) : (
-                                    <div></div>
+                                    <span style={{ display: 'none' }}></span>
                                 )}
          
                                 {(typeof message.image !== 'undefined' && message.image.length > 0) ? (
@@ -359,7 +359,7 @@ class UserProfile extends Component {
                                         return <div key={index}><img style={{ marginLeft: '10px' }} className="image-send" src={img} alt="" /> </div>
                                     })
                                 ) : (
-                                    <div></div>
+                                    <span style={{ display: 'none' }}></span>
                                 )}
 
                                 {/* <div className="chat-box-single-line">
@@ -369,7 +369,7 @@ class UserProfile extends Component {
                         )
                        
                     ) : (
-                        <div></div>
+                        <span style={{ display: 'none' }}></span>
                     )}
                 </div>
             );

@@ -41,10 +41,12 @@ class UserProfile extends Component {
         this.props.onGetFollowings(id);
     }
 
-    componentWillMount() {
-        const id = localStorage.getItem('userId');
-        this.props.onGetUser(id);
-    }
+    // componentWillMount() {
+    //     const id = this.props.account.id;
+    //     if (this.props.account && typeof id !== 'undefined') {
+    //         this.props.onGetUser(id);
+    //     }
+    // }
 
     componentWillReceiveProps(nextProps) {
         if(nextProps && nextProps.usersEditing) {

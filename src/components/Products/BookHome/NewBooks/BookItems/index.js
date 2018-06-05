@@ -18,8 +18,8 @@ class BooksItem extends Component {
 
     componentDidMount() {
         // Gọi trước khi component đc render lần đầu tiên
-        const userId = localStorage.getItem('userId');
-        this.props.fetchAllCarts(userId); 
+        // const userId = localStorage.getItem('userId');
+        // this.props.fetchAllCarts(userId); 
     }
 
     onSubmit(id) {
@@ -53,9 +53,8 @@ class BooksItem extends Component {
                                     text: "You clicked the button!",
                                     icon: "success",
                                 });
-                                if (userId !== '') {
-                                    this.props.fetchAllCarts(userId);
-                                }
+       
+                                this.props.fetchAllCarts(userId);
                             });
                         } else {
                             swal({
@@ -74,7 +73,7 @@ class BooksItem extends Component {
                     }
                     axios.post(Config.API_URL+ '/carts', data).then(response => {
                         swal({
-                            title: `Added 1 products`,
+                            title: `Added 1 / ${this.props.book.amount} products`,
                             text: "You clicked the button!",
                             icon: "success",
                         });

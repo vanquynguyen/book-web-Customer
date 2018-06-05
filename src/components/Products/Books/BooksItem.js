@@ -43,7 +43,6 @@ class BooksItem extends Component {
                         'price' : price
                     }
                     axios.get(Config.API_URL+ `/books/${bookId}`).then(response => {
-                        // console.log(response)
                         const amountBook = response.data.amount;
                         const userId = this.props.account.id;
                         if (addedAmount <= amountBook) {
@@ -54,7 +53,6 @@ class BooksItem extends Component {
                                     text: "You clicked the button!",
                                     icon: "success",
                                 });
-    
                                 this.props.fetchAllCarts(userId);
                             });
                         } else {
@@ -74,11 +72,11 @@ class BooksItem extends Component {
                     }
                     axios.post(Config.API_URL+ '/carts', data).then(response => {
                         swal({
-                            title: `Added 1 products`,
+                            title: `Added 1 / ${this.props.book.amount} products`,
                             text: "You clicked the button!",
                             icon: "success",
                         });
-    
+
                         this.props.fetchAllCarts(userId);
                     });
                 }

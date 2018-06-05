@@ -85,9 +85,11 @@ class BooksList extends Component {
 
         let reader = new FileReader();
         let file = e.target.files[0];
-
+    
         reader.onloadend = () => {
             this.setState({
+
+                image: file,
                 imagePreview: reader.result
             });
         }
@@ -112,8 +114,7 @@ class BooksList extends Component {
         const value = target.type === 'checkbox' ? target.checked : target.value;
 
         this.setState({
-            [e.target.name]: value,
-            user_id: this.props.account.id,
+            [e.target.name]: value
         })
     }
 

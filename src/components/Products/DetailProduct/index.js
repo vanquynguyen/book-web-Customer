@@ -73,7 +73,8 @@ class DetailProduct extends Component {
             bookId: bookId,
             userId: userId
         }
-        if (this.props.booksEditing.amount !== 0) {
+
+        if (this.state.amount !== 0) {
             axios.post(Config.API_URL+ '/cart/get-book-id', data).then(res => {
                 var result = res.data;
      
@@ -86,7 +87,6 @@ class DetailProduct extends Component {
                         'price' : price
                     }
                     axios.get(Config.API_URL+ `/books/${bookId}`).then(response => {
-                        // console.log(response)
                         const amountBook = response.data.amount;
                         const userId = this.props.account.id;
                         if (addedAmount <= amountBook) {
@@ -97,10 +97,7 @@ class DetailProduct extends Component {
                                     text: "You clicked the button!",
                                     icon: "success",
                                 });
-    
-                                if (userId !== '') {
-                                    this.props.fetchAllCarts(userId);
-                                }
+                                this.props.fetchAllCarts(userId);
                             });
                         } else {
                             swal({
@@ -119,14 +116,12 @@ class DetailProduct extends Component {
                     }
                     axios.post(Config.API_URL+ '/carts', data).then(response => {
                         swal({
-                            title: `Added 1 products`,
+                            title: `Added 1 / ${this.state.amount} products`,
                             text: "You clicked the button!",
                             icon: "success",
                         });
-    
-                        if (userId !== '') {
-                            this.props.fetchAllCarts(userId);
-                        }
+
+                        this.props.fetchAllCarts(userId);
                     });
                 }
     

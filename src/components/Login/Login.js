@@ -89,7 +89,10 @@ class Login extends Component {
                     });
                     const key = onlineId.key;
                     localStorage.setItem('onlineId', key)
-                    this.props.onGetUser(userId);
+                    if (userId && typeof userId !== 'undefined') {
+                        this.props.onGetUser(userId);
+                    }
+                   
                     if (token) {
                         this.props.onFetchUser(token);
                     }

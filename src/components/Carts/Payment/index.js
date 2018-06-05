@@ -72,7 +72,7 @@ class Payment extends Component {
 
             axios.put(Config.API_URL + `/orders/${orderId}`, data).then(res => {
                 const userId = this.props.account.id;
-                this.props.history.push(`/user/${userId}/profile`);
+                this.props.history.push(`/user/profile`);
                 swal("Good job!", "You clicked the button!", "success");
             });
         }

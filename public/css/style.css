@@ -3698,7 +3698,8 @@ input[type="radio"], input[type="checkbox"] {
         width: 20%;
     }
     .header {
-        margin-top: 2px;
+        margin-top: 8px;
+        padding-right: 40px;
     }
     .agileits_search input[type="search"] {
         font-size: 13px;
@@ -4430,7 +4431,11 @@ input[type="radio"], input[type="checkbox"] {
         font-size: 14px;
     }
     .agileits_search input[type="search"] {
+        float: left;
         font-size: 12px;
+        margin-left: -49px;
+        width: 233%;
+        margin-top: 8px;
     }
     .agileits_search .btn-default {
         width: 43px;

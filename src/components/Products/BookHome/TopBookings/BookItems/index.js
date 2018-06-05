@@ -18,8 +18,8 @@ class BooksItem extends Component {
 
     componentDidMount() {
         // Gọi trước khi component đc render lần đầu tiên
-        const userId = localStorage.getItem('userId');
-        this.props.fetchAllCarts(userId); 
+        // const userId = localStorage.getItem('userId');
+        // this.props.fetchAllCarts(userId); 
     }
 
     // componentWillMount () {
@@ -55,21 +55,18 @@ class BooksItem extends Component {
                         'price' : price
                     }
                     axios.get(Config.API_URL+ `/books/${bookId}`).then(response => {
-                        // console.log(response)
                         const amountBook = response.data.amount;
                         const userId = this.props.account.id;
                         if (addedAmount <= amountBook) {
                             axios.put(Config.API_URL+ `/carts/${result['0'].id}`, request).then(response => {
                                
                                 swal({
-                                    title: `Added ${addedAmount} / ${amountBook} products`,
+                                    title: `Added 1 / ${this.props.book.amount} products`,
                                     text: "You clicked the button!",
                                     icon: "success",
                                 });
-    
-                                if (userId !== '') {
-                                    this.props.fetchAllCarts(userId);
-                                }
+
+                                this.props.fetchAllCarts(userId);
                             });
                         } else {
                             swal({

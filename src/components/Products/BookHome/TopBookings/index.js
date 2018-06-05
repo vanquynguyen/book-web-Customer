@@ -40,7 +40,7 @@ class NewBooks extends Component {
                 {this.showBooks(books)}
                 <div className="clearfix"></div>
                 <Link to='/books'>
-                    <div className="ph-20" style={{ marginTop: '30px', textAlign: 'center' }}><p className="btn btn-primary btn-block" style={{ width: '35%', background: '#f0ad4e', borderColor: 'rgb(254, 136, 0)'}}>View more</p></div>
+                    <div className="ph-20 scroller" style={{ marginTop: '30px', textAlign: 'center' }}><p className="btn btn-primary btn-block" style={{ width: '35%', background: '#f0ad4e', borderColor: 'rgb(254, 136, 0)'}}>View more</p></div>
                 </Link> 
             </div>
         );
