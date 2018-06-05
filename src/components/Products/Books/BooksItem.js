@@ -30,7 +30,7 @@ class BooksItem extends Component {
             userId: userId
         }
 
-        if (this.props.book.amount !== 0) {
+        if (this.state.amount !== 0) {
             axios.post(Config.API_URL+ '/cart/get-book-id', data).then(res => {
                 var result = res.data;
      
@@ -72,7 +72,7 @@ class BooksItem extends Component {
                     }
                     axios.post(Config.API_URL+ '/carts', data).then(response => {
                         swal({
-                            title: `Added 1 / ${this.props.book.amount} products`,
+                            title: `Added 1 / ${this.state.amount} products`,
                             text: "You clicked the button!",
                             icon: "success",
                         });

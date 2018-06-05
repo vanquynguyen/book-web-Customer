@@ -45,6 +45,15 @@
     width: 11px;
 }
 
+.user-offline {
+    background: #777;
+    border-radius: 50%;
+    display: inline-block;
+    height: 11px;
+    margin-left: 4px;
+    width: 11px;
+}
+
 .section-title-line h3 {
     font-weight: bold
 }

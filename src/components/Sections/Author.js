@@ -108,7 +108,23 @@ class Author extends Component {
         return (
             <div>
                 <div className="section-title-line">
-                    <h3><div className="user-online"></div> Online <span>({count})</span></h3>
+                    <h3>
+                        {count > 0 ? (
+                            <div>
+                                <div className="user-online"></div> Online 
+                                    { count > 0 ? (
+                                        <span>({count})</span>
+                                    ) : (
+                                        <span style={{ display: 'none' }}></span>
+                                    )}
+                            </div>
+                        ) : (
+                            <div>
+                                <div className="user-offline"></div> Offline
+                            </div>
+                        )}
+                      
+                    </h3>
                 </div>
                 <hr className="filler-line" />
                 <div className="hot-authors">
