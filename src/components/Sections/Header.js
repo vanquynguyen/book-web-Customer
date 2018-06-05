@@ -203,8 +203,21 @@ class Header extends Component {
                                         <div className="row" style={{ marginBottom: '5px', width: '100%' }}>
                                             <img className="img-circle pravatar-image img-responsive col-sm-3" style={{ width: '32px', height: '32px', padding: '0' }} src={Config.LOCAL_URL+ '/images/' + this.props.account.avatar} alt="" />
                                             <div className="col-sm-9" style={{ marginTop: '7px' }}>
-                                                <Link to={`book/${noti.book_id}/detail`} style={{ color: 'black' }}  onClick={() => this.onRemoveNoti(noti.id)}>
+                                                <Link to={`book/${noti.book_id}/detail`} style={{ color: 'black', fontSize: '13px' }}  onClick={() => this.onRemoveNoti(noti.id)}>
                                                     Your book have approved
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <span style={{ display: 'none' }}></span>
+                                    )}
+
+                                    {(typeof noti.deleted !== 'undefined' && noti.deleted !=='') ? (
+                                        <div className="row" style={{ marginBottom: '5px', width: '100%' }}>
+                                            <img className="img-circle pravatar-image img-responsive col-sm-3" style={{ width: '32px', height: '32px', padding: '0' }} src={Config.LOCAL_URL+ '/images/' + this.props.account.avatar} alt="" />
+                                            <div className="col-sm-9" style={{ marginTop: '7px' }}>
+                                                <Link to={`book/${noti.book_id}/detail`} style={{ color: 'black', fontSize: '13px' }}  onClick={() => this.onRemoveNoti(noti.id)}>
+                                                    Your book have deleted by ADMIN
                                                 </Link>
                                             </div>
                                         </div>
@@ -215,7 +228,7 @@ class Header extends Component {
                                         <div className="row" style={{ marginBottom: '5px', width: '100%' }}>
                                             <img className="img-circle pravatar-image img-responsive col-sm-3" style={{ width: '32px', height: '32px', padding: '0' }} src={Config.LOCAL_URL+ '/images/' + this.props.account.avatar} alt="" />
                                             <div className="col-sm-9" style={{ marginTop: '7px' }}>
-                                                <Link to={`book/${noti.book_id}/detail`} style={{ color: 'black' }}  onClick={() => this.onRemoveNoti(noti.id)}>
+                                                <Link to={`book/${noti.book_id}/detail`} style={{ color: 'black', fontSize: '13px' }}  onClick={() => this.onRemoveNoti(noti.id)}>
                                                     Your book have a reviews from {noti.full_name}
                                                 </Link>
                                             </div>

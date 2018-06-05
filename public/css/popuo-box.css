@@ -1,4 +1,10 @@
 /* Styles for dialog window */
+@font-face {
+  font-family: 'Bariol-Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Bariol-Regular'), url('./fonts/Bariol.woff') format('woff');
+}
 #small-dialog,#small-dialog1{
 	background: white;
 	padding:20px 20px 30px 20px;
@@ -270,7 +276,10 @@ button::-moz-focus-inner {
   outline: none;
   color: #817F7F;
   border: solid 1px #817F7F;
-  font-family: 'Open Sans', sans-serif;
+  font-family:'Bariol-Regular';
+}
+.popup-head-left {
+  font-family:'Bariol-Regular';
 }
 .confirmation input[type="submit"]{
   border: 0px;
@@ -283,7 +292,7 @@ button::-moz-focus-inner {
   text-transform: uppercase;
   -webkit-appearance: none;
   position: relative;
-  font-family: 'Open Sans', sans-serif;
+  font-family:'Bariol-Regular';
 }
 .confirmation input[type="submit"]:hover {
 	color: #000;

@@ -275,7 +275,7 @@ class UserProfile extends Component {
                 <div key={index}>
                     {(message.received_id === receiveId && message.sender_id === senderId) || (message.received_id === senderId && message.sender_id === receiveId) ? (
                         (message.received_id === receiveId) ? (
-                            <div style={{ marginBottom: '30px' }}>
+                            <div style={{ marginBottom: '50px' }}>
                                 {(typeof message.message !== 'undefined' && message.message !== '' && message.message !== '\n') ? (
                                     <div className="sender-message">
                                         <p>{message.message}</p>
@@ -321,7 +321,7 @@ class UserProfile extends Component {
                                 </div> */}
                             </div>
                         ) : (
-                            <div style={{ marginBottom: '30px' }}>
+                            <div style={{ marginBottom: '50px' }}>
                                 {(typeof message.message !== 'undefined' && message.message !== '' && message.message !== '\n') ? (
                                     <div className="receive-message">
                                         <p>{message.message}</p>

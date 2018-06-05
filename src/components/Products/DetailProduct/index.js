@@ -24,6 +24,7 @@ class DetailProduct extends Component {
            description: '',
            author: '',
            price: '',
+           sale: '',
            amount: '',
         };
     }
@@ -62,6 +63,7 @@ class DetailProduct extends Component {
                 description: booksEditing.description,
                 author: booksEditing.author,
                 price: booksEditing.price,
+                sale: booksEditing.sale,
                 amount: booksEditing.amount,
             })
         }
@@ -161,8 +163,7 @@ class DetailProduct extends Component {
                             <h3>{this.state.title}</h3>
                             <h4>View: (9 views)</h4>
                             <h4 style={{marginTop: '10px'}}>
-                                Author: 
-                                {this.state.author}
+                                Author: {this.state.author}
                             </h4>
                             <div style={{marginTop: '10px'}} className="rating1">
                                 <a data-toggle="modal" data-target="#review-rate"> 
@@ -182,14 +183,20 @@ class DetailProduct extends Component {
                                 <Review id={this.state.id} userId={this.state.user_id}/>
                             </div>
                             <h4 style={{marginTop: '10px'}}>
-                                Poster: 
-                                <Link to={`/user/${this.state.user_id}/profile`} style={{color: '#8a6d3b', cursor: 'pointer'}}>
+                                Poster: <Link to={`/user/${this.state.user_id}/profile`} style={{color: '#8a6d3b', cursor: 'pointer'}}>
                                     {this.state.poster}
                                 </Link>
                             </h4>
                             <h4>Amount: {amount > 0 ? amount: '(het hang)'}</h4>
                             <p style={{marginTop: '10px'}}>
-                                <span className="item_price">${this.state.price}</span>
+                                { this.state.sale !== '' && this.state.sale > 0 ? (
+                                    <div>
+                                        <span className="item_price-old">${this.state.price}</span>
+                                        <span className="item_price">${this.state.price*this.state.sale/100}</span>
+                                    </div>
+                                ) : (
+                                    <span className="item_price">${this.state.price}</span>
+                                )}  
                                 {/* <label>Free delivery</label> */}
                             </p>
                             <div className="single-infoagile">

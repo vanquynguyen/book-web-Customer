@@ -67,7 +67,7 @@ class Author extends Component {
                 <Link to={`/user/${user.id}`} className="scroller">
                     {(isInArray(user.id + '', onlineArray))? (
                         <div className="row" style={{ marginBottom: '10px', width: '100%'}}>
-                            <div className="col-md-4">
+                            <div className="col-md-4" style={{ padding: '0' }}>
                             <img 
                                 className="img-circle pravatar-image img-responsive col-sm-3" 
                                 style={{ width: '40px', height: '40px', padding: '0' }} 
@@ -78,14 +78,14 @@ class Author extends Component {
                             <div className="col-md-6 user-name-online" style={{ marginTop: '5px' }}>
                                 {user.full_name}
                             </div>
-                            <div className="col-md-2" style={{ marginTop: '8px' }}>
+                            <div className="col-md-2" style={{ marginTop: '-14px', width: '66%' }}>
                                 <span className="pull-right label label-success label-online">Online</span>
                             </div>
                             <div style={{ display: 'none' }}>{count++}</div>
                         </div>
                     ) : (
                         <div className="row" style={{ marginBottom: '10px', width: '100%' }}>
-                            <div className="col-md-4">
+                            <div className="col-md-4" style={{ padding: '0' }}>
                             <img 
                                 className="img-circle pravatar-image img-responsive col-sm-3" 
                                 style={{ width: '40px', height: '40px', padding: '0' }} 
@@ -96,7 +96,7 @@ class Author extends Component {
                             <div className="col-md-6 user-name-online" style={{ marginTop: '5px' }}>
                                 {user.full_name}
                             </div>
-                            <div className="col-md-2" style={{ marginTop: '8px' }}>
+                            <div className="col-md-2" style={{ marginTop: '-14px', width: '66%' }}>
                                 <span className="pull-right label label-default">Offline</span>
                             </div>
                         </div>

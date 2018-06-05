@@ -55,9 +55,11 @@
 }
 
 .user-name-online {
+    font-weight: bold;
     font-size: 13px;
     white-space: nowrap;
     width: 100px!important;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding: 0;
 }

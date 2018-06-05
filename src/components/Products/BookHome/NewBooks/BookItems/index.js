@@ -127,14 +127,25 @@ class BooksItem extends Component {
                                 <Link to={`/book/${book.id}/detail`} className="link-product-add-cart scroller">Quick View</Link>
                             </div>
                         </div>
-                        <span className="product-new-top">New</span>
+                        { book.sale !== '' && book.sale > 0 ? (
+                            <span className="product-new-top">-{book.sale}%</span>
+                        ) : (
+                            <span className="product-new-top">New</span>
+                        )}
                     </div>
                     <div className="item-info-product ">
                         <h4 className="title-book">
                         {book.title}
                         </h4>
                         <div className="info-product-price">
-                            <span className="item_price">${book.price}</span>
+                            { book.sale !== '' && book.sale > 0 ? (
+                                <div>
+                                    <span className="item_price-old">${book.price}</span>
+                                    <span className="item_price">${book.price*book.sale/100}</span>
+                                </div>
+                            ) : (
+                                <span className="item_price">${book.price}</span>
+                            )}  
                         </div>
                         <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
                             <input type="button" name="submit" value="Add to cart" onClick={e => this.onSubmit(book.id)} className="button" />
