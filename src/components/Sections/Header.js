@@ -283,7 +283,7 @@ class Header extends Component {
                                                 <a className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <i className="fa fa-bell-o header-item" aria-hidden="true"></i>
                                                 </a>
-                                                <ul className="dropdown-menu dropdown-carts" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px', width:'400px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important'}}>
+                                                <ul className="dropdown-menu dropdown-carts" id="dropdown-noti" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px', width:'400px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important'}}>
                                                     <div style={{ color: 'black' }}>
                                                         {count > 0 ? (
                                                             <div>{ listNoti }</div>

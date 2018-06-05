@@ -3820,6 +3820,10 @@ input[type="radio"], input[type="checkbox"] {
     h3.tittle-w3l:after {
         right: 36.5%;
     }
+    #dropdown-noti {
+        margin-left: 89px;
+        width: 219%!important;
+    }
 }
 @media(max-width: 600px){
     .img-deals {
