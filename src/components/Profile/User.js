@@ -384,7 +384,7 @@ class UserProfile extends Component {
                             <div className="space-25"></div>
                             <h1 className="text-white prhellofont" style={{ fontSize: '100px' }}>Hello there</h1>
                             <h1 className="text-white">I'm {this.state.full_name}</h1>
-                            <div style={{ float: 'right', marginTop: '-10px', marginRight: '10px' }}>
+                            <div id="chat-follow" style={{ float: 'right', marginTop: '-10px', marginRight: '10px' }}>
                                 {!checkFollow.id ? (
                                     <button onClick={this.follow} className="btn" style={{backgroundColor: 'white', color: 'black', fontWeight: 'bold' }}><img src="/images/follow.png" width="24" alt="" />Follow</button>
                                 ) : (

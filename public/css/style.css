@@ -3906,6 +3906,10 @@ input[type="radio"], input[type="checkbox"] {
     }
 }
 @media(max-width: 568px){
+    #dropdown-noti {
+        margin-left: 89px;
+        width: 219%!important;
+    }
     .header ul li {
         width: 32%;
         padding: 3px 0;
@@ -4292,6 +4296,10 @@ input[type="radio"], input[type="checkbox"] {
     }
 }
 @media(max-width: 414px){
+    #dropdown-noti {
+        margin-left: 89px;
+        width: 219%!important;
+    }
     .carousel-caption h2, .carousel-caption h3 {
         font-size: 2em;
     }
