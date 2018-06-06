@@ -35,14 +35,16 @@ class NewBooks extends Component {
         var books = this.props.books;
 
         return (
-            <div className="product-sec1">
-                <h3 className="heading-tittle">Top Bookings</h3>
-                {this.showBooks(books)}
-                <div className="clearfix"></div>
-                <Link to='/books'>
-                    <div className="ph-20 scroller" style={{ marginTop: '30px', textAlign: 'center' }}><p className="btn btn-primary btn-block" style={{ width: '35%', background: '#f0ad4e', borderColor: 'rgb(254, 136, 0)'}}>View more</p></div>
-                </Link> 
-            </div>
+            <section className="wow slideInLeft" data-wow-duration="2s" data-wow-delay="1s">
+                <div className="product-sec1">
+                    <h3 className="heading-tittle">Top Bookings</h3>
+                    {this.showBooks(books)}
+                    <div className="clearfix"></div>
+                    <Link to='/books'>
+                        <div className="ph-20 scroller" style={{ marginTop: '30px', textAlign: 'center' }}><p className="btn btn-primary btn-block" style={{ width: '35%', background: '#f0ad4e', borderColor: 'rgb(254, 136, 0)'}}>View more</p></div>
+                    </Link>            
+                </div>
+            </section>
         );
     }
 }

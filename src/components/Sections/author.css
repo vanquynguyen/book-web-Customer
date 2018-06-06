@@ -72,3 +72,7 @@
     text-overflow: ellipsis;
     padding: 0;
 }
+
+.avatar-animation {
+    visibility: visible; animation-duration: 2s; animation-delay: 300ms; animation-iteration-count: infinite; animation-name: pulse;
+}

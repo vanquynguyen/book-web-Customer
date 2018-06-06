@@ -8,6 +8,7 @@ import { actCheckFollowRequest } from '../../actions/Follows';
 import * as Config from '../../constants/Config';
 import axios from 'axios';
 import { database, storageRef } from  '../../constants/firebase';
+import $ from 'jquery';
 
 class UserProfile extends Component {
 
@@ -104,7 +105,7 @@ class UserProfile extends Component {
     follow = () => {
         const data = {
             follower_id: this.state.id,
-            following_id: this.props.account.id
+            following_id: this.props.usersEditing.id
         }
 
         axios.post(Config.API_URL + '/user/follow', data).then(res => {
@@ -116,7 +117,7 @@ class UserProfile extends Component {
     unfollow = () => {
         const data = {
             follower_id: this.state.id,
-            following_id: this.props.account.id
+            following_id: this.props.usersEditing.id
         }
 
         axios.post(Config.API_URL + '/user/unfollow', data).then(res => {
@@ -145,8 +146,8 @@ class UserProfile extends Component {
         });
         if (result) {
             database.ref('notifications').push({
-                full_name: this.props.account.full_name,
-                avatar: this.props.account.avatar,
+                full_name: this.props.usersEditing.full_name,
+                avatar: this.props.usersEditing.avatar,
                 sender_id: localStorage.getItem('userId'),
                 received_id: this.props.match.params.id,
                 time: time
@@ -156,6 +157,9 @@ class UserProfile extends Component {
                 message: '',
             })
             this.refs.message.value='';
+            $('.popup-messages').stop().animate({
+                scrollTop: $(".popup-messages")[0].scrollHeight
+            }, 800);
         }
     }
 
@@ -168,13 +172,15 @@ class UserProfile extends Component {
             time: time
         });
         database.ref('notifications').push({
-            full_name: this.props.account.full_name,
-            avatar: this.props.account.avatar,
+            full_name: this.props.usersEditing.full_name,
+            avatar: this.props.usersEditing.avatar,
             sender_id: localStorage.getItem('userId'),
             received_id: this.props.match.params.id,
             time: time
         });
-
+        $('.popup-messages').stop().animate({
+            scrollTop: $(".popup-messages")[0].scrollHeight
+        }, 800);
     }
 
     imageChange = (e) => {
@@ -220,12 +226,15 @@ class UserProfile extends Component {
             time: time
         });
         database.ref('notifications').push({
-            full_name: this.props.account.full_name,
-            avatar: this.props.account.avatar,
+            full_name: this.props.usersEditing.full_name,
+            avatar: this.props.usersEditing.avatar,
             sender_id: localStorage.getItem('userId'),
             received_id: this.props.match.params.id,
             time: time
         });
+        $('.popup-messages').stop().animate({
+            scrollTop: $(".popup-messages")[0].scrollHeight
+        }, 800);
     }
 
     getGif(e) {
@@ -237,12 +246,15 @@ class UserProfile extends Component {
             time: time
         });
         database.ref('notifications').push({
-            full_name: this.props.account.full_name,
-            avatar: this.props.account.avatar,
+            full_name: this.props.usersEditing.full_name,
+            avatar: this.props.usersEditing.avatar,
             sender_id: localStorage.getItem('userId'),
             received_id: this.props.match.params.id,
             time: time
         });
+        $('.popup-messages').stop().animate({
+            scrollTop: $(".popup-messages")[0].scrollHeight
+        }, 800);
     }
 
     getGifIcon(e) {
@@ -254,12 +266,15 @@ class UserProfile extends Component {
             time: time
         });
         database.ref('notifications').push({
-            full_name: this.props.account.full_name,
-            avatar: this.props.account.avatar,
+            full_name: this.props.usersEditing.full_name,
+            avatar: this.props.usersEditing.avatar,
             sender_id: localStorage.getItem('userId'),
             received_id: this.props.match.params.id,
             time: time
         });
+        $('.popup-messages').stop().animate({
+            scrollTop: $(".popup-messages")[0].scrollHeight
+        }, 800);
     }
 
     render() {

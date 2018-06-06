@@ -44,9 +44,11 @@ class List extends Component {
                                 <TopReviews />
                             </div>
                         </div>
-                        <div className="side-bar col-md-3">
-                            <Author />              
-                        </div>
+                        <section className="wow slideInRight" data-wow-duration="2s" data-wow-delay="1s">
+                            <div className="side-bar col-md-3">
+                                <Author />              
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>

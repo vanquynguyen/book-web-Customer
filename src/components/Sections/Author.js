@@ -64,45 +64,51 @@ class Author extends Component {
         let count = 0;
         users.length && (listUsers = users.map((user, key) => (
             <div key={key}>
-                <Link to={`/user/${user.id}`} className="scroller">
+               
                     {(isInArray(user.id + '', onlineArray))? (
-                        <div className="row" style={{ marginBottom: '10px', width: '100%'}}>
-                            <div className="col-md-4" style={{ padding: '0' }}>
-                            <img 
-                                className="img-circle pravatar-image img-responsive col-sm-3" 
-                                style={{ width: '40px', height: '40px', padding: '0' }} 
-                                src={Config.LOCAL_URL+ '/images/' + user.avatar} 
-                                alt="" 
-                            />
+                        <Link to={`/user/${user.id}`} className="scroller">
+                            <div className="row" style={{ marginBottom: '10px', width: '100%'}}>
+                                <div className="col-md-4" style={{ padding: '0' }}>
+                                    <div className="wow pulse animated avatar-animation" data-wow-delay="300ms" data-wow-iteration="infinite" data-wow-duration="2s" >
+                                        <img 
+                                            className="img-circle pravatar-image img-responsive col-sm-3" 
+                                            style={{ width: '40px', height: '40px', padding: '0' }} 
+                                            src={Config.LOCAL_URL+ '/images/' + user.avatar} 
+                                            alt="" 
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-md-6 user-name-online" style={{ marginTop: '5px' }}>
+                                    {user.full_name}
+                                </div>
+                                <div className="col-md-2" style={{ marginTop: '-14px', width: '66%' }}>
+                                    <div className="wow pulse animated avatar-animation" data-wow-delay="300ms" data-wow-iteration="infinite" data-wow-duration="2s" >
+                                        <span className="pull-right label label-success label-online">Online</span>
+                                    </div>
+                                </div>
+                                <div style={{ display: 'none' }}>{count++}</div>
                             </div>
-                            <div className="col-md-6 user-name-online" style={{ marginTop: '5px' }}>
-                                {user.full_name}
-                            </div>
-                            <div className="col-md-2" style={{ marginTop: '-14px', width: '66%' }}>
-                                <span className="pull-right label label-success label-online">Online</span>
-                            </div>
-                            <div style={{ display: 'none' }}>{count++}</div>
-                        </div>
+                            <hr />
+                        </Link>
                     ) : (
-                        <div className="row" style={{ marginBottom: '10px', width: '100%' }}>
-                            <div className="col-md-4" style={{ padding: '0' }}>
-                            <img 
-                                className="img-circle pravatar-image img-responsive col-sm-3" 
-                                style={{ width: '40px', height: '40px', padding: '0' }} 
-                                src={Config.LOCAL_URL+ '/images/' + user.avatar} 
-                                alt="" 
-                            />
-                            </div>
-                            <div className="col-md-6 user-name-online" style={{ marginTop: '5px' }}>
-                                {user.full_name}
-                            </div>
-                            <div className="col-md-2" style={{ marginTop: '-14px', width: '66%' }}>
-                                <span className="pull-right label label-default">Offline</span>
-                            </div>
-                        </div>
+                        <div style={{ display: 'none' }}></div>
+                        // <div className="row" style={{ marginBottom: '10px', width: '100%', display: 'none' }}>
+                        //     <div className="col-md-4" style={{ padding: '0' }}>
+                        //     <img 
+                        //         className="img-circle pravatar-image img-responsive col-sm-3" 
+                        //         style={{ width: '40px', height: '40px', padding: '0' }} 
+                        //         src={Config.LOCAL_URL+ '/images/' + user.avatar} 
+                        //         alt="" 
+                        //     />
+                        //     </div>
+                        //     <div className="col-md-6 user-name-online" style={{ marginTop: '5px' }}>
+                        //         {user.full_name}
+                        //     </div>
+                        //     <div className="col-md-2" style={{ marginTop: '-14px', width: '66%' }}>
+                        //         <span className="pull-right label label-default">Offline</span>
+                        //     </div>
+                        // </div>
                     )}
-                </Link>
-                <hr />
             </div>)
         ))
         return (
@@ -111,7 +117,7 @@ class Author extends Component {
                     <h3>
                         {count > 0 ? (
                             <div>
-                                <div className="user-online"></div> Online 
+                                    <div className="user-online wow pulse animated avatar-animation" data-wow-delay="300ms" data-wow-iteration="infinite" data-wow-duration="2s"></div> Online 
                                     { count > 0 ? (
                                         <span>({count})</span>
                                     ) : (

@@ -33,6 +33,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<link rel="stylesheet" type="text/css" href="/css/jquery-ui1.css">
 	<!-- fonts -->
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.rawgit.com/daneden/animate.css/v3.1.0/animate.min.css">
 
     <title>UTT SHOP BOOK ONLINE</title>
   </head>
@@ -191,6 +192,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 	<!-- for bootstrap working -->
 	<script src="/js/bootstrap.js"></script>
+	<script src="https://cdn.rawgit.com/matthieua/WOW/1.0.1/dist/wow.min.js"></script>
 	<!-- //for bootstrap working -->
 	<!-- //js-files -->
 	<script>
@@ -203,9 +205,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				$('.popup-box').attr('id', 'popup-box-on')
 			})
 
-			var $chat = $('.popup-messages');
-			$chat.scrollTop($chat.height());
+			var scroll = $('.popup-messages');
+			$('.popup-messages').scrollTop($('.popup-messages')[0].scrollHeight);
+			$('#status_message').keyup(function(e){
+				if(e.keyCode == 13) {
+					$('.popup-messages').stop().animate({
+						scrollTop: $(".popup-messages")[0].scrollHeight
+					}, 800);
+				}
+			})
 		});
+		// Effect scroll Mouse
+		new WOW().init();
 	</script>
   </body>
 </html>

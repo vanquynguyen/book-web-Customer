@@ -188,50 +188,54 @@ class Header extends Component {
                             {(noti.received_id === receiveId || noti.received_id === `"${receiveId}"`) ? ( 
                                 <div>
                                     {((typeof noti.avatar !== 'undefined' && noti.avatar !== '') || (typeof noti.full_name !== 'undefined' && noti.full_name !== '')) ? (
-                                        <div className="row" style={{ marginBottom: '5px', width: '100%' }}>
+                                        <div className="row" style={{ marginBottom: '5px', width: '120%' }}>
                                             <img className="img-circle pravatar-image img-responsive col-sm-3" style={{ width: '32px', height: '32px', padding: '0' }} src={Config.LOCAL_URL+ '/images/' + noti.avatar} alt="" />
-                                            <div className="col-sm-9" style={{ marginTop: '7px' }}>
+                                            <div className="col-sm-8" style={{ marginTop: '7px' }}>
                                                 <Link to={`/user/${noti.sender_id}`} style={{ color: 'black', fontSize: '13px' }} onClick={() => this.onRemoveNoti(noti.id)}>
                                                     You have a message from {noti.full_name}
                                                 </Link>
                                             </div>
+                                            <div className="col-md-1" title="Marked read!" style={{ marginTop: '7px', cursor: 'pointer' }} onClick={() => this.onRemoveNoti(noti.id)}>x</div>
                                         </div>
                                     ) : (
                                         <span style={{ display: 'none' }}></span>
                                     )}
                                     {(typeof noti.approved !== 'undefined' && noti.approved !=='') ? (
-                                        <div className="row" style={{ marginBottom: '5px', width: '100%' }}>
+                                        <div className="row" style={{ marginBottom: '5px', width: '120%' }}>
                                             <img className="img-circle pravatar-image img-responsive col-sm-3" style={{ width: '32px', height: '32px', padding: '0' }} src={Config.LOCAL_URL+ '/images/' + this.props.account.avatar} alt="" />
-                                            <div className="col-sm-9" style={{ marginTop: '7px' }}>
+                                            <div className="col-sm-8" style={{ marginTop: '7px' }}>
                                                 <Link to={`book/${noti.book_id}/detail`} style={{ color: 'black', fontSize: '13px' }}  onClick={() => this.onRemoveNoti(noti.id)}>
                                                     Your book have approved
                                                 </Link>
                                             </div>
+                                            <div className="col-sm-1" title="Marked read!" style={{ marginTop: '7px', cursor: 'pointer' }} onClick={() => this.onRemoveNoti(noti.id)}>x</div>
                                         </div>
                                     ) : (
                                         <span style={{ display: 'none' }}></span>
                                     )}
 
                                     {(typeof noti.deleted !== 'undefined' && noti.deleted !=='') ? (
-                                        <div className="row" style={{ marginBottom: '5px', width: '100%' }}>
+                                        <div className="row" style={{ marginBottom: '5px', width: '120%' }}>
                                             <img className="img-circle pravatar-image img-responsive col-sm-3" style={{ width: '32px', height: '32px', padding: '0' }} src={Config.LOCAL_URL+ '/images/' + this.props.account.avatar} alt="" />
-                                            <div className="col-sm-9" style={{ marginTop: '7px' }}>
+                                            <div className="col-sm-8" style={{ marginTop: '7px' }}>
                                                 <Link to={`book/${noti.book_id}/detail`} style={{ color: 'black', fontSize: '13px' }}  onClick={() => this.onRemoveNoti(noti.id)}>
                                                     Your book have deleted by ADMIN
                                                 </Link>
                                             </div>
+                                            <div className="col-sm-1" title="Marked read!" style={{ marginTop: '7px', cursor: 'pointer' }} onClick={() => this.onRemoveNoti(noti.id)}>x</div>
                                         </div>
                                     ) : (
                                         <span style={{ display: 'none' }}></span>
                                     )}
                                     {((typeof noti.content !== 'undefined' && noti.content ==='review_book') || (typeof noti.reviewer !== 'undefined' && noti.reviewer !== '')) ? (
-                                        <div className="row" style={{ marginBottom: '5px', width: '100%' }}>
+                                        <div className="row" style={{ marginBottom: '5px', width: '120%' }}>
                                             <img className="img-circle pravatar-image img-responsive col-sm-3" style={{ width: '32px', height: '32px', padding: '0' }} src={Config.LOCAL_URL+ '/images/' + this.props.account.avatar} alt="" />
-                                            <div className="col-sm-9" style={{ marginTop: '7px' }}>
+                                            <div className="col-sm-8" style={{ marginTop: '7px' }}>
                                                 <Link to={`book/${noti.book_id}/detail`} style={{ color: 'black', fontSize: '13px' }}  onClick={() => this.onRemoveNoti(noti.id)}>
                                                     Your book have a reviews from {noti.full_name}
                                                 </Link>
                                             </div>
+                                            <div className="col-sm-1" title="Marked read!" style={{ marginTop: '7px', cursor: 'pointer' }} onClick={() => this.onRemoveNoti(noti.id)}>x</div>
                                         </div>
                                     ) : (
                                         <div></div>
@@ -283,7 +287,7 @@ class Header extends Component {
                                                 <a className="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <i className="fa fa-bell-o header-item" aria-hidden="true"></i>
                                                 </a>
-                                                <ul className="dropdown-menu dropdown-carts" id="dropdown-noti" aria-labelledby="dropdownMenuLink" style={{ paddingLeft: '12px', width:'400px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important'}}>
+                                                <ul className="dropdown-menu dropdown-carts" id="dropdown-noti" aria-labelledby="dropdownMenuLink" style={{ marginLeft: '-50px', paddingLeft: '12px', width:'400px',border: '1px solid #d7d7d7', borderRadius: '4px', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.5)', font: '15px/normal arial, helvetica', maxHeight: '450px !important',  position: 'relative!important', left: '-500px!important'}}>
                                                     <div style={{ color: 'black' }}>
                                                         {count > 0 ? (
                                                             <div>{ listNoti }</div>
