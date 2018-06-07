@@ -57,6 +57,7 @@ class checkOut extends Component {
     componentDidMount() {
         // Gọi trước khi component đc render lần đầu tiên
         const userId = localStorage.getItem('userId');
+        userId === '' && this.props.history.push('/');
         this.props.fetchAllCarts(userId); 
     }
 

@@ -45,6 +45,10 @@ class AddBook extends Component {
     }
 
     componentDidMount() {
+        const isLogin = localStorage.getItem('userId');
+        if (isLogin === '') {
+            window.location.href = '/';
+        }
         // Gọi trước khi component đc render lần đầu tiên
         this.props.fetchAllCategories();
     }

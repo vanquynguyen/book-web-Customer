@@ -36,6 +36,10 @@ class Payment extends Component {
 
         };
     }
+    componentDidMount() {
+        const isLogin = localStorage.getItem('userId');
+        isLogin === '' && this.props.history.push('/');
+    }
 
     componentWillMount() {
         var { match } = this.props;

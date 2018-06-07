@@ -8,6 +8,7 @@ import AddBook from './components/Products/AddBook/index';
 import MyProfile from './components/Profile/index';
 import UserProfile from './components/Profile/User';
 import Users from './components/Users/index';
+
 const routes = [
     {
         path: '/',
@@ -16,7 +17,7 @@ const routes = [
     },
     {
         path: '/books',
-        exact: false,
+        exact: true,
         main: () => <Books />
     },
     {

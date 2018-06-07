@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Modal from 'react-responsive-modal';
-// import swal from 'sweetalert';
+import { withRouter } from 'react-router';
 import BooksList from './Books/BookListsPage';
 import HistoryOrder from './Order/HistoryOrder';
 import { actGetUserRequest } from '../../actions/Users/';
@@ -37,6 +37,7 @@ class UserProfile extends Component {
 
     componentDidMount() {
         const id = localStorage.getItem('userId');
+        id === '' && this.props.history.push('/');
         this.props.onGetFollowers(id);
         this.props.onGetFollowings(id);
     }
@@ -457,4 +458,4 @@ const mapDispatchToProps = (dispatch, props) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UserProfile));
