@@ -24,6 +24,7 @@ export const FETCH_REVIEWS= 'FETCH_REVIEWS';
 
 //Order
 export const FETCH_ORDERS = 'FETCH_ORDERS';
+export const FETCH_SELLS = 'FETCH_SELLS';
 
 //Follow
 export const CHECK_FOLLOW = 'CHECK_FOLLOW';

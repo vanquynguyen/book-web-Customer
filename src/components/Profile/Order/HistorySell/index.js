@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import '../../../Pagination/style.css';
 import List from '../../../Pagination/index';
 import { connect } from 'react-redux';
-import { actFetchOrdersRequest } from '../../../../actions/Orders';
+import { actFetchSellsRequest } from '../../../../actions/Sells';
 import * as Config from '../../../../constants/Config';
 import axios from 'axios';
 
-class HistoryOrder extends Component {
+class HistorySell extends Component {
     
     constructor() {
         super();
@@ -22,13 +22,13 @@ class HistoryOrder extends Component {
 
     componentDidMount() {
         const id = localStorage.getItem('userId');
-        this.props.fetchAllUserOrders(id);
+        this.props.fetchAllUserSells(id);
     }
     componentWillReceiveProps(nextProps) {
-        if(nextProps && nextProps.historyOrders){
-            var {historyOrders} = nextProps;
+        if(nextProps && nextProps.orders){
+            var {orders} = nextProps;
             this.setState({
-                Orders: historyOrders
+                Orders: orders
             })
         }
     }
@@ -66,13 +66,13 @@ class HistoryOrder extends Component {
         result = currentOrders.map((order, index) =>
            <tr key={index}>
                 <td>{index + 1}</td>
-                <td>${order.total_price}</td>
-                {order.method === 0 ? (
+                <td>${order.price}</td>
+                {order.order.method === 0 ? (
                     <td>Cash on delivery(COD)</td>
                 ) : (
                     <td>Banking</td>
                 )}
-                {order.status === 0 ? (
+                {order.order.status === 0 ? (
                     <td>
                         <p className="label label-inprogress" >inprogress</p>
                     </td>
@@ -81,7 +81,7 @@ class HistoryOrder extends Component {
                         <p className="label label-success">Paymented</p>
                     </td>
                 )}
-                {order.status === 0 ? (
+                {order.order.status === 0 ? (
                     <td>
                         <Link to={`/order/${order.id}/payment`} >
                             <button className="btn btn-primary">Payment</button>
@@ -114,10 +114,10 @@ class HistoryOrder extends Component {
     }
 
     render() {
-        const Orders = this.props.historyOrders;
+        const Orders = this.props.orders;
         const { PerPage, activeItem } = this.state;
         const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(this.props.historyOrders.length / PerPage); i++) {
+        for (let i = 1; i <= Math.ceil(this.props.orders.length / PerPage); i++) {
         pageNumbers.push(i);
         }
         const renderPageNumbers = pageNumbers.map(number =>
@@ -182,17 +182,17 @@ class HistoryOrder extends Component {
 const mapStateToProps = state => {
     return {
         account: state.account,
-        historyOrders: state.orders
+        orders: state.sells
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        fetchAllUserOrders: (id) => {
-            dispatch(actFetchOrdersRequest(id));
+        fetchAllUserSells: (id) => {
+            dispatch(actFetchSellsRequest(id));
         },
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HistoryOrder);
+export default connect(mapStateToProps, mapDispatchToProps)(HistorySell);
 

@@ -6,6 +6,7 @@ import Modal from 'react-responsive-modal';
 import { withRouter } from 'react-router';
 import BooksList from './Books/BookListsPage';
 import HistoryOrder from './Order/HistoryOrder';
+import HistorySell from './Order/HistorySell';
 import { actGetUserRequest } from '../../actions/Users/';
 import { actCheckFollowRequest } from '../../actions/Follows';
 import axios from 'axios';
@@ -255,10 +256,10 @@ class UserProfile extends Component {
                                         <a href="#history-order" aria-controls="history-order" role="tab" data-toggle="tab" aria-expanded="false">History Order</a>
                                     </li>
                                     <li role="presentation" className="">
-                                        <a href="#note" aria-controls="note" role="tab" data-toggle="tab" aria-expanded="false">Note</a>
+                                        <a href="#note" aria-controls="note" role="tab" data-toggle="tab" aria-expanded="false">History Sell</a>
                                     </li>
                                     <li role="presentation" className="">
-                                        <a href="#comment" aria-controls="comment" role="tab" data-toggle="tab" aria-expanded="false">Comments</a>
+                                        <a href="#comment" aria-controls="comment" role="tab" data-toggle="tab" aria-expanded="false">Statitics</a>
                                     </li>
                                 </ul>
                             </div>
@@ -418,6 +419,21 @@ class UserProfile extends Component {
                                             </div>
                                         </div>
                                         <div role="tabpanel" className="tab-pane" id="note">
+                                            <div className="ads-grid">
+                                                <div>
+                                                    <div className="agileinfo-ads-display">
+                                                        <div className="wrapper">
+                                                            <div className="product-sec1">
+                                                                <h3 className="heading-tittle">View Sells</h3>
+                                                                <hr />
+                                                                <HistorySell />
+                                                                <div className="clearfix"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                        
+                                                </div>
+                                            </div>
                                         </div>
                                         <div role="tabpanel" className="tab-pane" id="comment">
                                         </div>
