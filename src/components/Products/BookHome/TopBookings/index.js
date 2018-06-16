@@ -35,7 +35,7 @@ class NewBooks extends Component {
         var books = this.props.books;
 
         return (
-            <section className="wow slideInLeft" data-wow-duration="1s" data-wow-delay="1s">
+            <section className="wow slideInLeft" data-wow-duration="0.5s" data-wow-delay="0.5s">
                 <div className="product-sec1">
                     <h3 className="heading-tittle">Top Bookings</h3>
                     {this.showBooks(books)}

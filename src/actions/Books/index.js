@@ -46,3 +46,18 @@ export const actGetBook = (book) => {
         book
     }
 }
+
+export const actGetStatisBookRequest = (id) => {
+    return dispatch => {
+        return axios.get(Config.API_URL + `/user/${id}/book/percent-active`).then(res => {
+            dispatch(actGetStatisBook(res.data));
+        })
+    }
+}
+
+export const actGetStatisBook = (statis) => {
+    return {
+        type : Types.GET_STATIS_BOOKS,
+        statis
+    }
+}

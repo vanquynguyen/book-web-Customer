@@ -7,6 +7,7 @@ import { withRouter } from 'react-router';
 import BooksList from './Books/BookListsPage';
 import HistoryOrder from './Order/HistoryOrder';
 import HistorySell from './Order/HistorySell';
+import Statistics from './Statistic';
 import { actGetUserRequest } from '../../actions/Users/';
 import { actCheckFollowRequest } from '../../actions/Follows';
 import axios from 'axios';
@@ -414,7 +415,6 @@ class UserProfile extends Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                        
                                                 </div>
                                             </div>
                                         </div>
@@ -431,11 +431,20 @@ class UserProfile extends Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                        
                                                 </div>
                                             </div>
                                         </div>
                                         <div role="tabpanel" className="tab-pane" id="comment">
+                                            <div className="agileinfo-ads-display">
+                                                <div className="wrapper">
+                                                    <div className="product-sec1">
+                                                        <h3 className="heading-tittle">The Statistics</h3>
+                                                        <hr />
+                                                        <Statistics />
+                                                        <div className="clearfix"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

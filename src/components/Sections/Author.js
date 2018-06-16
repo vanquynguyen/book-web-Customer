@@ -69,7 +69,7 @@ class Author extends Component {
                         <Link to={`/user/${user.id}`} className="scroller">
                             <div className="row" style={{ marginBottom: '10px', width: '100%'}}>
                                 <div className="col-md-4" style={{ padding: '0' }}>
-                                    <div className="wow pulse animated avatar-animation" data-wow-delay="300ms" data-wow-iteration="infinite" data-wow-duration="2s" >
+                                    <div className="wow pulse animated avatar-animation" data-wow-delay="0.5s" data-wow-iteration="infinite" data-wow-duration="0.5s" >
                                         <img 
                                             className="img-circle pravatar-image img-responsive col-sm-3" 
                                             style={{ width: '40px', height: '40px', padding: '0' }} 

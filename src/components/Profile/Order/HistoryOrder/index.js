@@ -15,7 +15,8 @@ class HistoryOrder extends Component {
             Orders: [],
             currentPage: 1,
             PerPage: 5,
-            class: 'default'
+            class: 'default',
+            book: ''
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -66,12 +67,18 @@ class HistoryOrder extends Component {
         result = currentOrders.map((order, index) =>
            <tr key={index}>
                 <td>{index + 1}</td>
+                <td>
+                    {order.order_details.map((value, key) => 
+                       `${value.book.title},`
+                    )}
+                </td>
                 <td>${order.total_price}</td>
                 {order.method === 0 ? (
                     <td>Cash on delivery(COD)</td>
                 ) : (
                     <td>Banking</td>
                 )}
+                <td>{order.updated_at}</td>
                 {order.status === 0 ? (
                     <td>
                         <p className="label label-inprogress" >inprogress</p>
@@ -159,8 +166,10 @@ class HistoryOrder extends Component {
                     <thead>
                         <tr>
                             <th>STT</th>
+                            <th>Books</th>
                             <th>Total Price</th>
                             <th>Method</th>
+                            <th>Date</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>

@@ -5532,3 +5532,84 @@ body
 .agileinfo-ads-display {
     border-radius: 10px;
 }
+
+.total-statis {
+    margin-left: 25px;
+}
+
+.total {
+    width: 99%;
+    background-color: #FFFFFF;
+    height: 150px;
+    padding: 20px 10px;
+    box-shadow: 0px 0px 15px 0px #D6D6D6;
+    border-radius: 3px;
+}
+
+.total-percent {
+    margin-top: 14px;
+}
+
+.total-percent-number {
+    color: #FFCA7C;
+    font-family: 'Bariol-Regular';
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 13px;
+    background-color: #bbb;
+    border-radius: 13px;
+    margin-bottom: 5px;
+}
+
+.progress-total-user {
+    height: 13px;
+    border-radius: 10px;
+    background-color: #FFCA7C;
+}
+
+.progress-active {
+    height: 13px;
+    border-radius: 10px;
+    background-color: #FFCA7C;
+}
+
+.percent-active {
+    height: 12px;	
+    color: #A49C8F;	
+    font-family: 'Bariol-Regular';	
+    font-size: 12px;	
+    line-height: 13px;
+}
+
+.total-icon {
+    font-size: 25pt;
+    color: #FFCA7C;
+}
+
+.total-amount {
+    color: #3F3A31;	
+    font-family: 'Bariol-Regular';
+    font-weight: bold;	
+    font-size: 30px;	
+    line-height: 35px;	
+}
+
+.total-main-statis {
+    margin-top: 30px;
+    margin-left: 3px;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 3px solid #d2d6de;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.chart-statis {
+    min-width: 310px; height: 400px; margin: 0 auto
+}

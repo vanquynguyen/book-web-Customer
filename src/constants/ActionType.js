@@ -14,6 +14,7 @@ export const FETCH_ALL_USER = 'FETCH_ALL_USER';
 export const FETCH_HOME_BOOKS = 'FETCH_HOME_BOOKS';
 export const GET_BOOK = 'GET_BOOK';
 export const FETCH_USER_BOOKS = 'FETCH_USER_BOOKS';
+export const GET_STATIS_BOOKS = 'GET_STATIS_BOOKS';
 
 //ShoppingCart
 export const FETCH_CARTS = 'FETCH_CARTS';
@@ -25,6 +26,7 @@ export const FETCH_REVIEWS= 'FETCH_REVIEWS';
 //Order
 export const FETCH_ORDERS = 'FETCH_ORDERS';
 export const FETCH_SELLS = 'FETCH_SELLS';
+export const STATIS_PAYMENTS = 'STATIS_PAYMENTS';
 
 //Follow
 export const CHECK_FOLLOW = 'CHECK_FOLLOW';

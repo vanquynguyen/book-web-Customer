@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import '../../../Pagination/style.css';
 import List from '../../../Pagination/index';
 import { connect } from 'react-redux';
@@ -66,12 +66,16 @@ class HistorySell extends Component {
         result = currentOrders.map((order, index) =>
            <tr key={index}>
                 <td>{index + 1}</td>
+                <td>
+                    {order.book.title}
+                </td>
                 <td>${order.price}</td>
                 {order.order.method === 0 ? (
                     <td>Cash on delivery(COD)</td>
                 ) : (
                     <td>Banking</td>
                 )}
+                <td>{order.updated_at}</td>
                 {order.order.status === 0 ? (
                     <td>
                         <p className="label label-inprogress" >inprogress</p>
@@ -79,17 +83,6 @@ class HistorySell extends Component {
                 ) : (
                     <td>
                         <p className="label label-success">Paymented</p>
-                    </td>
-                )}
-                {order.order.status === 0 ? (
-                    <td>
-                        <Link to={`/order/${order.id}/payment`} >
-                            <button className="btn btn-primary">Payment</button>
-                        </Link>
-                    </td>
-                ) : (
-                    <td>
-                        <button disabled className="btn btn-success">Paymented</button>
                     </td>
                 )}
             </tr>
@@ -127,9 +120,9 @@ class HistorySell extends Component {
         return (
             <div>
                 { Orders.length > 0 ? (
-                    <p><strong>Amount:</strong> <strong>{Orders.length}</strong> Orders</p>
+                    <p><strong>Amount:</strong> <strong>{Orders.length}</strong> Sells</p>
                 ) : (
-                    <p><strong>Amount:</strong> <strong>0</strong> Orders</p>
+                    <p><strong>Amount:</strong> <strong>0</strong> Sells</p>
                 )}
                 <div className="row" style={{ paddingTop: '25px' }}>
                     <div className="col-md-6">
@@ -143,26 +136,18 @@ class HistorySell extends Component {
                         </select>
                     </div>
                     <div className="col-md-6">
-                        <div className="col-md-4">
-                            <span style={{ float: 'right' }}>Status:</span>
-                        </div>
-                        <div className="col-md-8">
-                            <select className="form-control" onChange={this.handleFilterStatus}>
-                                <option value="null">All</option>
-                                <option value="0">Inprogress</option>
-                                <option value="1">Paymented</option>
-                            </select>
-                        </div>
                     </div>
                 </div>
                 <table style={{ marginTop: '10px' }} className="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>STT</th>
+                            <th>Books</th>
                             <th>Total Price</th>
                             <th>Method</th>
+                            <th>Date</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            {/* <th>Action</th> */}
                         </tr>
                     </thead>
                     <tbody>
