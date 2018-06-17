@@ -93,6 +93,7 @@ class Statistic extends Component {
                         }
                     },
                 },
+                chart: 'line'
             })
         })
     }
@@ -100,35 +101,165 @@ class Statistic extends Component {
     handleFilterYear = (event) => {
         const year = event.target.value;
         const userId = localStorage.getItem('userId');
-        axios.get(Config.API_URL + `/user/${userId}/get-revenue-month`, {params:{year: year}}).then(res => {
-            let month = []
-            for(let key in res.data) {
-                month.push(res.data[key].data);
-            }
-            this.setState({
-                config:{
-                    /* HighchartsConfig */
-                    title: {
-                        text: 'Monthly Growth'
-                    },
-                    subtitle: {
-                        text: 'Source: UTTBOOK'
-                    },
-                    xAxis: {
-                        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                    },
-                    series: [{
-                        name: 'Revenue',
-                        data: [month[0], month[1], month[2], month[3], month[4], month[5], month[6], month[7], month[8], month[9], month[10], month[11]]
-                    }],
-                    yAxis: {
+        if (this.state.chart === 'line') {
+            axios.get(Config.API_URL + `/user/${userId}/get-revenue-month`, {params:{year: year}}).then(res => {
+                let month = []
+                for(let key in res.data) {
+                    month.push(res.data[key].data);
+                }
+                this.setState({
+                    config:{
+                        /* HighchartsConfig */
+                        chart: {
+                            type: 'line'
+                        },
                         title: {
-                            text: 'Revenue ($)'
-                        }
+                            text: 'Monthly Growth'
+                        },
+                        subtitle: {
+                            text: 'Source: UTTBOOK'
+                        },
+                        xAxis: {
+                            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                        },
+                        series: [{
+                            name: 'Revenue',
+                            data: [month[0], month[1], month[2], month[3], month[4], month[5], month[6], month[7], month[8], month[9], month[10], month[11]]
+                        }],
+                        yAxis: {
+                            title: {
+                                text: 'Revenue ($)'
+                            }
+                        },
                     },
-                },
+                    chart: 'line'
+                })
             })
-        })
+        } else {
+            axios.get(Config.API_URL + `/user/${userId}/get-revenue-month`, {params:{year: year}}).then(res => {
+                let month = []
+                for(let key in res.data) {
+                    month.push(res.data[key].data);
+                }
+                this.setState({
+                    config:{
+                        /* HighchartsConfig */
+                        chart: {
+                            polar: true
+                        },
+                        title: {
+                            text: 'Monthly Growth'
+                        },
+                        subtitle: {
+                            text: 'Source: UTTBOOK'
+                        },
+                        xAxis: {
+                            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                        },
+                        series: [{
+                            name: 'Revenue',
+                            data: [month[0], month[1], month[2], month[3], month[4], month[5], month[6], month[7], month[8], month[9], month[10], month[11]]
+                        }],
+                        yAxis: {
+                            title: {
+                                text: 'Revenue ($)'
+                            }
+                        },
+                    },
+                    chart: 'pie'
+                })
+            })
+        }
+      
+    }
+
+    changeChart = (e) => {
+        const userId = localStorage.getItem('userId');
+        if (e === 'line') {
+            axios.get(Config.API_URL + `/user/${userId}/get-revenue-month`).then(res => {
+                let month = []
+                for(let key in res.data) {
+                    month.push(res.data[key].data);
+                }
+                this.setState({
+                    config:{
+                        /* HighchartsConfig */
+                        chart: {
+                            type: 'line'
+                        },
+                        title: {
+                            text: 'Monthly Growth'
+                        },
+                        subtitle: {
+                            text: 'Source: UTTBOOK'
+                        },
+                        xAxis: {
+                            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                        },
+                        series: [{
+                            name: 'Revenue',
+                            data: [month[0], month[1], month[2], month[3], month[4], month[5], month[6], month[7], month[8], month[9], month[10], month[11]]
+                        }],
+                        plotOptions: {
+                            line: {
+                              dataLabels: {
+                                enabled: true
+                              },
+                              enableMouseTracking: false
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Revenue ($)'
+                            }
+                        },
+                    },
+                    chart: 'line'
+                })
+            })
+        } else {
+            axios.get(Config.API_URL + `/user/${userId}/get-revenue-month`).then(res => {
+                let month = []
+                for(let key in res.data) {
+                    month.push(res.data[key].data);
+                }
+                this.setState({
+                    config:{
+                        /* HighchartsConfig */
+                        chart: {
+                            polar: true
+                        },
+                        title: {
+                            text: 'Monthly Growth'
+                        },
+                        subtitle: {
+                            text: 'Source: UTTBOOK'
+                        },
+                        xAxis: {
+                            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                        },
+                        series: [{
+                            name: 'Revenue',
+                            data: [month[0], month[1], month[2], month[3], month[4], month[5], month[6], month[7], month[8], month[9], month[10], month[11]]
+                        }],
+                        plotOptions: {
+                            line: {
+                              dataLabels: {
+                                enabled: true
+                              },
+                              enableMouseTracking: false
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Revenue ($)'
+                            }
+                        },
+                    },
+                    chart: 'pie'
+                })
+            })
+        }
     }
 
     render() {
@@ -235,6 +366,8 @@ class Statistic extends Component {
                     <br />
                     Revenue (charges): {totalAll*0.9}$
                     <hr />
+                    <button className="btn" onClick={e => this.changeChart('line')}><i className="fa fa-line-chart"></i></button>
+                    <button className="btn" onClick={e => this.changeChart('pie')}><i className="fa fa-pie-chart"></i></button> 
                     <select className="form-control" onChange={this.handleFilterYear} style={{ width: '15%', float: 'right' }}>
                         <option value="2018">2018</option>
                         <option value="2019">2019</option>
