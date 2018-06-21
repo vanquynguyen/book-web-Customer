@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import { actFetchReviewsRequest } from '../../../actions/Reviews';
 import StarRatingComponent from 'react-star-rating-component';
 import { connect } from 'react-redux';
+import * as Config from '../../../constants/Config';
 
 class navTabs extends Component {
 
@@ -20,7 +21,7 @@ class navTabs extends Component {
     }
 
     render () {
-        const book_id = this.state.id;
+        // const book_id = this.state.id;
         const reviews = this.props.reviews;
         // console.log(reviews)
         const listReviews = reviews.map((review, index) => {
@@ -76,7 +77,8 @@ class navTabs extends Component {
                     <div role="tabpanel" className="tab-pane" id="note">
                     </div> */}
                     <div role="tabpanel" className="tab-pane" id="comment">
-                        <div className="fb-comments" data-href={`http://localhost:3000/book/${book_id}/detail`} data-numposts="5"></div>
+                        <div id="fb-root"></div>
+                        <div className="fb-comments" data-href={Config.LOCAL_URL + `/${this.props.id}`} data-numposts="5"></div>
                     </div>
                 </div>
             </div>
