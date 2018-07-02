@@ -293,6 +293,7 @@ class UserProfile extends Component {
                                                                         value={this.state.full_name && this.state.full_name !== '' ? this.state.full_name: ''}
                                                                         className="form-control col-sm-9 edit-profile-input"
                                                                         onChange={this.onChangeHandler}
+                                                                        required
                                                                     />
                                                                 </div>
                                                                 <div className="form-group row col-sm-12">
@@ -303,6 +304,7 @@ class UserProfile extends Component {
                                                                         value={this.state.email && this.state.email !== '' ? this.state.email: ''}
                                                                         className="form-control col-sm-9 edit-profile-input"
                                                                         onChange={this.onChangeHandler}
+                                                                        required
                                                                     />
                                                                 </div>
                                                                 <div className="form-group row col-sm-12">
@@ -314,6 +316,7 @@ class UserProfile extends Component {
                                                                         value={this.state.address && this.state.address !== '' ? this.state.address : ''}
                                                                         className="form-control col-sm-9 edit-profile-input"
                                                                         onChange={this.onChangeHandler}
+                                                                        required
                                                                     />
                                                                 </div>
                                                                 <div className="form-group row col-sm-12">
@@ -322,6 +325,7 @@ class UserProfile extends Component {
                                                                         className="form-control edit-profile-input"
                                                                         ref="gender"
                                                                         onChange={this.onChangeHandler}
+                                                                        required
                                                                     >
                                                                         <option value=''>--Select gender--</option>
                                                                         <option value="1">male</option>

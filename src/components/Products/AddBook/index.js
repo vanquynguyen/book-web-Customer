@@ -149,6 +149,7 @@ class AddBook extends Component {
                                                 type="file" 
                                                 name="image" 
                                                 onChange={(e)=>this._handleImageChange(e)} 
+                                                required
                                             />
                                         </div>
                                     </div>
@@ -164,6 +165,7 @@ class AddBook extends Component {
                                                 placeholder="Enter your book title..."
                                                 onChange={this.onChangeHandler}
                                                 validations={[required, minLength]}
+                                                required
                                             />
                                         </div>
                                     </div>
@@ -179,6 +181,7 @@ class AddBook extends Component {
                                                 placeholder="Enter your book author..." 
                                                 onChange={this.onChangeHandler}
                                                 validations={[required]}
+                                                required
                                             />
                                         </div>
                                     </div>
@@ -191,6 +194,7 @@ class AddBook extends Component {
                                                 name="category_id" 
                                                 onChange={this.onChangeHandler}
                                                 validations={[required]}
+                                                required
                                             >
                                                 {listCatgories}
                                             </select>
@@ -208,6 +212,7 @@ class AddBook extends Component {
                                                 placeholder="Enter price your book..."
                                                 onChange={this.onChangeHandler}
                                                 validations={[required]} 
+                                                required
                                             />
                                         </div>
                                     </div>
@@ -222,6 +227,7 @@ class AddBook extends Component {
                                                 placeholder="Enter amount your book..."
                                                 onChange={this.onChangeHandler}
                                                 validations={[required]} 
+                                                required
                                             />
                                         </div>
                                     </div>
@@ -237,6 +243,7 @@ class AddBook extends Component {
                                                 onChange={this.onChangeHandler}
                                                 className="form-control b-r-0"
                                                 validations={[required, minLength]}
+                                                required
                                             ></Textarea>
                                         </div>
                                     </div>
