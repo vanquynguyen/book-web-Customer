@@ -271,6 +271,7 @@ class checkOut extends Component {
                                                             placeholder="Full Name" 
                                                             validations={[required]}
                                                             onChange={this.onChangeHandler}
+                                                            required
                                                         />
                                                     </div>
                                                     <div className="controls">
@@ -281,6 +282,7 @@ class checkOut extends Component {
                                                             placeholder="Email" 
                                                             validations={[required, email]}
                                                             onChange={this.onChangeHandler}
+                                                            required
                                                         />
                                                     </div>
                                                     <div className="w3_agileits_card_number_grids">
@@ -292,6 +294,7 @@ class checkOut extends Component {
                                                                     name="phone" 
                                                                     validations={[required, minPhoneLength, number]}
                                                                     onChange={this.onChangeHandler}
+                                                                    required
                                                                 />
                                                             </div>
                                                         </div>
@@ -301,6 +304,7 @@ class checkOut extends Component {
                                                                 ref="gender"
                                                                 onChange={this.onChangeHandler}
                                                                 validations={[required]}
+                                                                required
                                                             >
                                                                 <option>Select Gender</option>
                                                                 <option value="0">Male</option>
@@ -316,6 +320,7 @@ class checkOut extends Component {
                                                                     name="address" 
                                                                     validations={[required]}
                                                                     onChange={this.onChangeHandler}
+                                                                    required
                                                                 />
                                                             </div>
                                                         </div>
@@ -325,6 +330,7 @@ class checkOut extends Component {
                                                             ref="country"
                                                             onChange={this.onChangeHandler}
                                                             validations={[required]}
+                                                            required
                                                         >
                                                             <option>Select Country</option>
                                                             <option value="0">Viet Nam</option>
@@ -343,6 +349,7 @@ class checkOut extends Component {
                                                             ref="method"
                                                             validations={[required]}
                                                             onChange={this.onChangeHandler}
+                                                            required
                                                         >
                                                             <option>Select Method Payment</option>
                                                             <option value="0">Cash on delivery (COD)</option>

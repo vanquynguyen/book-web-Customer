@@ -120,7 +120,7 @@ class Header extends Component {
         this.setState({
             auth: {}
         })
-        // window.location.href = '/';
+        window.location.href = '/';
        
     }
 

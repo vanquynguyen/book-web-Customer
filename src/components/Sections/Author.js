@@ -117,7 +117,7 @@ class Author extends Component {
                     <h3>
                         {count > 0 ? (
                             <div>
-                                    <div className="user-online wow pulse animated avatar-animation" data-wow-delay="300ms" data-wow-iteration="infinite" data-wow-duration="1s"></div> Online 
+                                    <div className="user-online wow pulse animated avatar-animation" data-wow-delay="300ms" data-wow-iteration="infinite" data-wow-duration="0.5s"></div> Online 
                                     { count > 0 ? (
                                         <span>({count})</span>
                                     ) : (

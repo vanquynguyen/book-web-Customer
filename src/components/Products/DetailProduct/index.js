@@ -162,6 +162,8 @@ class DetailProduct extends Component {
                         <div className="col-md-7 single-right-left simpleCart_shelfItem">
                             <h3>{this.state.title}</h3>
                             <h4>View: (9 views)</h4>
+                            <div id="fb-root"></div>
+                            <div className="fb-like" data-href={Config.LOCAL_URL + `/${this.props.id}`} data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
                             <h4 style={{marginTop: '10px'}}>
                                 Author: {this.state.author}
                             </h4>
@@ -197,25 +199,7 @@ class DetailProduct extends Component {
                                 ) : (
                                     <span className="item_price">${this.state.price}</span>
                                 )}  
-                                {/* <label>Free delivery</label> */}
                             </p>
-                            <div className="single-infoagile">
-                                <ul>
-                                    <li>
-                                        {/* Cash on Delivery Eligible. */}
-                                    </li>
-                                    <li>
-                                        {/* Shipping Speed to Delivery. */}
-                                    </li>
-                                    <li>
-                                        {/* Sold and fulfilled by Supple Tek (3.6 out of 5 | 8 ratings). */}
-                                    </li>
-                                    <li>
-                                        {/* 1 offer from
-                                        <span className="item_price">$950.00</span> */}
-                                    </li>
-                                </ul>
-                            </div>
                             <div className="product-single-w3l">
                                 <p>
                                     <i className="fa fa-hand-o-right" aria-hidden="true"></i>
@@ -253,36 +237,21 @@ class DetailProduct extends Component {
                         <div className="nbs-flexisel-container">
                             <div className="nbs-flexisel-inner">
                                 <ul id="flexiselDemo1" className="nbs-flexisel-ul" style={{left: '-666.9px'}}>
+
                                     <li className="nbs-flexisel-item" style={{width: '342px'}}>
                                         <div className="w3l-specilamk">
                                             <div className="speioffer-agile">
                                                 <a href="single.html">
-                                                <img src="images/s8.jpg" alt="" />
+                                                <img src="https://codercuibap.com/wp-content/uploads/2018/04/20160713002241-816x459-740x414.jpg" alt="" width="120" />
                                                 </a>
                                             </div>
                                             <div className="product-name-w3l">
                                                 <h4>
-                                                    <a href="single.html">Cadbury Choclairs, 655.5g</a>
+                                                    <a href="single.html">Book redux good, 200$</a>
                                                 </h4>
                                                 <div className="w3l-pricehkj">
                                                     <h6>$160.00</h6>
-                                                    <p>Save $60.00</p>
-                                                </div>
-                                                <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                    <form action="#" method="post">
-                                                        <fieldset>
-                                                            <input type="hidden" name="cmd" value="_cart" />
-                                                            <input type="hidden" name="add" value="1" />
-                                                            <input type="hidden" name="business" value=" " />
-                                                            <input type="hidden" name="item_name" value="Cadbury Choclairs, 655.5g" />
-                                                            <input type="hidden" name="amount" value="160.00" />
-                                                            <input type="hidden" name="discount_amount" value="1.00" />
-                                                            <input type="hidden" name="currency_code" value="USD" />
-                                                            <input type="hidden" name="return" value=" " />
-                                                            <input type="hidden" name="cancel_return" value=" " />
-                                                            <input type="submit" name="submit" value="Add to cart" className="button" />
-                                                        </fieldset>
-                                                    </form>
+                                                    <p>Save $40.00</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -291,32 +260,16 @@ class DetailProduct extends Component {
                                         <div className="w3l-specilamk">
                                             <div className="speioffer-agile">
                                                 <a href="single.html">
-                                                <img src="images/s8.jpg" alt="" />
+                                                    <img src="http://holistics.io/blog/content/images/2017/10/angtovu@2x-8.png" alt="" width="120" />
                                                 </a>
                                             </div>
                                             <div className="product-name-w3l">
                                                 <h4>
-                                                    <a href="single.html">Cadbury Choclairs, 655.5g</a>
+                                                    <a href="single.html">Angular vs Vuejs, 180$</a>
                                                 </h4>
                                                 <div className="w3l-pricehkj">
                                                     <h6>$160.00</h6>
-                                                    <p>Save $60.00</p>
-                                                </div>
-                                                <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                    <form action="#" method="post">
-                                                        <fieldset>
-                                                            <input type="hidden" name="cmd" value="_cart" />
-                                                            <input type="hidden" name="add" value="1" />
-                                                            <input type="hidden" name="business" value=" " />
-                                                            <input type="hidden" name="item_name" value="Cadbury Choclairs, 655.5g" />
-                                                            <input type="hidden" name="amount" value="160.00" />
-                                                            <input type="hidden" name="discount_amount" value="1.00" />
-                                                            <input type="hidden" name="currency_code" value="USD" />
-                                                            <input type="hidden" name="return" value=" " />
-                                                            <input type="hidden" name="cancel_return" value=" " />
-                                                            <input type="submit" name="submit" value="Add to cart" className="button" />
-                                                        </fieldset>
-                                                    </form>
+                                                    <p>Save $20.00</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -325,107 +278,21 @@ class DetailProduct extends Component {
                                         <div className="w3l-specilamk">
                                             <div className="speioffer-agile">
                                                 <a href="single.html">
-                                                <img src="images/s8.jpg" alt="" />
+                                                    <img src="http://itplus-academy.edu.vn/upload/fbcc5395a262ff88a84928982483826f/files/giphy.gif" alt="" width="120" />
                                                 </a>
                                             </div>
                                             <div className="product-name-w3l">
                                                 <h4>
-                                                    <a href="single.html">Cadbury Choclairs, 655.5g</a>
+                                                    <a href="single.html">Vuejs Framework, 200$</a>
                                                 </h4>
                                                 <div className="w3l-pricehkj">
                                                     <h6>$160.00</h6>
-                                                    <p>Save $60.00</p>
-                                                </div>
-                                                <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                    <form action="#" method="post">
-                                                        <fieldset>
-                                                            <input type="hidden" name="cmd" value="_cart" />
-                                                            <input type="hidden" name="add" value="1" />
-                                                            <input type="hidden" name="business" value=" " />
-                                                            <input type="hidden" name="item_name" value="Cadbury Choclairs, 655.5g" />
-                                                            <input type="hidden" name="amount" value="160.00" />
-                                                            <input type="hidden" name="discount_amount" value="1.00" />
-                                                            <input type="hidden" name="currency_code" value="USD" />
-                                                            <input type="hidden" name="return" value=" " />
-                                                            <input type="hidden" name="cancel_return" value=" " />
-                                                            <input type="submit" name="submit" value="Add to cart" className="button" />
-                                                        </fieldset>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="nbs-flexisel-item" style={{width: '342px'}}>
-                                        <div className="w3l-specilamk">
-                                            <div className="speioffer-agile">
-                                                <a href="single.html">
-                                                <img src="images/s8.jpg" alt="" />
-                                                </a>
-                                            </div>
-                                            <div className="product-name-w3l">
-                                                <h4>
-                                                    <a href="single.html">Cadbury Choclairs, 655.5g</a>
-                                                </h4>
-                                                <div className="w3l-pricehkj">
-                                                    <h6>$160.00</h6>
-                                                    <p>Save $60.00</p>
-                                                </div>
-                                                <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                    <form action="#" method="post">
-                                                        <fieldset>
-                                                            <input type="hidden" name="cmd" value="_cart" />
-                                                            <input type="hidden" name="add" value="1" />
-                                                            <input type="hidden" name="business" value=" " />
-                                                            <input type="hidden" name="item_name" value="Cadbury Choclairs, 655.5g" />
-                                                            <input type="hidden" name="amount" value="160.00" />
-                                                            <input type="hidden" name="discount_amount" value="1.00" />
-                                                            <input type="hidden" name="currency_code" value="USD" />
-                                                            <input type="hidden" name="return" value=" " />
-                                                            <input type="hidden" name="cancel_return" value=" " />
-                                                            <input type="submit" name="submit" value="Add to cart" className="button" />
-                                                        </fieldset>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="nbs-flexisel-item" style={{width: '342px'}}>
-                                        <div className="w3l-specilamk">
-                                            <div className="speioffer-agile">
-                                                <a href="single.html">
-                                                <img src="images/s8.jpg" alt="" />
-                                                </a>
-                                            </div>
-                                            <div className="product-name-w3l">
-                                                <h4>
-                                                    <a href="single.html">Cadbury Choclairs, 655.5g</a>
-                                                </h4>
-                                                <div className="w3l-pricehkj">
-                                                    <h6>$160.00</h6>
-                                                    <p>Save $60.00</p>
-                                                </div>
-                                                <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                    <form action="#" method="post">
-                                                        <fieldset>
-                                                            <input type="hidden" name="cmd" value="_cart" />
-                                                            <input type="hidden" name="add" value="1" />
-                                                            <input type="hidden" name="business" value=" " />
-                                                            <input type="hidden" name="item_name" value="Cadbury Choclairs, 655.5g" />
-                                                            <input type="hidden" name="amount" value="160.00" />
-                                                            <input type="hidden" name="discount_amount" value="1.00" />
-                                                            <input type="hidden" name="currency_code" value="USD" />
-                                                            <input type="hidden" name="return" value=" " />
-                                                            <input type="hidden" name="cancel_return" value=" " />
-                                                            <input type="submit" name="submit" value="Add to cart" className="button" />
-                                                        </fieldset>
-                                                    </form>
+                                                    <p>Save $40.00</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
                                 </ul>
-                                {/* <div className="nbs-flexisel-nav-left" style={{top: '174px'}}></div>
-                                <div className="nbs-flexisel-nav-right" style={{top: '174px'}}></div> */}
                             </div>
                         </div>
                     </div>
@@ -435,6 +302,14 @@ class DetailProduct extends Component {
         );
     }
 };
+
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.0';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
 
 const mapStateToProps = state => {
     return {

@@ -14,6 +14,7 @@ import axios from 'axios';
 import * as Config from '../../constants/Config';
 import { actFollowersRequest, actFollowingsRequest } from '../../actions/Follows';
 import jquery from 'jquery';
+import swal from 'sweetalert';
 // import toastr from 'toastr';
 
 class UserProfile extends Component {
@@ -21,19 +22,19 @@ class UserProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-           id: '',
-           full_name: '',
-           avatar: '',
-           email: '',
-           address: '',
-           gender: '',
-           openFollower: false,
-           openFollowing: false,
-           Followings: '',
-           Followers: '',
-           check: '',
-           image: '',
-           imagePreview: '',
+            id: '',
+            full_name: '',
+            avatar: '',
+            email: '',
+            address: '',
+            gender: '',
+            openFollower: false,
+            openFollowing: false,
+            Followings: '',
+            Followers: '',
+            check: '',
+            image: '',
+            imagePreview: '',
         };
     }
 
@@ -109,6 +110,7 @@ class UserProfile extends Component {
             this.props.onGetUser(id);
             this.refs.avatar.value="";
             jquery('.close-avatar').click();
+            swal("Good job!", "You clicked the button!", "success");
         })
     }
 
@@ -132,6 +134,7 @@ class UserProfile extends Component {
         if (this.refs.gender.value !== '') {
             axios.post(Config.API_URL + `/user/${id}/edit`, user).then(res => {
                 jquery('.close-edit').click();
+                swal("Good job!", "You clicked the button!", "success");
                 const id = localStorage.getItem('userId');
                 this.props.onGetUser(id);
             })
@@ -250,9 +253,6 @@ class UserProfile extends Component {
                                     <li role="presentation" className="active">
                                         <a href="#manage-book" aria-controls="manage-book" role="tab" data-toggle="tab" aria-expanded="true">Manage Books</a>
                                     </li>
-                                    {/* <li role="presentation" className="">
-                                        <a href="#my-order" aria-controls="my-order" role="tab" data-toggle="tab" aria-expanded="false">Manage Order</a>
-                                    </li> */}
                                     <li role="presentation" className="">
                                         <a href="#history-order" aria-controls="history-order" role="tab" data-toggle="tab" aria-expanded="false">History Order</a>
                                     </li>
@@ -325,6 +325,7 @@ class UserProfile extends Component {
                                                                         className="form-control edit-profile-input"
                                                                         ref="gender"
                                                                         onChange={this.onChangeHandler}
+                                                                        value={this.state.gender}
                                                                         required
                                                                     >
                                                                         <option value=''>--Select gender--</option>

@@ -188,7 +188,7 @@ class BooksList extends Component {
                         <img src={Config.LOCAL_URL + '/images/books/' + book.image} alt="" width="150" height="200"/>
                         <div className="men-cart-pro">
                             <div className="inner-men-cart-pro">
-                                <a className="link-product-add-cart quick-view" style={{marginLeft: '53px', width: '42%'}} onClick={this.onOpenModal}>Quick View</a>
+                                <a className="link-product-add-cart quick-view" style={{marginLeft: '70px', width: '42%'}} onClick={this.onOpenModal}>Quick View</a>
                             </div>
                         </div>
                         <span className="product-new-top">New</span>
@@ -227,6 +227,7 @@ class BooksList extends Component {
                                         placehoder="title" 
                                         onChange={this.onChangeHandler}
                                         // validations={[required, minLength]}
+                                        required
                                     />
                                     <label>Author</label>
                                     <Input 
@@ -235,12 +236,15 @@ class BooksList extends Component {
                                         value={book.author} 
                                         placehoder="author" 
                                         onChange={this.onChangeHandler}
+                                        required
                                     />
                                     <label>Category</label>
                                      <select 
                                         name="category_id"
                                         className="form-control bg-danger b-r-0" 
                                         onChange={this.onChangeHandler}
+                                        value={this.state.category_id}
+                                        required
                                     >
                                         <option value={category.id}>{category.name}</option>
                                         {listCategories}
@@ -253,6 +257,7 @@ class BooksList extends Component {
                                         placehoder="price" 
                                         onChange={this.onChangeHandler}
                                         // validations={[required]}
+                                        required
                                     />
                                     <label>Sale(%)</label>
                                     <Input 
@@ -261,10 +266,12 @@ class BooksList extends Component {
                                         min="0"
                                         max="100"
                                         className="form-control"
-                                        value={book.sale} 
+                                        // value={book.sale} 
+                                        value={book.sale && book.sale !== '' ? book.sale : '0'}
                                         placehoder="price" 
                                         onChange={this.onChangeHandler}
                                         // validations={[required]}
+                                        // required
                                     />
                                     <label>Amount</label>
                                     <Input 
@@ -274,6 +281,7 @@ class BooksList extends Component {
                                         placehoder="amount"
                                         onChange={this.onChangeHandler}
                                         // validations={[required]}
+                                        required
                                     />
                                     <label>Description</label>
                                     <Textarea 
@@ -283,6 +291,7 @@ class BooksList extends Component {
                                         value={book.description}
                                         onChange={this.onChangeHandler}
                                         // validations={[required, minLength]}
+                                        required
                                     >
                                     </Textarea>
                                     <div className="row" style={{ marginLeft: '5px', marginTop: '10px' }}>

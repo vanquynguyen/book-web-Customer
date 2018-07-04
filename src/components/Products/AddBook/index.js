@@ -25,6 +25,12 @@ const minLength = (defaultValue) => {
     }
 }
 
+const checkInt = (defaultValue) => {
+    if (typeof defaultValue !== 'number' && (defaultValue%1) !== 0) {
+        return <small className="form-text text-danger">This field is integer</small>;
+    }
+}
+
 class AddBook extends Component {
     
     constructor() {
@@ -211,7 +217,7 @@ class AddBook extends Component {
                                                 className="form-control bg-danger b-r-0" 
                                                 placeholder="Enter price your book..."
                                                 onChange={this.onChangeHandler}
-                                                validations={[required]} 
+                                                validations={[required, checkInt]} 
                                                 required
                                             />
                                         </div>
@@ -226,7 +232,7 @@ class AddBook extends Component {
                                                 className="form-control bg-danger b-r-0" 
                                                 placeholder="Enter amount your book..."
                                                 onChange={this.onChangeHandler}
-                                                validations={[required]} 
+                                                validations={[required, checkInt]} 
                                                 required
                                             />
                                         </div>

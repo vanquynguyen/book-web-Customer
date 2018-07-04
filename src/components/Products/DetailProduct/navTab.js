@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { actFetchReviewsRequest } from '../../../actions/Reviews';
+import FacebookProvider, { Comments } from 'react-facebook';
 import StarRatingComponent from 'react-star-rating-component';
 import { connect } from 'react-redux';
 import * as Config from '../../../constants/Config';
@@ -9,21 +9,27 @@ class navTabs extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: ''
+            id: '',
+            appId: ''
         }
+    }
+
+    componentDidMount() {
+        this.setState({
+            appId: '615395222177942'
+        })
     }
 
     componentWillMount() {
         const id = this.props.id;
         this.setState({
-            id: id
+            id: id,
+            appId: '615395222177942'
         })
     }
 
     render () {
-        // const book_id = this.state.id;
         const reviews = this.props.reviews;
-        // console.log(reviews)
         const listReviews = reviews.map((review, index) => {
             return <div key={index}>
                         {review.created_at}
@@ -52,12 +58,6 @@ class navTabs extends Component {
                     <li role="presentation" className="active">
                         <a href="#review" aria-controls="overview" role="tab" data-toggle="tab" aria-expanded="true">Review</a>
                     </li>
-                    {/* <li role="presentation" className="">
-                        <a href="#itinerary" aria-controls="itinerary" role="tab" data-toggle="tab" aria-expanded="false">Itinerary</a>
-                    </li>
-                    <li role="presentation" className="">
-                        <a href="#start_at" aria-controls="start_at" role="tab" data-toggle="tab" aria-expanded="false">Start at</a>
-                    </li> */}
                     <li role="presentation" className="">
                         <a href="#note" aria-controls="note" role="tab" data-toggle="tab" aria-expanded="false">Note</a>
                     </li>
@@ -72,27 +72,16 @@ class navTabs extends Component {
                     </div>
                     <div role="tabpanel" className="tab-pane" id="itinerary">
                     </div>
-                    {/* <div role="tabpanel" className="tab-pane" id="start_at">
-                    </div>
-                    <div role="tabpanel" className="tab-pane" id="note">
-                    </div> */}
                     <div role="tabpanel" className="tab-pane" id="comment">
-                        <div id="fb-root"></div>
-                        <div className="fb-comments" data-href={Config.LOCAL_URL + `/${this.props.id}`} data-numposts="5"></div>
+                        <FacebookProvider appId={this.state.appId}>
+                            <Comments href={Config.LOCAL_URL + `/${this.props.id}`} />
+                        </FacebookProvider>
                     </div>
                 </div>
             </div>
         )
     }
 }
-
-(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.12';
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
 
 const mapStateToProps = state => {
     return {

@@ -127,7 +127,7 @@ class Payment extends Component {
                                         type="text" 
                                         className="form-control" 
                                         name="cvc" 
-                                        // value="123" 
+                                        // value="314" 
                                         validations={[required]}
                                         onChange={this.onChangeHandler}
                                     />
