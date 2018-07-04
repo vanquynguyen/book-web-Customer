@@ -5613,3 +5613,11 @@ body
 .chart-statis {
     min-width: 310px; height: 400px; margin: 0 auto
 }
+
+#load-animate {
+    visibility: visible!important;
+}
+
+.avatar-animation {
+    animation-name: pulse!important; 
+}

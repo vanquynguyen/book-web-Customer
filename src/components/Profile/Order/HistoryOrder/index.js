@@ -91,7 +91,7 @@ class HistoryOrder extends Component {
                 {order.status === 0 ? (
                     <td>
                         <Link to={`/order/${order.id}/payment`} >
-                            <button className="btn btn-primary">Payment</button>
+                            <button className="btn btn-primary scroller">Payment</button>
                         </Link>
                     </td>
                 ) : (

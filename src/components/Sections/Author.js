@@ -69,7 +69,7 @@ class Author extends Component {
                         <Link to={`/user/${user.id}`} className="scroller">
                             <div className="row" style={{ marginBottom: '10px', width: '100%'}}>
                                 <div className="col-md-4" style={{ padding: '0' }}>
-                                    <div className="wow pulse animated avatar-animation" data-wow-delay="0.5s" data-wow-iteration="infinite" data-wow-duration="0.5s" >
+                                    <div className="wow pulse animated avatar-animation" data-wow-delay="0.5s" data-wow-iteration="infinite" data-wow-duration="0.5s" id="load-animate">
                                         <img 
                                             className="img-circle pravatar-image img-responsive col-sm-3" 
                                             style={{ width: '40px', height: '40px', padding: '0' }} 
@@ -82,7 +82,7 @@ class Author extends Component {
                                     {user.full_name}
                                 </div>
                                 <div className="col-md-2" style={{ marginTop: '-14px', width: '66%' }}>
-                                    <div className="wow pulse animated avatar-animation" data-wow-delay="300ms" data-wow-iteration="infinite" data-wow-duration="2s" >
+                                    <div className="wow pulse animated avatar-animation" data-wow-delay="300ms" data-wow-iteration="infinite" data-wow-duration="2s" id="load-animate">
                                         <span className="pull-right label label-success label-online">Online</span>
                                     </div>
                                 </div>
@@ -117,7 +117,7 @@ class Author extends Component {
                     <h3>
                         {count > 0 ? (
                             <div>
-                                    <div className="user-online wow pulse animated avatar-animation" data-wow-delay="300ms" data-wow-iteration="infinite" data-wow-duration="0.5s"></div> Online 
+                                    <div className="user-online wow pulse animated avatar-animation" data-wow-delay="300ms" data-wow-iteration="infinite" data-wow-duration="0.5s" id="load-animate"></div> Online 
                                     { count > 0 ? (
                                         <span>({count})</span>
                                     ) : (

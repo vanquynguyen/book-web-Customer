@@ -177,7 +177,7 @@ class Payment extends Component {
                                 </div>
                                 <div className="checkbox col-xs-12">
                                     <label>
-                                    <input type="checkbox" />I will agree to UTT Book Shop
+                                    <input type="checkbox" name="check-payment"/>I will agree to UTT Book Shop
                                     <a >Term &amp; Condition</a>
                                     </label>
                                 </div>
@@ -192,7 +192,7 @@ class Payment extends Component {
                                                 </div>
                                             </li>
                                             <li className="pull-right">
-                                                <button type="submit" id="btnt" className="btn buttonTransparent btn-payment">
+                                                <button type="submit" id="btnt" disabled="disabled" className="btn buttonTransparent btn-payment scroller">
                                                     Payment
                                                 </button>
                                                 <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />

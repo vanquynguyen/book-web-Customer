@@ -10,14 +10,8 @@ class navTabs extends Component {
         super(props);
         this.state = {
             id: '',
-            appId: ''
-        }
-    }
-
-    componentDidMount() {
-        this.setState({
             appId: '615395222177942'
-        })
+        }
     }
 
     componentWillMount() {
